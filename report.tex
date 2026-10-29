@@ -1,0 +1,275 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+\graphicspath{{figures/}}
+
+\newcommand{\Jw}{J_{\mathrm{w}}}
+\newcommand{\Js}{J_{\mathrm{s}}}
+\newcommand{\dg}{^{\dagger}}
+
+\title{Can a topological edge survive strong interactions?}
+\author{\textit{[your name]}}
+\date{QFT course project (Project A), 2026}
+
+\begin{document}
+\maketitle
+
+%======================================================================
+\section{Model}
+\label{sec:model}
+
+We study spinless fermions on an open chain of $L$ (even) sites $j=0,\dots,L-1$ at half filling, $N=L/2$:
+\begin{equation}
+  H = -\sum_{j=0}^{L-2} J_j \left(c_j\dg c_{j+1} + \text{h.c.}\right)
+      + V \sum_{j=0}^{L-2} \left(n_j - \tfrac12\right)\left(n_{j+1} - \tfrac12\right),
+  \qquad J_j = 1 + (-1)^j \delta .
+  \label{eq:H}
+\end{equation}
+The hopping alternates between weak and strong bonds (the SSH chain), and $V$ is a nearest-neighbour repulsion.
+We set $\hbar = J = 1$.
+For $\delta<0$ the chain starts and ends on a weak bond, $J_0 = J_{L-2} = \Jw = 1-|\delta|$; the strong bond is $\Js = 1+|\delta|$, and $r = \Jw/\Js$.
+We ask how the localisation, spectral weight and entanglement of the edge excitation change as $V$ increases.
+
+%======================================================================
+\section{Step 1: the free edge problem}
+\label{sec:step1}
+
+\subsection{What was done}
+
+At $V=0$ the problem reduces to the $L\times L$ hopping matrix $h_{j,j+1} = h_{j+1,j} = -J_j$.
+We diagonalised it for $L\in\{40,80,120\}$ and $\delta\in\{\pm0.15,\pm0.30,\pm0.50\}$, and compared the results with the analytic edge state derived below.
+
+\paragraph{Edge wavefunction.}
+Hopping only connects even sites to odd sites, so a zero-energy state can be sought on the even sites alone.
+Take a semi-infinite chain, $j\ge0$, with $\delta<0$, so $J_{2\ell}=\Jw$ and $J_{2\ell+1}=\Js$.
+With $\psi_{2\ell+1}=0$, the rows of $h\psi=0$ at even sites hold automatically.
+The row at site $2\ell+1$ gives $\Jw\psi_{2\ell}+\Js\psi_{2\ell+2}=0$, so $\psi_{2\ell}=\psi_0(-r)^\ell$.
+Normalising with $\sum_\ell r^{2\ell}=1/(1-r^2)$ gives
+\begin{equation}
+  \psi_{2\ell} = \sqrt{1-r^2}\,(-r)^\ell,\quad \psi_{2\ell+1}=0,
+  \qquad |\psi_j|^2 = (1-r^2)\,e^{-2j/\xi},\qquad \xi = \frac{2}{\ln(\Js/\Jw)} \simeq \frac{1}{|\delta|}.
+  \label{eq:xi}
+\end{equation}
+The amplitude falls by $r$ per two-site cell, which is the origin of the factor 2 in $\xi$.
+For $\delta>0$ the same recursion gives $\psi_{2\ell}\propto(-1/r)^\ell$, which cannot be normalised, so there is no zero mode at a strong end bond.
+On a finite chain the two states nearest $E=0$ are spread over both ends.
+To isolate the left-edge state we diagonalised the position operator $X$ within their two-dimensional subspace.
+As an independent check, we also diagonalised the chiral operator $\Gamma=\mathrm{diag}((-1)^j)$ in the same subspace.
+We then fitted $\ln|\psi_j|^2$ against $j$ on the first $n_{\rm fit}\in\{6,8,10\}$ even sites.
+The two edge states hybridise and split.
+For this splitting we derived a closed form, given below.
+We checked it against dense diagonalisation and against an exact 80-digit calculation: a Sturm-sequence bisection for the smallest positive eigenvalue, using mpmath.
+Finally, we derived the bulk bands on a ring and checked them against diagonalisation of the periodic hopping matrix.
+
+\paragraph{Splitting of the end pair.}
+The truncated $\psi^L$ of Eq.~\eqref{eq:xi} solves $h\psi^L=0$ on every row except the last, where $(h\psi^L)_{L-1} = -\Jw\psi^L_{L-2}$.
+The right-edge state $\psi^R$ is the mirror image on the odd sublattice.
+In the basis $\{\psi^L,\psi^R\}$ the diagonal elements of $h$ vanish by sublattice symmetry.
+The only coupling is $t = \langle\psi^R|h|\psi^L\rangle = -\Jw(1-r^2)(-r)^{L/2-1}$, which gives
+\begin{equation}
+  \Delta E = E_+-E_- \simeq 2|t| = 2\Js(1-r^2)\,e^{-L/\xi}.
+  \label{eq:splitting}
+\end{equation}
+This predicts both the slope $-1/\xi$ of $\ln\Delta E$ against $L$ and its prefactor.
+
+\paragraph{Bulk bands on a ring.}
+Group the sites into $M=L/2$ two-site cells, $a_n = c_{2n}$ and $b_n = c_{2n+1}$, with $a_M\equiv a_0$.
+The intracell bond is $J_0 = 1+\delta$ and the intercell bond is $J_1 = 1-\delta$:
+\begin{equation}
+  H_0 = -\sum_{n=0}^{M-1}\Big[J_0\big(a_n\dg b_n + \text{h.c.}\big) + J_1\big(b_n\dg a_{n+1} + \text{h.c.}\big)\Big].
+\end{equation}
+Substitute $a_n = M^{-1/2}\sum_k e^{ikn}a_k$, and similarly for $b_n$, with $k = 2\pi m/M$, $m = 0,\dots,M-1$.
+Using $\sum_n e^{i(k-k')n} = M\delta_{kk'}$, the intercell term becomes $\sum_n b_n\dg a_{n+1} = \sum_k e^{ik}\,b_k\dg a_k$, and
+\begin{equation}
+  H_0 = \sum_k \begin{pmatrix}a_k\dg & b_k\dg\end{pmatrix}
+  \begin{pmatrix} 0 & -f(k)^* \\ -f(k) & 0 \end{pmatrix}
+  \begin{pmatrix}a_k\\ b_k\end{pmatrix},
+  \qquad f(k) = J_0 + J_1e^{ik}.
+\end{equation}
+The $2\times2$ matrix has eigenvalues $\pm|f(k)|$, and $|f|^2 = J_0^2 + J_1^2 + 2J_0J_1\cos k$.
+The expression is symmetric under $J_0\leftrightarrow J_1$, so for either sign of $\delta$
+\begin{equation}
+  E_\pm(k) = \pm\sqrt{\Jw^2+\Js^2+2\Jw\Js\cos k}.
+  \label{eq:bands}
+\end{equation}
+The band edges follow directly.
+$|E|$ is smallest at $k=\pi$, where $|E| = |\Js-\Jw| = 2|\delta|$, so the band gap is $E_+(\pi)-E_-(\pi) = 4|\delta|$.
+At half filling, $N=M$ particles fill the lower band exactly, one per allowed $k$.
+By the $E\to-E$ symmetry the chemical potential sits at $E=0$.
+An added particle must go into the upper band, and the cheapest state is its bottom, so $E_0^{N+1}-E_0^N = E_+(\pi) = 2|\delta|$.
+Removing a particle costs the same, which recovers the full gap $4|\delta|$.
+Both statements need $k=\pi$ to be an allowed momentum, i.e.\ $M$ even ($L\equiv0\pmod4$).
+For the rings $L=10,14,18$ used in Step~6, $M$ is odd and the finite-ring gap is slightly larger.
+The two dimerisations have identical bulk spectra, so the edge state found above cannot be read off from the bulk energies.
+
+%----------------------------------------------------------------------
+\subsection{Results and verification}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step1_spectrum.pdf}
+  \caption{One-particle spectra, $L=40$.
+  For weak end bonds ($\delta=-0.30$, left), two levels sit at $E\approx0$ inside the bulk gap.
+  Reversing $\delta$ (right) removes them and leaves the bulk bands unchanged.}
+  \label{fig:spectrum}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step1_edge_states.pdf}
+  \caption{(a) The two eigenstates nearest zero ($\delta=-0.30$, $L=40$) are bonding and antibonding combinations of the two ends.
+  (b) The left-edge state for $L=80$ (points) against Eq.~\eqref{eq:xi} with no free parameters (lines).
+  The shading marks the fit window.}
+  \label{fig:edge}
+\end{figure}
+
+\paragraph{Edge state and localisation length.}
+For every $\delta<0$ there are exactly two levels with $|E|<|\delta|$, and for every $\delta>0$ there are none (Fig.~\ref{fig:spectrum}).
+The left-edge state agrees with Eq.~\eqref{eq:xi} over fourteen decades, and its odd-site weight is below $10^{-28}$ (Fig.~\ref{fig:edge}).
+The $X$ and $\Gamma$ constructions give the same state to $6\times10^{-15}$.
+Table~\ref{tab:xi} lists the fitted lengths.
+At $\delta=-0.30$ the fit reproduces $\xi = 3.230813126$ to $10^{-15}$ for $L\ge80$.
+
+The one visible deviation is $3.7\times10^{-4}$, at $\delta=-0.15$, $L=40$, where $L/\xi = 6$.
+It grows with $n_{\rm fit}$, so it comes from the opposite edge and not from the fit.
+The finite-chain state obeys $h\psi^L = \pm\varepsilon_0\psi^R$, which perturbs the recursion at relative order $(1-r^2)\,r^{L-2\ell-2}$.
+This estimate gives about $10^{-4}$ to $10^{-3}$ across the fit window, matching the observed deviation.
+It vanishes for $L\ge80$.
+
+\begin{table}[t]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{4.5pt}
+  \begin{tabular}{rrcccccc}
+    \toprule
+    $\delta$ & $L$ & $\xi_{\rm fit}$ ($n_{\rm fit}=10$) &
+    \multicolumn{3}{c}{$(\xi_{\rm fit}-\xi)/\xi$ for $n_{\rm fit} = 6,\ 8,\ 10$} &
+    $\Delta E$ (exact) & resolved by \texttt{eigh}? \\
+    \midrule
+    $-0.15$ & 40  & 6.613912628 & $-6.0\times10^{-5}$  & $-1.5\times10^{-4}$  & $-3.7\times10^{-4}$  & $2.4713\times10^{-3}$  & yes \\
+    $-0.15$ & 80  & 6.616363065 & $-3.4\times10^{-10}$ & $-8.3\times10^{-10}$ & $-2.1\times10^{-9}$  & $5.8523\times10^{-6}$  & yes \\
+    $-0.15$ & 120 & 6.616363079 & $-1.5\times10^{-15}$ & $-4.8\times10^{-15}$ & $-1.2\times10^{-14}$ & $1.3860\times10^{-8}$  & yes \\
+    \midrule
+    $-0.30$ & 40  & 3.230812682 & $-2.3\times10^{-9}$  & $-1.7\times10^{-8}$  & $-1.4\times10^{-7}$  & $7.7511\times10^{-6}$  & yes \\
+    $-0.30$ & 80  & 3.230813126 & $0$                  & $1.6\times10^{-15}$  & $2.6\times10^{-15}$  & $3.2543\times10^{-11}$ & yes \\
+    $-0.30$ & 120 & 3.230813126 & $1.4\times10^{-15}$  & $1.4\times10^{-16}$  & $-4.1\times10^{-16}$ & $1.3663\times10^{-16}$ & no \\
+    \midrule
+    $-0.50$ & 40  & 1.820478453 & $-2.4\times10^{-16}$ & $-3.2\times10^{-14}$ & $-1.7\times10^{-12}$ & $7.6479\times10^{-10}$ & yes \\
+    $-0.50$ & 80  & 1.820478453 & $3.7\times10^{-16}$  & $2.4\times10^{-16}$  & $2.4\times10^{-16}$  & $2.1934\times10^{-19}$ & no \\
+    $-0.50$ & 120 & 1.820478453 & $0$                  & $-2.4\times10^{-16}$ & $0$                  & $6.2906\times10^{-29}$ & no \\
+    \bottomrule
+  \end{tabular}
+  \caption{Fitted localisation length and end-pair splitting.
+  Exact values: $\xi = 6.616363079$, $3.230813126$, $1.820478453$ for $|\delta| = 0.15,\,0.30,\,0.50$.
+  $\Delta E$ (exact) is from the 80-digit Sturm bisection.
+  ``Resolved'' means dense diagonalisation agrees with it to $10^{-6}$.}
+  \label{tab:xi}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \begin{minipage}{0.49\textwidth}\centering
+    \includegraphics[width=\textwidth]{step1_splitting.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}\centering
+    \includegraphics[width=\textwidth]{step1_ring_bands.pdf}
+  \end{minipage}
+  \caption{Left: end-pair splitting against $L$.
+  Circles are exact (80-digit) values, lines are Eq.~\eqref{eq:splitting}, and crosses are dense diagonalisation, which stops at a round-off floor near $10^{-16}$.
+  Right: ring spectrum, $L=40$, $\delta=-0.30$ (points), against $E_\pm(k)$ (line); the uniform chain is dashed.}
+  \label{fig:split}
+\end{figure}
+
+\paragraph{Splitting.}
+The splitting falls monotonically with $L$ (Fig.~\ref{fig:split}, left).
+Fitting $\ln\Delta E$ against $L$ for $L\ge40$ gives slopes $-0.151141$, $-0.309520$ and $-0.549306$.
+The predicted values $-1/\xi$ are $-0.151140$, $-0.309520$ and $-0.549306$.
+The full formula, Eq.~\eqref{eq:splitting}, agrees with the exact values to within $5\times10^{-5}$ at $L=40$, and to round-off for $L\ge80$.
+Dense diagonalisation cannot resolve splittings below about $10^{-15}$, so it fails at three grid points (Table~\ref{tab:xi}).
+
+\paragraph{Ring.}
+The ring spectrum matches Eq.~\eqref{eq:bands} to $5\times10^{-15}$ for every $L$ and $\delta$.
+The gap is $4|\delta|$ and the bulk addition cost is $2|\delta|$, both to $2\times10^{-15}$.
+The spectra for $+\delta$ and $-\delta$ are identical (Fig.~\ref{fig:split}, right).
+
+\paragraph{Choosing the half-filled ground state.}
+At half filling exactly one of the end pair is occupied.
+Where the splitting is unresolved, the eigensolver returns $\psi^L$ and $\psi^R$ in arbitrary order, so ``fill the lowest $N$ orbitals'' becomes ill-defined.
+At $L=120$, $\delta=-0.5$, filling the wrong state moves $\langle n_0\rangle$ away from $\tfrac12$ by order one.
+In that case the numerically computed $t$ also has the wrong sign.
+We therefore fix the convention analytically: fill the bonding orbital
+\begin{equation}
+  \phi_- = \tfrac{1}{\sqrt2}\big(\psi^L - s\,\psi^R\big),\qquad s = \operatorname{sgn}t = (-1)^{L/2},
+  \label{eq:convention}
+\end{equation}
+with $\psi^L_0>0$ and $\psi^R_{L-1}>0$.
+The numerical sign of $t$ agrees with $(-1)^{L/2}$ at every point where the splitting is resolved.
+With this convention, $\langle n_0\rangle = \tfrac12$ to $10^{-15}$ on every grid point.
+The edge addition weight is then $z_0 = |\phi_+(0)|^2/(1-\langle n_0\rangle) = |\psi^L_0|^2$ to round-off, and $z_0$ agrees with $1-r^2$ to $4\times10^{-5}$.
+
+\begin{table}[h]
+  \centering
+  \footnotesize
+  \begin{tabular}{p{11.2cm}l}
+    \toprule
+    Check (all $L$ and $\delta$) & largest deviation \\
+    \midrule
+    $J_0 = \Jw$ and $J_{L-2} = J_0$ for $\delta<0$; $h$ symmetric & exact \\
+    Spectrum symmetric under $E\to-E$ & $2.4\times10^{-15}$ \\
+    Truncated zero mode: $h\psi = 0$ except the last row, $(h\psi)_{L-1} = -\Jw\psi_{L-2}$ & $5.6\times10^{-17}$ \\
+    Two in-gap states for $\delta<0$, none for $\delta>0$; $\min|E|\ge2|\delta|$ for $\delta>0$ & exact \\
+    Fitted $\xi$ against Eq.~\eqref{eq:xi} (tolerance $10^{-3}$) & $3.7\times10^{-4}$ \\
+    Left state: weight on odd sites; $X$ and $\Gamma$ constructions agree & $2.4\times10^{-29}$; $5.8\times10^{-15}$ \\
+    Slope of $\ln\Delta E$ against $L$ equals $-1/\xi$ (relative) & $1.5\times10^{-6}$ \\
+    Eq.~\eqref{eq:splitting} against exact splitting, $L\ge40$ (relative) & $4.8\times10^{-5}$ \\
+    Ring: spectrum $=E_\pm(k)$, gap $=4|\delta|$, addition cost $=2|\delta|$, $\pm\delta$ identical & $4.9\times10^{-15}$ \\
+    $\operatorname{sgn}t = (-1)^{L/2}$ where resolved; $\langle n_0\rangle = \tfrac12$; $z_0 = |\psi^L_0|^2$ & $1.0\times10^{-15}$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Step 1 validation: 29 checks in the notebook, all passed.}
+  \label{tab:checks1}
+\end{table}
+
+%----------------------------------------------------------------------
+\subsection{Conclusion}
+
+The free edge problem is solved and verified.
+\begin{itemize}
+  \item The edge state is the analytic zero mode, Eq.~\eqref{eq:xi}, to round-off once $L/\xi\gtrsim25$.
+  At smaller $L/\xi$ the only correction comes from the opposite edge, and its size is predicted.
+  \item The end pair splits by $2\Js(1-r^2)e^{-L/\xi}$, with slope and prefactor both confirmed.
+  \item Reversing $\delta$ removes the end pair while leaving the bulk spectrum unchanged.
+  The edge state is therefore a property of how the bulk is terminated, not of the bulk energies.
+\end{itemize}
+Two results carry into the interacting problem.
+First, once the splitting drops below round-off, the half-filled ground state must be selected by an explicit rule, Eq.~\eqref{eq:convention}; otherwise edge observables change at order one.
+Second, the many-body calculation must reproduce the $V=0$ values $\langle n_j\rangle = \tfrac12$, $z_0 = 1-r^2$ and $\xi_W = \xi$, with bulk addition threshold $\Delta_+ = 2|\delta|$.
+
+%======================================================================
+% \section{Step 2: a many-body calculation we can trust}
+% \section{Step 3: localisation and coherence}
+% \section{Step 4: dynamics of an added edge particle}
+% \section{Step 5: entropy resolved by particle number}
+% \section{Step 6: bulk polarisation and the competing ordered state}
+% \section{Step 7: larger chains with MPS}
+% \section{Step 8: extension}
+% \section{Conclusions and limits}
+
+%======================================================================
+\begin{thebibliography}{9}
+\bibitem{monkman}
+K.~Monkman and J.~Sirker, \emph{Operational entanglement of symmetry-protected topological edge states}, \href{https://arxiv.org/abs/2005.13026}{arXiv:2005.13026}.
+\bibitem{vidal}
+G.~Vidal, \emph{Efficient simulation of one-dimensional quantum many-body systems}, \href{https://arxiv.org/abs/quant-ph/0310089}{arXiv:quant-ph/0310089}.
+\end{thebibliography}
+
+\end{document}
