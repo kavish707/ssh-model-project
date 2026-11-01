@@ -1,0 +1,18 @@
+{
+  "hamiltonian": "Eq. (A.1), J_j = 1 + (-1)^j delta; rings add bond (L-1, 0) with J_(L-1) = 1 - delta and fermion sign (-1)^(N-1)",
+  "state_selection": "lowest eigenvector with sum(psi) > 0; C-projected inside a cluster below eta",
+  "eta_degenerate": 1e-08,
+  "dense_max_dim": 252,
+  "lanczos_seed": 1234,
+  "lanczos_ncv_min": 40,
+  "lanczos_tol": 0.0,
+  "res_tol_small": 1e-10,
+  "res_tol_prod": 1e-09,
+  "command": "jupyter nbconvert --to notebook --execute --inplace project_A.ipynb",
+  "python": "3.12.14",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "pandas": "3.1.0",
+  "matplotlib": "3.11.2",
+  "mpmath": "1.4.1"
+}

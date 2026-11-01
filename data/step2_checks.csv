@@ -1,0 +1,62 @@
+check,passed,worst_deviation
+"S2 A1: H symmetric in N, N +- 1, open and ring (two hop directions built separately)",True,0.000e+00
+S2 A2: a state with the wrong particle number is rejected at construction,True,
+S2 A3: Jordan-Wigner H conserves N on all 2^L states,True,0.000e+00
+"S2 A4: sector sizes = binom(L, N), sorted, N bits set (12870 at L=16, 48620 at L=18)",True,
+"S2 A5: {c_i, c_j^dag} = delta_ij and {c_i, c_j} = 0, L = 6, 8, all N",True,0.000e+00
+"S2 A6: hamiltonian() = Eq. (A.1) as a literal product of c, c^dag, all N, open and ring",True,0.000e+00
+"S2 D1: Jordan-Wigner fixed-N blocks = occupation matrices, L = 6, 8, all N, open and ring",True,0.000e+00
+S2 D2: Jordan-Wigner full spectrum = union of all sector spectra,True,4.885e-14
+"S2 C1: V = 0, L = 6, 8, 10: whole spectrum = sums of N one-particle energies, open and ring",True,3.553e-14
+"S2 C1b: V = 0, L = 12-18: Lanczos finds the lowest levels with their exact multiplicities",True,6.217e-14
+"S2 C2: V = 0: <c_i^dag c_j> = Step 1 filled-orbital matrix, all i, j, L = 6-18 (bonding orbital for delta < 0), C-projected state",True,2.026e-15
+"S2 C2a: same for the raw vector, within the Davis-Kahan bound 2 res/gap (plus a 1e-13 round-off floor)",True,2.341e-01
+S2 C2n: negative control: dropping the string leaves adjacent correlators but breaks |i - j| >= 2,True,6.817e-01
+"S2 C3: V = 0, delta = -0.30: neutral gap = dE and addition gap = dE/2 (80-digit Step 1 splitting)",True,4.821e-14
+"S2 C4: V = 0: |<0,N+1|c_j^dag|Omega>|^2 = |phi_N(j)|^2, the lowest empty orbital, all j",True,6.400e-14
+"S2 C5: sum rule sum_m w_jm = 1 - <n_j>, whole (N+1) spectrum, L = 8, 10, every V",True,2.220e-15
+"S2 E1: ring, V = 0: E_0 = free-fermion sum for every N, even and odd",True,4.441e-15
+S2 E2: negative control: without the closing sign E1 fails for every even N and no odd N,True,6.102e-02
+"S2 E3: ring, V = 0: Delta_+ = 2|delta| for even M",True,2.875e-14
+"S2 E4: ring, V = 0: Delta_+ = E_+(pi - pi/M) for odd M",True,3.653e-14
+S2 F0: operator maps: C c_j = (-1)^j c_j^dag C and R c_j = c_(L-1-j) R,True,0.000e+00
+S2 F1: spectrum(N + 1) = spectrum(N - 1) at every V (exact symmetry C),True,3.597e-14
+"S2 F2: [C, H] = 0 and [R, H] = 0 on random vectors at every V",True,3.553e-15
+S2 F3: ring spectra identical for +delta and -delta at every V (translation),True,6.306e-14
+"S2 F4: V = 0: R of the ground state = product of the filled orbitals' reflection parities, L = 6-18",True,4.885e-15
+"S2 G1a: L = 2 closed form, all sectors",True,2.220e-16
+"S2 G1b: L = 4, N = 2, open chain: whole spectrum = hand-reduced blocks, every V",True,6.217e-15
+"S2 G1c: L = 4, N = 2, ring (even N, sign -1): whole spectrum = closed form, every V",True,7.105e-15
+"S2 G2: weak coupling: dE/dV at V = 0 for E_0^N, E_1^N and E_0^(N+1) = Wick from Step 1 orbitals (tol 1e-6: O(step^2))",True,4.094e-08
+S2 G3a: strong coupling: E_0 matches second order; error ~ V^-3 (ratio 8 within 5%),True,2.958e-06
+S2 G3b: strong coupling: addition gap = V/2 - 2(1-delta)cos(pi/(M+1)); error ~ 1/V (ratio 2 within 5%),True,6.437e-03
+"S2 G4a: delta = 0, open chain, V = 0.5-2, L up to 18: ED = Bethe ansatz",True,6.217e-14
+"S2 G4b: delta = 0, ring, odd N, V = 0.5-2, L up to 18: ED = Bethe ansatz",True,6.750e-14
+"S2 G5: delta = 0, V = 2: energy per site approaches Hulthen's value (tol 2e-3: finite size)",True,1.020e-03
+"S2 B1: L = 6, 8, 10: residuals of all eigenpairs in N, N +- 1 below 1e-10 (unit-normalised)",True,6.968e-14
+"S2 B3: L = 12: Lanczos = dense for the lowest 8 levels, N and N +- 1, every (delta, V)",True,7.105e-14
+S2 B3b: L = 16: Lanczos levels do not depend on the seed,True,8.704e-14
+"S2 B4a: L = 6, 8, 10: eigenvalue = independent <H> from correlators",True,2.309e-14
+S2 S1: a rotated end pair is mapped back to the Perron-Frobenius state,True,1.235e-14
+S2 S2: negative control: an unselected mixture of the pair shifts <n_0> by order one,True,3.758e-01
+S2 S3: the rule raises rather than guessing when C does not fix the state,True,
+S2 F5a [L=8]: ground state positive (Perron-Frobenius),True,3.426e-05
+"S2 F5b [L=8]: ground state C = +1, R = (-1)^(N(N-1)/2)",True,
+S2 F5c [L=8]: N +- 1 ground states have R = (-1)^(N'(N'-1)/2),True,
+S2 F5d [L=8]: <n_j> = 1/2 on every site at every V,True,8.660e-15
+S2 B2 [L=8]: production residuals below 1e-9,True,1.399e-14
+S2 B4b [L=8]: eigenvalue = independent <H> from correlators,True,1.155e-14
+S2 R1: labels of the ground state and of level 1 never change with V on the refined grid,True,
+S2 R2: neighbouring ground states overlap above 0.99 on the refined grid,True,9.964e-01
+S2 R3: no near-degenerate cluster: every ground state selected without the cluster branch,True,4.307e-03
+S2 F5a [whole grid]: ground state positive (Perron-Frobenius),True,-8.860e-16
+"S2 F5b [whole grid]: ground state C = +1, R = (-1)^(N(N-1)/2)",True,
+S2 F5c [whole grid]: N +- 1 ground states have R = (-1)^(N'(N'-1)/2),True,
+S2 F5d [whole grid]: <n_j> = 1/2 on every site at every V,True,4.195e-12
+S2 B2 [whole grid]: production residuals below 1e-9,True,1.266e-13
+S2 B4b [whole grid]: eigenvalue = independent <H> from correlators,True,7.816e-14
+"S2 F6: every kept level has a definite (C, R) label after the cluster diagonalisation",True,
+S2 B2 [rings]: production residuals below 1e-9,True,6.103e-13
+"S2 F3b: ring Delta_+ identical for +delta and -delta, L = 8-18",True,5.862e-14
+S2 H1: method check: at V = 0 the two-size lengths (L >= 12) reproduce Step 1's xi (tol 1e-2: finite size),True,5.475e-03
+S2 H2: U_eff = 2 * addition gap - neutral gap vanishes at V = 0,True,7.461e-14
