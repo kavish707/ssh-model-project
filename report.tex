@@ -108,7 +108,8 @@ By the $E\to-E$ symmetry the chemical potential sits at $E=0$.
 An added particle must go into the upper band, and the cheapest state is its bottom, so $E_0^{N+1}-E_0^N = E_+(\pi) = 2|\delta|$.
 Removing a particle costs the same, which recovers the full gap $4|\delta|$.
 Both statements need $k=\pi$ to be an allowed momentum, i.e.\ $M$ even ($L\equiv0\pmod4$).
-For the rings $L=10,14,18$ used in Step~6, $M$ is odd and the finite-ring gap is slightly larger.
+For the rings $L=10,14,18$ used in Step~6, $M$ is odd, $k=\pi$ is not allowed, and the gap is $2\min_k E_+(k)$, which is larger than $4|\delta|$.
+The excess is large on small rings: at $\delta=\pm0.30$ the gap is $1.682$, $1.470$ and $1.371$ against $4|\delta| = 1.2$, and at $\delta=\pm0.15$, $L=10$ it is $1.361$ against $0.6$.
 The two dimerisations have identical bulk spectra, so the edge state found above cannot be read off from the bulk energies.
 
 %----------------------------------------------------------------------
@@ -143,7 +144,7 @@ The one visible deviation is $3.7\times10^{-4}$, at $\delta=-0.15$, $L=40$, wher
 It grows with $n_{\rm fit}$, so it comes from the opposite edge and not from the fit.
 The finite-chain state obeys $h\psi^L = \pm\varepsilon_0\psi^R$, which perturbs the recursion at relative order $(1-r^2)\,r^{L-2\ell-2}$.
 This estimate gives about $10^{-4}$ to $10^{-3}$ across the fit window, matching the observed deviation.
-It vanishes for $L\ge80$.
+It falls rapidly with $L$: at the same $\delta$ it is $2\times10^{-9}$ at $L=80$ and $1\times10^{-14}$ at $L=120$.
 
 \begin{table}[t]
   \centering
@@ -200,6 +201,7 @@ Dense diagonalisation cannot resolve splittings below about $10^{-15}$, so it fa
 The ring spectrum matches Eq.~\eqref{eq:bands} to $5\times10^{-15}$ for every $L$ and $\delta$.
 The gap is $4|\delta|$ and the bulk addition cost is $2|\delta|$, both to $2\times10^{-15}$.
 The spectra for $+\delta$ and $-\delta$ are identical (Fig.~\ref{fig:split}, right).
+On the odd-$M$ rings $L=10,14,18$ the spectrum also matches Eq.~\eqref{eq:bands}, and the gap equals $2\min_k E_+(k)$ over the allowed $k$, both to $2\times10^{-15}$.
 
 \paragraph{Choosing the half-filled ground state.}
 At half filling exactly one of the end pair is occupied.
@@ -212,7 +214,7 @@ We therefore fix the convention analytically: fill the bonding orbital
   \label{eq:convention}
 \end{equation}
 with $\psi^L_0>0$ and $\psi^R_{L-1}>0$.
-The numerical sign of $t$ agrees with $(-1)^{L/2}$ at every point where the splitting is resolved.
+The numerical sign of $t$ agrees with $(-1)^{L/2}$ at every point where the splitting is resolved, for both even $L/2$ (the grid) and odd $L/2$ ($L=18,42,62,82$).
 With this convention, $\langle n_0\rangle = \tfrac12$ to $10^{-15}$ on every grid point.
 The edge addition weight is then $z_0 = |\phi_+(0)|^2/(1-\langle n_0\rangle) = |\psi^L_0|^2$ to round-off, and $z_0$ agrees with $1-r^2$ to $4\times10^{-5}$.
 
@@ -233,9 +235,12 @@ The edge addition weight is then $z_0 = |\phi_+(0)|^2/(1-\langle n_0\rangle) = |
     Eq.~\eqref{eq:splitting} against exact splitting, $L\ge40$ (relative) & $4.8\times10^{-5}$ \\
     Ring: spectrum $=E_\pm(k)$, gap $=4|\delta|$, addition cost $=2|\delta|$, $\pm\delta$ identical & $4.9\times10^{-15}$ \\
     $\operatorname{sgn}t = (-1)^{L/2}$ where resolved; $\langle n_0\rangle = \tfrac12$; $z_0 = |\psi^L_0|^2$ & $1.0\times10^{-15}$ \\
+    Odd $L/2$ ($L=18,42,62,82$): $\operatorname{sgn}t = -1$ and bonding below antibonding where resolved; $\langle n_0\rangle = \tfrac12$; $z_0 = |\psi^L_0|^2$ & $1.0\times10^{-15}$ \\
+    Odd $L/2$: Eq.~\eqref{eq:splitting} against exact splitting, $L\ge40$ (relative) & $2.8\times10^{-5}$ \\
+    Odd-$M$ rings ($L=10,14,18$): spectrum $=E_\pm(k)$; gap $=2\min_k E_+(k) > 4|\delta|$ & $2.2\times10^{-15}$ \\
     \bottomrule
   \end{tabular}
-  \caption{Step 1 validation: 29 checks in the notebook, all passed.}
+  \caption{Step 1 validation: 37 checks in the notebook, all passed.}
   \label{tab:checks1}
 \end{table}
 
@@ -252,7 +257,7 @@ The free edge problem is solved and verified.
 \end{itemize}
 Two results carry into the interacting problem.
 First, once the splitting drops below round-off, the half-filled ground state must be selected by an explicit rule, Eq.~\eqref{eq:convention}; otherwise edge observables change at order one.
-Second, the many-body calculation must reproduce the $V=0$ values $\langle n_j\rangle = \tfrac12$, $z_0 = 1-r^2$ and $\xi_W = \xi$, with bulk addition threshold $\Delta_+ = 2|\delta|$.
+Second, the many-body calculation must reproduce the $V=0$ values $\langle n_j\rangle = \tfrac12$, $z_0 = 1-r^2$ and $\xi_W = \xi$, with bulk addition threshold $\Delta_+ = 2|\delta|$ on rings with $L$ divisible by 4 and half the larger gap above on odd-$M$ rings.
 
 %======================================================================
 % \section{Step 2: a many-body calculation we can trust}
