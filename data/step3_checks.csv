@@ -1,0 +1,6 @@
+check,passed,worst_deviation
+"S3 A1: sum rule sum_m w_jm = 1/2, every site, L = 8, 12, both delta, every V",True,3.243e-13
+"S3 A2: L = 2 closed form, omega = J_0 + V/2 and w = 1/2",True,8.882e-16
+"S3 A3: V = 0 lines and weights = empty orbitals phi_n(j)^2, every site",True,6.128e-14
+S3 A4: z_0 = |psi^L_0|^2 at V = 0 (Step 1),True,3.486e-14
+"S3 A5: one line in the window for delta = -0.30, none for +0.30, every V and f",True,

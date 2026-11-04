@@ -519,7 +519,101 @@ At $V=3$ the second addition level lies at $\omega=1.26$ for $L=16$ and $1.18$ f
 So it is just outside the window at $L=16$ and inside it at $L=18$.
 Step~3 must test this window directly and report it if no isolated window exists.
 
-% \section{Step 3: localisation and coherence}
+%======================================================================
+\section{Step 3: localisation and coherence (in progress)}
+\label{sec:step3}
+
+\subsection{What was done}
+
+We add one particle at site $j$ to the selected half-filled ground state $\Omega_N$ (Step~2) and resolve the result into eigenstates of the sector with $N+1$ particles:
+\begin{equation}
+  A^+_j(\omega)=\sum_m w_{jm}\,\delta(\omega-\omega_m),\qquad
+  w_{jm}=\big|\langle m,N+1|c_j\dg|\Omega_N\rangle\big|^2,\qquad
+  \omega_m=E^{N+1}_m-E^N_0 .
+  \label{eq:addition}
+\end{equation}
+$w_{jm}$ is the probability that adding a particle at $j$ produces exactly the eigenstate $m$, and $\omega_m$ is its cost.
+Completeness of the states $|m,N+1\rangle$ and $c_jc_j\dg=1-n_j$ give the sum rule
+\begin{equation}
+  \sum_m w_{jm}=\langle\Omega_N|c_jc_j\dg|\Omega_N\rangle=1-\langle n_j\rangle=\tfrac12 ,
+  \label{eq:sumrule}
+\end{equation}
+where the last step uses Eq.~\eqref{eq:pf}.
+We report $z_{jm}=w_{jm}/(1-\langle n_j\rangle)$, the fraction of the available weight carried by one line.
+
+The ring has no edges, so its addition threshold $\Delta_+$ (Step~2) marks the start of bulk excitations.
+Lines of the open chain with $0\le\omega<f\Delta_+$ form the edge window $W$, with $f=0.8$, and we define
+\begin{equation}
+  z_0=\frac{\sum_{m\in W}w_{0m}}{1-\langle n_0\rangle}.
+\end{equation}
+At $V=0$, Step~1 gives $z_0=|\psi^L_0|^2\to1-r^2=0.710$ at $\delta=-0.30$.
+
+For $L=8$ and $12$ we diagonalise the whole $N+1$ sector (at most $792\times792$), apply $c_j\dg$ with the sign string of Step~2, and take $w_{jm}=(u_m\cdot c_j\dg\Omega_N)^2$ for the real eigenvectors $u_m$.
+We use $\delta=\pm0.30$, $V=0,0.5,1,2,3$, $j=0$ for the spectra, every $j$ for the checks, and $f=0.6,0.7,0.8,0.9$.
+No broadening is applied.
+
+%----------------------------------------------------------------------
+\subsection{Results and verification}
+
+What is new in this step is how Step~2's verified matrices and operators are put together.
+Five checks test that.
+The sum rule~\eqref{eq:sumrule} holds at every site, every $V$ and both $\delta$ to $1.4\times10^{-13}$.
+At $L=2$ the spectrum is one line at $\omega=J_0+V/2$ with weight $\tfrac12$, which follows by hand from $E_0=-V/4-J_0$ and $E(|11\rangle)=V/4$; the code reproduces it to $9\times10^{-16}$.
+At $V=0$ every line sits at an empty orbital energy $\varepsilon_n$ of the $L\times L$ hopping matrix, with weight $\phi_n(j)^2$, at every site, to $5\times10^{-14}$, and no weight lies elsewhere.
+At $V=0$, $z_0=|\psi^L_0|^2$ with Step~1's left edge state to $3\times10^{-14}$.
+Finally, for $\delta=-0.30$ exactly one line lies in the window at every point and every $f$, and for $\delta=+0.30$ none does.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step3_spectra.pdf}
+  \caption{Addition spectrum at the edge, $L=12$, $j=0$: one vertical line per eigenstate of the $N+1$ sector, height $z_{0m}$.
+  The dashed line is the window edge $0.8\Delta_+$.
+  Top: weak end bonds, with one line inside the window whose weight falls as $V$ grows.
+  Bottom: strong end bonds, with no line inside the window.}
+  \label{fig:step3spectra}
+\end{figure}
+
+\begin{table}[t]
+  \centering
+  \begin{tabular}{cccccc}
+    \toprule
+     & \multicolumn{2}{c}{$z_0$} & \multicolumn{3}{c}{$L=12$} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-6}
+    $V$ & $L=8$ & $L=12$ & $\omega_{\rm edge}$ & $\omega_{\rm next}$ & $0.8\Delta_+$ \\
+    \midrule
+    0   & 0.731 & 0.713 & 0.023 & 0.828 & 0.480 \\
+    0.5 & 0.706 & 0.700 & 0.024 & 0.982 & 0.609 \\
+    1   & 0.673 & 0.675 & 0.029 & 1.116 & 0.735 \\
+    2   & 0.589 & 0.588 & 0.061 & 1.342 & 0.983 \\
+    3   & 0.503 & 0.464 & 0.162 & 1.502 & 1.253 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Edge weight $z_0$ at $\delta=-0.30$ for two sizes, and at $L=12$ the energy of the edge line, of the next line with non-zero weight, and the window edge.
+  For $\delta=+0.30$, $z_0=0$ at every point.
+  $z_0$ is the same for every $f$ from $0.6$ to $0.9$, because the next line always lies above $0.9\Delta_+$.}
+  \label{tab:z0}
+\end{table}
+
+Figure~\ref{fig:step3spectra} and Table~\ref{tab:z0} show the results.
+\begin{itemize}
+  \item For weak end bonds, adding a particle at the edge produces one line inside the window at every $V\le3$.
+  For strong end bonds the window is empty.
+  So the line is an edge effect, and it remains a single isolated line on this grid.
+  \item Its weight falls with repulsion, from $z_0=0.713$ at $V=0$ to $0.588$ at $V=2$ and $0.464$ at $V=3$ ($L=12$).
+  The lost weight moves to lines above $\Delta_+$; at $L=12$, $V=3$ the largest of them carries $z=0.16$.
+  \item For $V\le2$ the two sizes agree to $0.006$ or better at $V>0$, while at $V=3$ they differ by $0.039$, with the longer chain lower.
+  \item At $V=0$, $z_0$ moves from $0.731$ ($L=8$) to $0.713$ ($L=12$), towards $1-r^2=0.710$.
+  \item The edge line sits at the addition gap of Step~2 (Table~\ref{tab:gaps}), as it should: it is the lowest state of the $N+1$ sector.
+\end{itemize}
+
+%----------------------------------------------------------------------
+\subsection{Status}
+
+For $L\le12$ and $j=0$, the edge excitation of the weak-bond chain stays a single isolated line up to $V=3$, while its weight falls from $0.71$ to $0.46$.
+Whether that line survives in longer chains, and whether $z_0$ at $V=3$ keeps falling with $L$, needs $L=16,18$ with the Lanczos spectral measure (guide item~5).
+Step~2 found that at $L=18$, $V=3$ the second addition level enters the window, so the window must be re-tested there.
+The spatial profile $W_j$ and the length $\xi_W$ (guide item~4) are not yet computed.
+
 % \section{Step 4: dynamics of an added edge particle}
 % \section{Step 5: entropy resolved by particle number}
 % \section{Step 6: bulk polarisation and the competing ordered state}
