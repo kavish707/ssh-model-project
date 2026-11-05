@@ -9,7 +9,7 @@ Step 1 solved the chain without interactions. Step 2 builds and tests the machin
 **Verified, for $L\le18$ on this grid:**
 
 - The matrices are the guide's Hamiltonian (A.1), including the fermion sign on a ring's closing bond.
-- The eigenvalues and eigenvectors are accurate. All 61 checks pass in a fresh kernel, and all 37 of Step 1's still pass.
+- The eigenvalues and eigenvectors are accurate. All 61 checks pass in a fresh kernel, and all 46 of Step 1's still pass.
 - The half-filled ground state is unique on the open chain, so there is an explicit rule for selecting it.
 - For $\delta=-0.30$ (weak end bonds), the neutral and addition gaps fall with $L$ at every $V\le3$ and stay far below the bulk threshold. For $\delta=+0.30$ there is no low-energy pair.
 - No level crossing involves the two lowest levels, and nothing special happens at $V=2$.
@@ -41,7 +41,7 @@ Step 1 solved the chain without interactions. Step 2 builds and tests the machin
 | Integer states, fixed $N$, sparse matrices | notebook 2.1 | done |
 | Sign rule, including a ring's closing bond | 2.1, 2.4 | done |
 | 1. Independent matrices in $N$, $N\pm1$; diagonal interaction; hop only into an empty site | 2.1, 2.2 | done |
-| 2. Whole matrix at $L=6,8,10$; sparse above; residuals $<10^{-10}$ and $<10^{-9}$ | 2.7 | worst $7\times10^{-14}$; $6\times10^{-13}$ |
+| 2. Whole matrix at $L=6,8,10$; sparse above; residuals $<10^{-10}$ and $<10^{-9}$ | 2.7 | worst $9\times10^{-14}$; $2\times10^{-13}$ |
 | 3. Hermiticity, number conservation, eigenvalue vs independent $\langle\psi\lvert H\rvert\psi\rangle$ | 2.2, 2.7 | done |
 | 4. $V=0$: energy and $\langle c_i^\dagger c_j\rangle$ vs filled orbitals | 2.3 | done |
 | 5. Jordan-Wigner second implementation at $L=6$ | 2.2 | done, also $L=8$, all $N$, rings |
@@ -89,7 +89,7 @@ $H=H_{\rm hop}(\delta)+VH_{\rm int}$ is linear in $V$, and $H_{\rm int}$ does no
 **Is $H_{\rm hop}$ right? Test at $V=0$, against Step 1.**
 
 - Every many-body level must be a sum of $N$ one-particle energies. This holds for the whole spectrum at $L\le10$, open and ring.
-- The gaps must be Step 1's 80-digit $\Delta E$ and $\Delta E/2$. They agree to $5\times10^{-14}$.
+- The gaps must be Step 1's 80-digit $\Delta E$ and $\Delta E/2$. They agree to $8\times10^{-14}$.
 - $\langle c_i^\dagger c_j\rangle$ must be the filled-orbital matrix built on Step 1's bonding orbital, for all $i,j$ at $L=6$ to 18. This confirms Step 1's sign $s=(-1)^{L/2}$ for both parities of $M$.
 
 **Is $H_{\rm int}$ right? Test at $V\neq0$.** These checks are the important ones, because the $V=0$ checks cannot see $H_{\rm int}$ at all.
@@ -98,10 +98,10 @@ $H=H_{\rm hop}(\delta)+VH_{\rm int}$ is linear in $V$, and $H_{\rm int}$ does no
 |---|---|---|
 | Fermion algebra | $\{c_i,c_j^\dagger\}=\delta_{ij}$ holds exactly, so $H$ written as a literal product of $c$, $c^\dagger$ is correct by construction; the matrix must equal it | exact |
 | Jordan-Wigner, Eq. (A.4) | a separate build on all $2^L$ states | exact (blocks) |
-| By hand | $L=2$ and $L=4$, whole spectrum (below) | $7\times10^{-15}$ |
+| By hand | $L=2$ and $L=4$, whole spectrum (below) | $9\times10^{-15}$ |
 | Weak coupling | $dE/dV$ at $V=0$ from Wick's theorem and Step 1 orbitals | $4\times10^{-8}$ |
 | Strong coupling | second-order perturbation theory (below) | scales as predicted |
-| Bethe ansatz, $\delta=0$ | a different algorithm; solves equations, builds no matrix | $7\times10^{-14}$ |
+| Bethe ansatz, $\delta=0$ | a different algorithm; solves equations, builds no matrix | $6\times10^{-14}$ |
 | Literature, $\delta=0$, $V=2$ | energy per site $\to2(\tfrac14-\ln2)$ (Hulthén) | $10^{-3}$, finite size |
 
 **You can check the $L=2$ case yourself.** With one particle, the two states $|10\rangle,|01\rangle$ have $(n_0-\tfrac12)(n_1-\tfrac12)=-\tfrac14$ and are joined by $-J_0$, so $E=-V/4\mp J_0$. Empty or full gives $+V/4$.
@@ -132,11 +132,11 @@ The errors at $V=200$ and $400$ differ by the predicted factors of 8 and 2, whic
 
 | Test | Worst deviation | Target |
 |---|---|---|
-| Residuals, all eigenpairs, $L\le10$ | $7.0\times10^{-14}$ | $10^{-10}$ |
-| Residuals, production, open / ring | $1.3\times10^{-13}$ / $6.1\times10^{-13}$ | $10^{-9}$ |
-| Lanczos vs dense, $L=12$ | $7.1\times10^{-14}$ | $10^{-11}$ |
-| Lanczos finds exact multiplicities, $V=0$, $L\le18$ | $6.2\times10^{-14}$ | $10^{-11}$ |
-| Eigenvalue vs $\langle H\rangle$ from correlators (never calls `hamiltonian()`) | $7.8\times10^{-14}$ | $10^{-9}$ |
+| Residuals, all eigenpairs, $L\le10$ | $8.7\times10^{-14}$ | $10^{-10}$ |
+| Residuals, production, open / ring | $1.3\times10^{-13}$ / $1.9\times10^{-13}$ | $10^{-9}$ |
+| Lanczos vs dense, $L=12$ | $8.0\times10^{-14}$ | $10^{-11}$ |
+| Lanczos finds exact multiplicities, $V=0$, $L\le18$ | $7.6\times10^{-14}$ | $10^{-11}$ |
+| Eigenvalue vs $\langle H\rangle$ from correlators (never calls `hamiltonian()`) | $9.6\times10^{-14}$ | $10^{-9}$ |
 
 **A failure worth knowing about.** My plan set a $10^{-12}$ tolerance on $\langle c_i^\dagger c_j\rangle$ and tested it only to $L=12$. Extending it to $L=18$ made it fail, at $2\times10^{-12}$, only for $\delta<0$.
 
@@ -146,9 +146,9 @@ I did not loosen the tolerance. I tested the explanation, which makes a predicti
 
 | | $\max\lvert C-C_{\rm filled}\rvert$ |
 |---|---|
-| raw Lanczos vector | $1.2\times10^{-12}$ |
-| bound $2\|r\|/\text{gap}$ | $4.8\times10^{-12}$ |
-| after $C$ projection | $2.0\times10^{-15}$ |
+| raw Lanczos vector | $1.7\times10^{-12}$ |
+| bound $2\|r\|/\text{gap}$ | $6.6\times10^{-12}$ |
+| after $C$ projection | $1.7\times10^{-15}$ |
 
 So the $10^{-12}$ tolerance stands, for the projected vector, and the raw vector is checked against the bound. **For later steps:** the guide's $10^{-9}$ residual target, with a gap of $4\times10^{-3}$, would allow an eigenvector error of $2.5\times10^{-7}$. Our residuals are about $10^{-13}$.
 
@@ -172,7 +172,7 @@ On a ring with even $N$ the closing sign is $-1$, so Perron-Frobenius does not a
 
 Look at [`figures/step2_gaps.pdf`](../figures/step2_gaps.pdf). Neutral and addition gaps (neutral / addition):
 
-| $\delta$ | $V$ | $L=8$ | $L=12$ | $L=16$ | $L=18$ | ring $\Delta_+$, $L=16$ |
+| $\delta$ | $V$ | $L=8$ | $L=12$ | $L=16$ | $L=18$ | ring $\Delta_+$, $L=16$ (reference) |
 |---|---|---|---|---|---|---|
 | $-0.30$ | 0 | 0.158 / 0.0791 | 0.0451 / 0.0226 | 0.0131 / 0.00653 | 0.00703 / 0.00351 | 0.6000 |
 | | 0.5 | 0.172 / 0.100 | 0.0442 / 0.0241 | 0.0112 / 0.00586 | 0.00566 / 0.00291 | 0.7585 |
@@ -190,6 +190,7 @@ Reading it:
 - At $V=0$ every curve starts on the Step 1 value (open circles).
 - $\delta=-0.30$: both gaps fall with $L$ at every $V$. At $L=16$ the addition gap stays below 5 % of $\Delta_+$.
 - $\delta=+0.30$: the neutral gap stays above 1, and at $L=16$ the addition gap lies 0.06 to 0.08 above $\Delta_+$. So reversing $\delta$ still removes the low-energy pair.
+- The last column is the $L=16$ ring, a reference only; the figure's dotted line is the same. The comparisons above use the ring of the same size. At $V=0$ the same-size thresholds are 0.600 at $L=8,12,16$ and 0.685 at $L=18$, whose ring has odd $M$ and so a raised threshold. At $\delta=+0.30$ the $L=18$ addition gap lies between the $L=16$ ring's threshold and its own at every $V$.
 - Ground state and level 1 have fixed labels. The ground state has $C=+1$, $R=(-1)^{N(N-1)/2}$; level 1 has $C=-1$ and the opposite $R$, at every point. No crossing involves them.
 - Levels 2 to 5 do cross, but stay at least 0.7 above the ground state.
 
@@ -216,6 +217,8 @@ Every interval was refined except $0\le V\le0.5$ at $\delta=+0.30$. The remainin
 | | 14, 18 | 3.23 | 2.84 | 2.57 | 2.71 | 4.43 |
 | $U_{\rm eff}$ | 12, 16 | | 1.87 | 2.03 | 2.86 | 4.68 |
 | | 14, 18 | | 1.82 | 1.98 | 2.83 | 4.71 |
+
+At $V=0$ both gaps reproduce the exact free two-size lengths, computed from Step 1's `splitting_sturm` at the same sizes: 3.225338 for (12, 16), 3.228937 for (14, 18) and 3.229869 for (16, 18), to $2.0\times10^{-11}$ (check H1). The value $\xi=3.2308$ is only their $L\to\infty$ limit, not a benchmark at these sizes.
 
 **A possible reading.** The most general number-conserving Hamiltonian of two end modes with symmetries $C$ and $R$ is $t(a_L^\dagger a_R+\text{h.c.})+U(n_L-\tfrac12)(n_R-\tfrac12)$. With one particle the energies are $-U/4\mp|t|$; empty or full gives $+U/4$. So
 
@@ -299,16 +302,16 @@ The one uncaught change is not a bug. Reversing the bit order means relabelling 
 | [`data/step2_grid.csv`](../data/step2_grid.csv) | one row per $(L,\delta,V,\text{boundary})$: gaps, labels, state choice, overlap, $\Delta_+$ |
 | [`data/step2_levels.csv`](../data/step2_levels.csv) | one row per level: energy, residual, labels, solver settings |
 | [`data/step2_checks.csv`](../data/step2_checks.csv) | every check with its worst deviation |
-| [`data/step2_run_info.json`](../data/step2_run_info.json) | conventions, tolerances, seed, versions, command |
+| [`data/step2_run_info.json`](../data/step2_run_info.json) | conventions, tolerances, seed, the versions of the run that wrote it, and the command that reproduces the saved run (it does not record how a given run was launched) |
 | [`checks/step2_mutation_test.py`](../checks/step2_mutation_test.py) | the sabotage test |
-| [`requirements.txt`](../requirements.txt) | package versions used |
+| [`requirements.txt`](../requirements.txt) | the official environment for reproducing the notebook; `step2_run_info.json` records the versions the saved run actually used |
 
-`step2_states.npz` holds $\Omega_N$ on the coarse $V$ grid, with keys like `open_L16_d-0.30_V2.00`. It is not meant to be committed: it is 4.5 MB, nothing reads it, and the notebook writes a new copy to `data/` on every run. The copy from the saved run is outside the repo, in `../step2_extras/`.
+`step2_states.npz` holds $\Omega_N$ on the coarse $V$ grid, with keys like `open_L16_d-0.30_V2.00`. It is not meant to be committed, and `.gitignore` excludes it: it is 4.5 MB, nothing reads it, and the notebook writes a new copy to `data/` on every run. The copy from the saved run is outside the repo, in `../step2_extras/`.
 
-Everything is uncommitted, as you asked. To reproduce, from the repo root, with the project `.venv`. I ran exactly this on a copy: all energies and labels came out identical to the 15 digits saved, and the state vectors matched to $2\times10^{-15}$.
+Everything is uncommitted, as you asked. To reproduce, from the repo root, with the project `.venv`. I ran exactly this on a copy: all energies and labels came out identical to the 15 digits saved, and the state vectors matched to $2\times10^{-15}$. Runs on other machines agree to round-off rather than digit for digit; the round-off values quoted here are from the saved run.
 
 ```bash
-jupyter nbconvert --to notebook --execute --inplace project_A.ipynb   # 3 minutes on an idle machine; prints 37/37 and 61/61
+jupyter nbconvert --to notebook --execute --inplace project_A.ipynb   # 3 minutes on an idle machine; prints 46/46 and 61/61
 python checks/step2_mutation_test.py                                  # sabotage test; up to about 20 minutes
 ```
 
@@ -351,39 +354,39 @@ The guide asks for a short record of substantive assistance and how it was verif
 | A5 | $\{c_i,c_j^\dagger\}=\delta_{ij}$, $\{c_i,c_j\}=0$, $L=6,8$, all $N$ | exact | exact |
 | A6 | `hamiltonian()` = literal product of $c,c^\dagger$ | exact | $10^{-13}$ |
 | D1 | Jordan-Wigner blocks = occupation matrices, all $N$, open and ring | exact | $10^{-13}$ |
-| D2 | Jordan-Wigner full spectrum = union of sectors | $4.9\times10^{-14}$ | $10^{-12}$ |
-| C1 | $V=0$ whole spectrum = sums of $N$ one-particle energies, $L\le10$ | $3.6\times10^{-14}$ | $10^{-12}$ |
-| C1b | $V=0$ Lanczos levels with exact multiplicities, $L=12$ to 18 | $6.2\times10^{-14}$ | $10^{-11}$ |
-| C2 | $V=0$ $\langle c_i^\dagger c_j\rangle$ = filled orbitals, $L\le18$, $C$-projected | $2.0\times10^{-15}$ | $10^{-12}$ |
-| C2a | same, raw vector / bound $(2\|r\|/\text{gap}+10^{-13})$ | ratio 0.23 | $<1$ |
+| D2 | Jordan-Wigner full spectrum = union of sectors | $4.3\times10^{-14}$ | $10^{-12}$ |
+| C1 | $V=0$ whole spectrum = sums of $N$ one-particle energies, $L\le10$ | $2.2\times10^{-14}$ | $10^{-12}$ |
+| C1b | $V=0$ Lanczos levels with exact multiplicities, $L=12$ to 18 | $7.6\times10^{-14}$ | $10^{-11}$ |
+| C2 | $V=0$ $\langle c_i^\dagger c_j\rangle$ = filled orbitals, $L\le18$, $C$-projected | $1.7\times10^{-15}$ | $10^{-12}$ |
+| C2a | same, raw vector / bound $(2\|r\|/\text{gap}+10^{-13})$ | ratio 0.25 | $<1$ |
 | C2n | negative control: no string breaks $\lvert i-j\rvert\ge2$ only | 0.68 | $>10^{-2}$ |
-| C3 | $V=0$ gaps = 80-digit $\Delta E$, $\Delta E/2$ | $4.8\times10^{-14}$ | $10^{-10}$ |
-| C4 | $V=0$ addition weights = lowest empty orbital | $6.4\times10^{-14}$ | $10^{-12}$ |
-| C5 | sum rule $\sum_mw_{jm}=1-\langle n_j\rangle$, every $V$ | $2.2\times10^{-15}$ | $10^{-12}$ |
-| E1 | ring $V=0$, $E_0$ = free fermions, every $N$ | $4.4\times10^{-15}$ | $10^{-12}$ |
+| C3 | $V=0$ gaps = 80-digit $\Delta E$, $\Delta E/2$ | $7.3\times10^{-14}$ | $10^{-10}$ |
+| C4 | $V=0$ addition weights = lowest empty orbital | $5.2\times10^{-14}$ | $10^{-12}$ |
+| C5 | sum rule $\sum_mw_{jm}=1-\langle n_j\rangle$, every $V$ | $1.9\times10^{-15}$ | $10^{-12}$ |
+| E1 | ring $V=0$, $E_0$ = free fermions, every $N$ | $8.9\times10^{-15}$ | $10^{-12}$ |
 | E2 | negative control: no closing sign fails for even $N$ only | 0.061 | $>10^{-3}$ |
-| E3, E4 | ring $V=0$, $\Delta_+$ for even and odd $M$ | $2.9\times10^{-14}$, $3.7\times10^{-14}$ | $10^{-11}$ |
+| E3, E4 | ring $V=0$, $\Delta_+$ for even and odd $M$ | $1.5\times10^{-14}$, $5.4\times10^{-14}$ | $10^{-11}$ |
 | F0 | operator maps of $C$ and $R$ | exact | $10^{-13}$ |
-| F1 | spectrum$(N+1)$ = spectrum$(N-1)$ | $3.6\times10^{-14}$ | $10^{-12}$ |
+| F1 | spectrum$(N+1)$ = spectrum$(N-1)$ | $4.6\times10^{-14}$ | $10^{-12}$ |
 | F2 | $[C,H]=[R,H]=0$ | $3.6\times10^{-15}$ | $10^{-12}$ |
-| F3, F3b | ring spectra and $\Delta_+$ for $\pm\delta$ | $6.3\times10^{-14}$, $5.9\times10^{-14}$ | $10^{-12}$, $10^{-10}$ |
-| F4 | $R$ of $\Omega_N$ = product of orbital parities | $4.9\times10^{-15}$ | $10^{-12}$ |
-| F5a–d | positivity, $C$, $R$ (also $N\pm1$), $\langle n_j\rangle=\tfrac12$; at $L=8$ and on the whole grid (8 checks) | $-8.9\times10^{-16}$; exact; exact; $4.2\times10^{-12}$ | $-10^{-12}$; exact; exact; $10^{-9}$ |
+| F3, F3b | ring spectra and $\Delta_+$ for $\pm\delta$ | $5.6\times10^{-14}$, $1.2\times10^{-13}$ | $10^{-12}$, $10^{-10}$ |
+| F4 | $R$ of $\Omega_N$ = product of orbital parities | $3.7\times10^{-15}$ | $10^{-12}$ |
+| F5a–d | positivity, $C$, $R$ (also $N\pm1$), $\langle n_j\rangle=\tfrac12$; at $L=8$ and on the whole grid (8 checks) | $-8.3\times10^{-16}$; exact; exact; $3.4\times10^{-12}$ | $-10^{-12}$; exact; exact; $10^{-9}$ |
 | F6 | every kept level has definite labels | exact | exact |
-| G1a–c | $L=2$; $L=4$ open; $L=4$ ring | $2.2\times10^{-16}$, $6.2\times10^{-15}$, $7.1\times10^{-15}$ | $10^{-14}$, $10^{-13}$, $10^{-13}$ |
+| G1a–c | $L=2$; $L=4$ open; $L=4$ ring | $2.2\times10^{-16}$, $3.6\times10^{-15}$, $8.9\times10^{-15}$ | $10^{-14}$, $10^{-13}$, $10^{-13}$ |
 | G2 | weak coupling vs Wick, three energies | $4.1\times10^{-8}$ | $10^{-6}$ |
 | G3a, b | strong coupling at $V=400$, with error scaling | $3.0\times10^{-6}$, $6.4\times10^{-3}$ | $10^{-5}$, $10^{-2}$ |
-| G4a, b | Bethe ansatz, open; ring | $6.2\times10^{-14}$, $6.8\times10^{-14}$ | $10^{-10}$ |
+| G4a, b | Bethe ansatz, open; ring | $6.0\times10^{-14}$, $5.7\times10^{-14}$ | $10^{-10}$ |
 | G5 | Hulthén energy per site | $1.0\times10^{-3}$ | $2\times10^{-3}$ |
-| B1 | residuals, all eigenpairs, $L\le10$ | $7.0\times10^{-14}$ | $10^{-10}$ |
-| B2 | production residuals: $L=8$; whole grid; rings (3 checks) | $1.4\times10^{-14}$, $1.3\times10^{-13}$, $6.1\times10^{-13}$ | $10^{-9}$ |
-| B3, B3b | Lanczos vs dense; vs another seed | $7.1\times10^{-14}$, $8.7\times10^{-14}$ | $10^{-11}$ |
-| B4a, b | eigenvalue vs independent $\langle H\rangle$: $L\le10$; $L=8$ and whole grid | $2.3\times10^{-14}$; $7.8\times10^{-14}$ | $10^{-12}$; $10^{-9}$ |
-| S1 | rotated pair mapped back to the selected state | $1.2\times10^{-14}$ | $10^{-12}$ |
+| B1 | residuals, all eigenpairs, $L\le10$ | $8.7\times10^{-14}$ | $10^{-10}$ |
+| B2 | production residuals: $L=8$; whole grid; rings (3 checks) | $1.4\times10^{-14}$, $1.3\times10^{-13}$, $1.9\times10^{-13}$ | $10^{-9}$ |
+| B3, B3b | Lanczos vs dense; vs another seed | $8.0\times10^{-14}$, $5.3\times10^{-14}$ | $10^{-11}$ |
+| B4a, b | eigenvalue vs independent $\langle H\rangle$: $L\le10$; $L=8$ and whole grid | $2.5\times10^{-14}$; $9.6\times10^{-14}$ | $10^{-12}$; $10^{-9}$ |
+| S1 | rotated pair mapped back to the selected state | $3.6\times10^{-14}$ | $10^{-12}$ |
 | S2 | negative control: unselected mixture shifts $\langle n_0\rangle$ | 0.38 | $>0.1$ |
 | S3 | rule raises when $C$ does not fix the state | exact | exact |
 | R1 | labels of levels 0, 1 never change | exact | exact |
 | R2 | neighbouring overlap on the refined grid | minimum 0.9964 | $>0.99$ |
 | R3 | cluster branch unused; smallest neutral gap | $4.3\times10^{-3}$ | $>10^{-8}$ |
-| H1 | two-size lengths reproduce $\xi$ at $V=0$ | $5.5\times10^{-3}$ | $10^{-2}$ |
-| H2 | $U_{\rm eff}=0$ at $V=0$ | $7.5\times10^{-14}$ | $10^{-11}$ |
+| H1 | two-size lengths of both gaps at $V=0$ = exact free values from `splitting_sturm` at the same $(L_1,L_2)$, all five pairs | $2.0\times10^{-11}$ | $10^{-9}$ |
+| H2 | $U_{\rm eff}=0$ at $V=0$ | $4.6\times10^{-14}$ | $10^{-11}$ |

@@ -1,3 +1,6 @@
+# Official environment for reproducing the notebook (Python 3.12).
+# data/step2_run_info.json records the versions the saved run actually used, which may differ by patch version:
+# a full run with numpy 2.5.2 gave the same CSVs as an earlier run with these pins. Round-off can differ between machines.
 ipykernel==7.4.0
 matplotlib==3.11.2
 mpmath==1.4.1

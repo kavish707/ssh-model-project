@@ -1,1 +1,4 @@
 step_2/
+
+# regenerated on every run of the notebook (4.5 MB); nothing reads it
+data/step2_states.npz
