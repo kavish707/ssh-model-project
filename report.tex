@@ -587,24 +587,31 @@ We report $z_{jm}=w_{jm}/(1-\langle n_j\rangle)$, the fraction of the available 
 The ring has no edges, so its addition threshold $\Delta_+$ (Step~2) marks the start of bulk excitations.
 Lines of the open chain with $0\le\omega<f\Delta_+$ form the edge window $W$, with $f=0.8$, and we define
 \begin{equation}
-  z_0=\frac{\sum_{m\in W}w_{0m}}{1-\langle n_0\rangle}.
+  z_0=\frac{\sum_{m\in W}w_{0m}}{1-\langle n_0\rangle},\qquad
+  W_j=\sum_{m\in W}w_{jm}.
+  \label{eq:z0}
 \end{equation}
-At $V=0$, Step~1 gives $z_0=|\psi^L_0|^2\to1-r^2=0.710$ at $\delta=-0.30$.
+$W_j$ is the profile of the window weight along the chain.
+We fit $W_j\propto e^{-2j/\xi_W}$ on the even sites $j<L/2$, the sites used for Table~\ref{tab:bench}: $j=0,2$ at $L=8$ and $j=0,2,4$ at $L=12$.
+The benchmarks at $V=0$ are the exact values at the same size (Table~\ref{tab:bench}): $z_0=|\psi^L_0|^2=0.731$ and $0.713$, and $\xi_W=3.1652$ and $3.2161$, at $L=8$ and $12$.
+The limits $1-r^2=0.710$ and $\xi=3.2308$ are not benchmarks at these sizes.
 
 For $L=8$ and $12$ we diagonalise the whole $N+1$ sector (at most $792\times792$), apply $c_j\dg$ with the sign string of Step~2, and take $w_{jm}=(u_m\cdot c_j\dg\Omega_N)^2$ for the real eigenvectors $u_m$.
-We use $\delta=\pm0.30$, $V=0,0.5,1,2,3$, $j=0$ for the spectra, every $j$ for the checks, and $f=0.6,0.7,0.8,0.9$.
+We use $\delta=\pm0.30$, $V=0,0.5,1,2,3$, every site $j$, and $f=0.6,0.7,0.8,0.9$.
 No broadening is applied.
 
 %----------------------------------------------------------------------
 \subsection{Results and verification}
 
 What is new in this step is how Step~2's verified matrices and operators are put together.
-Five checks test that.
+Nine checks test that; their worst deviations are in \texttt{data/step3\_checks.csv}.
 The sum rule~\eqref{eq:sumrule} holds at every site, every $V$ and both $\delta$ to $1.4\times10^{-13}$.
-At $L=2$ the spectrum is one line at $\omega=J_0+V/2$ with weight $\tfrac12$, which follows by hand from $E_0=-V/4-J_0$ and $E(|11\rangle)=V/4$; the code reproduces it to $9\times10^{-16}$.
-At $V=0$ every line sits at an empty orbital energy $\varepsilon_n$ of the $L\times L$ hopping matrix, with weight $\phi_n(j)^2$, at every site, to $5\times10^{-14}$, and no weight lies elsewhere.
-At $V=0$, $z_0=|\psi^L_0|^2$ with Step~1's left edge state to $3\times10^{-14}$.
-Finally, for $\delta=-0.30$ exactly one line lies in the window at every point and every $f$, and for $\delta=+0.30$ none does.
+At $L=2$ the spectrum is one line at $\omega=J_0+V/2$ with weight $\tfrac12$, which follows by hand from $E_0=-V/4-J_0$ and $E(|11\rangle)=V/4$; the code reproduces it to $8.9\times10^{-16}$.
+At $V=0$ every line sits at an empty orbital energy $\varepsilon_n$ of the $L\times L$ hopping matrix, with weight $\phi_n(j)^2$, at every site, to $4.9\times10^{-14}$, and no weight lies elsewhere.
+At $V=0$, $z_0=|\psi^L_0|^2$ with Step~1's left edge state at the same $L$ to $2.8\times10^{-14}$.
+For $\delta=-0.30$ the window holds exactly one eigenstate of the $N+1$ sector at every point and every $f$, and it is the only line with weight at $j=0$; for $\delta=+0.30$ the window is empty.
+At $V=0$ the whole profile equals $W_j=\phi_+(j)^2$, with $\phi_+$ the antibonding end orbital of the same $L$, at every site to $5.2\times10^{-14}$, and $\xi_W$ equals the value of Table~\ref{tab:bench} to $8.9\times10^{-16}$ (relative).
+Finally, at $L=4$ and $6$, both $\delta$, every $V$ and every site, the lines and weights agree to $7.1\times10^{-15}$ with a separate calculation in the full $2^L$-dimensional Fock space, built from Kronecker products of $2\times2$ matrices without any Step~2 code.
 
 \begin{figure}[t]
   \centering
@@ -618,44 +625,93 @@ Finally, for $\delta=-0.30$ exactly one line lies in the window at every point a
 
 \begin{table}[t]
   \centering
-  \begin{tabular}{cccccc}
+  \small
+  \begin{tabular}{ccccccccc}
     \toprule
-     & \multicolumn{2}{c}{$z_0$} & \multicolumn{3}{c}{$L=12$} \\
-    \cmidrule(lr){2-3}\cmidrule(lr){4-6}
-    $V$ & $L=8$ & $L=12$ & $\omega_{\rm edge}$ & $\omega_{\rm next}$ & $0.8\Delta_+$ \\
+     & \multicolumn{2}{c}{$z_0$} & \multicolumn{6}{c}{$L=12$} \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-9}
+    $V$ & $L=8$ & $L=12$ & $z_{[0.8\Delta_+,\Delta_+)}$ & $z_{\ge\Delta_+}$ & $\omega_{\rm edge}$ & $\omega_{\rm next}$ & $0.8\Delta_+$ & $\Delta_+$ \\
     \midrule
-    0   & 0.731 & 0.713 & 0.023 & 0.828 & 0.480 \\
-    0.5 & 0.706 & 0.700 & 0.024 & 0.982 & 0.609 \\
-    1   & 0.673 & 0.675 & 0.029 & 1.116 & 0.735 \\
-    2   & 0.589 & 0.588 & 0.061 & 1.342 & 0.983 \\
-    3   & 0.503 & 0.464 & 0.162 & 1.502 & 1.253 \\
+    0   & 0.731 & 0.713 & 0     & 0.287 & 0.023 & 0.828 & 0.480 & 0.600 \\
+    0.5 & 0.706 & 0.700 & 0     & 0.300 & 0.024 & 0.982 & 0.609 & 0.762 \\
+    1   & 0.673 & 0.675 & 0     & 0.325 & 0.029 & 1.116 & 0.735 & 0.919 \\
+    2   & 0.589 & 0.588 & 0     & 0.412 & 0.061 & 1.342 & 0.983 & 1.228 \\
+    3   & 0.503 & 0.464 & 0.163 & 0.373 & 0.162 & 1.502 & 1.253 & 1.566 \\
     \bottomrule
   \end{tabular}
-  \caption{Edge weight $z_0$ at $\delta=-0.30$ for two sizes, and at $L=12$ the energy of the edge line, of the next line with non-zero weight, and the window edge.
+  \caption{Edge weight $z_0$ at $\delta=-0.30$ for two sizes.
+  At $L=12$: the weight between the window edge and $\Delta_+$, the weight at or above $\Delta_+$, the energy of the edge line and of the next line with weight, the window edge and $\Delta_+$.
+  The three weights add to one.
   For $\delta=+0.30$, $z_0=0$ at every point.
   $z_0$ is the same for every $f$ from $0.6$ to $0.9$, because the next line always lies above $0.9\Delta_+$.}
   \label{tab:z0}
 \end{table}
 
-Figure~\ref{fig:step3spectra} and Table~\ref{tab:z0} show the results.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\textwidth]{step3_z0_xi.pdf}
+  \caption{$z_0$ (left) and $\xi_W$ (right) against $V$ at $\delta=-0.30$, $L=8$ and $12$.
+  Crosses: exact values at $V=0$ and the same $L$ (Table~\ref{tab:bench}).
+  Dotted: the limits $1-r^2$ and $\xi$.
+  $\xi_W$ is fitted on $j=0,2$ at $L=8$ and $j=0,2,4$ at $L=12$.}
+  \label{fig:step3zxi}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step3_profile.pdf}
+  \caption{Profiles along the chain at $L=12$, $\delta=-0.30$.
+  Left: $z_j=W_j/(1-\langle n_j\rangle)$ of the window line; filled markers on even sites, open markers on odd sites, crosses the exact $V=0$ values $2\phi_+(j)^2$.
+  The odd sites carry the tail of the right edge state.
+  Right: $z_j$ of the next line, the second state of the $N+1$ sector.}
+  \label{fig:step3profile}
+\end{figure}
+
+\begin{table}[t]
+  \centering
+  \begin{tabular}{cccccc}
+    \toprule
+    $V$ & 0 & 0.5 & 1 & 2 & 3 \\
+    \midrule
+    $\xi_W$, $L=8$ ($j=0,2$)    & 3.1652 & 3.4101 & 3.5844 & 3.7330 & 3.6211 \\
+    $\xi_W$, $L=12$ ($j=0,2,4$) & 3.2161 & 3.2026 & 3.2042 & 3.2303 & 3.2201 \\
+    \bottomrule
+  \end{tabular}
+  \caption{$\xi_W$ at $\delta=-0.30$.
+  The $V=0$ column equals Table~\ref{tab:bench}.}
+  \label{tab:xiW}
+\end{table}
+
+Figures~\ref{fig:step3spectra}--\ref{fig:step3profile} and Tables~\ref{tab:z0} and~\ref{tab:xiW} show the results.
 \begin{itemize}
   \item For weak end bonds, adding a particle at the edge produces one line inside the window at every $V\le3$.
   For strong end bonds the window is empty.
   So the line is an edge effect, and it remains a single isolated line on this grid.
   \item Its weight falls with repulsion, from $z_0=0.713$ at $V=0$ to $0.588$ at $V=2$ and $0.464$ at $V=3$ ($L=12$).
-  The lost weight moves to lines above $\Delta_+$; at $L=12$, $V=3$ the largest of them carries $z=0.16$.
-  \item For $V\le2$ the two sizes agree to $0.006$ or better at $V>0$, while at $V=3$ they differ by $0.039$, with the longer chain lower.
-  \item At $V=0$, $z_0$ moves from $0.731$ ($L=8$) to $0.713$ ($L=12$), towards $1-r^2=0.710$.
+  \item Where the rest of the weight goes: at every point except $L=12$, $V=3$ it lies at or above $\Delta_+$.
+  At $L=12$, $V=3$ the split is $0.464$ in the window, $0.163$ between $0.8\Delta_+$ and $\Delta_+$, and $0.373$ above $\Delta_+$.
+  The $0.163$ is one line at $\omega=1.502$, below $\Delta_+=1.566$: the second state of the $N+1$ sector, Step~2's second addition level.
+  At $V=0$ this line is the lowest bulk orbital of the open chain ($\omega=0.828$); its weight is largest in the middle ($z_j=0.33$ at $j=5,6$) and $0.083$ at the ends.
+  By $V=3$ the weight in the middle has fallen to $0.063$ and at the ends has risen to $0.163$, the largest along the chain (Fig.~\ref{fig:step3profile}, right).
+  We have not established what this state is, so we do not call it a bulk state.
+  \item For $V\le2$ the two sizes agree to $0.0063$ or better at $V>0$, while at $V=3$ they differ by $0.039$, with the longer chain lower.
+  \item At $V=0$, $z_0=0.731$ ($L=8$) and $0.713$ ($L=12$), the exact values at the same size.
+  \item At $L=12$, $\xi_W$ stays between $3.203$ and $3.230$ up to $V=3$, within $0.5\%$ of its $V=0$ value $3.216$: the window weight falls while its decay along the even sites barely changes.
+  At $L=8$ the fit has only two sites, and $\xi_W$ rises to $3.73$ at $V=2$.
+  The two sizes differ by up to $0.5$, so $\xi_W(V)$ is not converged in size.
   \item The edge line sits at the addition gap of Step~2 (Table~\ref{tab:gaps}), as it should: it is the lowest state of the $N+1$ sector.
 \end{itemize}
 
 %----------------------------------------------------------------------
 \subsection{Status}
 
-For $L\le12$ and $j=0$, the edge excitation of the weak-bond chain stays a single isolated line up to $V=3$, while its weight falls from $0.71$ to $0.46$.
+For $L\le12$ and $j=0$, the edge excitation of the weak-bond chain stays a single isolated line up to $V=3$, while its weight falls from $0.713$ to $0.464$ at $L=12$, and at $L=12$ its decay length $\xi_W$ stays within $0.5\%$ of the $V=0$ value.
 Whether that line survives in longer chains, and whether $z_0$ at $V=3$ keeps falling with $L$, needs $L=16,18$ with the Lanczos spectral measure (guide item~5).
-Step~2 found that at $L=18$, $V=3$ the second addition level enters the window, so the window must be re-tested there.
-The spatial profile $W_j$ and the length $\xi_W$ (guide item~4) are not yet computed.
+There the window must be re-tested.
+At $V=3$, Step~2's second addition level falls with $L$: $\omega=1.502$ at $L=12$, outside the window for every $f\le0.9$ ($0.9\Delta_+=1.410$); $1.255$ at $L=16$, outside $0.8\Delta_+=1.185$ but inside $0.9\Delta_+=1.333$; and $1.181$ at $L=18$, inside $0.8\Delta_+=1.245$.
+At $L=12$ this level carries $z=0.163$ at $j=0$, so we must measure its weight at $j=0$ for $L=16$ and $18$: if it is not zero, $z_0$ there depends on $f$.
+$L=18$ also has a ring with odd $M=9$, whose $\Delta_+$ is larger than for even $M$ ($0.685$ at $V=0$, against $0.600$ at $L=16$), so its window edge is not on the same footing as at $L=8,12,16$.
+Not yet done: the odd-site profile, which at $V=0$ measures the far edge; the comparison of edge and centre spectra; and broadening for presentation.
 
 % \section{Step 4: dynamics of an added edge particle}
 % \section{Step 5: entropy resolved by particle number}
