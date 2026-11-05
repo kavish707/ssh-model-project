@@ -5,7 +5,7 @@
 - The localisation length is $\xi = 2/\ln(J_s/J_w)$. At $\delta = -0.30$ this gives $\xi = 3.230813126$ sites, the value quoted in the project guide.
 - The two end states split by $\Delta E \simeq 2J_s(1-r^2)\,e^{-L/\xi}$. This formula was derived here, and both its slope and prefactor were confirmed.
 - Reversing the sign of $\delta$ removes the end states but leaves the bulk bands unchanged.
-- All 37 checks in the notebook pass. One limit: the guide's supplied benchmark script was not available, so it has not been run (see [Section 7](#7-limits-and-what-was-not-tested)).
+- All 46 checks in the notebook pass. One limit: the guide's supplied benchmark script was not available, so it has not been run (see [Section 7](#7-limits-and-what-was-not-tested)).
 
 The code is in Step 1 of [`project_A.ipynb`](../project_A.ipynb). The write-up for submission is in [`report.tex`](../report.tex).
 
@@ -139,7 +139,7 @@ This makes two testable predictions: $\ln\Delta E$ against $L$ has slope $-1/\xi
 
 ### 3.4 Separating the two ends
 
-The two exact eigenstates nearest zero, $\phi_\pm$, are spread over both ends, and each one is a sum or difference of $\psi^L$ and $\psi^R$. Worse, once $\Delta E$ reaches round-off, an eigensolver may return any rotation of them.
+The two exact eigenstates nearest zero, $\phi_\pm$, are spread over both ends, and each one is a sum or difference of $\psi^L$ and $\psi^R$. Worse, once $\Delta E$ reaches round-off, an eigensolver may return any rotation of them, and the raw vectors can no longer be labelled bonding or antibonding. The subspace itself is still well defined.
 
 So we fix the rotation by diagonalising the position operator $X = \mathrm{diag}(j)$ inside $\mathrm{span}\{\phi_+, \phi_-\}$. The eigenvector with the smaller $\langle X\rangle$ is taken as $\psi^L$.
 
@@ -203,10 +203,12 @@ $$
 **Edge addition weight.** Adding a particle at site 0 can reach the empty orbital $\phi_+$, at energy $\omega = \Delta E/2 \approx 0$, while all bulk lines lie at $\omega \ge 2|\delta|$. Since $\psi^R_0 = 0$ exactly, $|\phi_+(0)|^2 = |\psi^L_0|^2/2$, and so
 
 $$
-z_0 = \frac{|\phi_+(0)|^2}{1 - \langle n_0\rangle} = |\psi^L_0|^2 \simeq 1 - r^2 .
+z_0 = \frac{|\phi_+(0)|^2}{1 - \langle n_0\rangle} = |\psi^L_0|^2 .
 $$
 
-The addition weight also decays as $W_j \propto |\psi^L_j|^2 \propto e^{-2j/\xi}$, so the spectral localisation length at $V = 0$ is $\xi_W = \xi$. These are the starting points of the Step 3 curves $z_0(V)$ and $\xi_W(V)$.
+This is exact at every $L$. The addition weight is $W_j = \phi_+(j)^2$, which equals $|\psi^L_j|^2/2$ on even sites and $|\psi^R_j|^2/2$ on odd sites, so the odd-site profile belongs to the far edge.
+
+Only as $L\to\infty$ do these become $z_0 \to 1 - r^2$ and $\xi_W \to \xi$. Those limits are not benchmarks for short chains: the starting points of the Step 3 curves $z_0(V)$ and $\xi_W(V)$ are the exact values at the same size ([Section 5.6](#56-exact-values-at-the-sizes-of-steps-2-and-3)).
 
 ---
 
@@ -227,6 +229,8 @@ Everything is in the Step 1 section of [`project_A.ipynb`](../project_A.ipynb). 
 | `XI_GUIDE` | `3.230813126` | The guide's value of $\xi$ at $\delta = -0.30$ |
 | `L_ODD_M` | `[18, 42, 62, 82]` | Open chains with odd $M$, which test $s = -1$ |
 | `L_RING_ODD` | `[10, 14, 18]` | Rings with odd $M$ (the Step 6 sizes) |
+| `L_BENCH` | `[8, 10, 12, 14, 16, 18]` | Sizes of the exact $V = 0$ reference values |
+| `F_BENCH` | `[0.6, 0.7, 0.8, 0.9]` | Edge-window factors tested at $V = 0$ |
 
 ### Functions (section 1.1 of the notebook)
 
@@ -242,6 +246,7 @@ Everything is in the Step 1 section of [`project_A.ipynb`](../project_A.ipynb). 
 | `splitting_asym(L, delta)` | Returns the formula $2J_s(1-r^2)r^{L/2}$ |
 | `splitting_sturm(L, delta)` | Returns the exact splitting in 80-digit arithmetic |
 | `bloch_bands(k, delta)` | Returns $E_\pm(k)$ |
+| `free_benchmark(L, delta)` (section 1.9) | Returns the exact $V = 0$ values at this size: $\Delta E$, $z_0$, $W_j$, $\xi_W$, same-size ring $\Delta_+$ |
 
 **The hopping matrix.** On a ring, the `% L` adds the closing bond $J_{L-1} = 1-\delta$:
 
@@ -286,7 +291,7 @@ def fit_xi(prob, n_fit):
 3. The spectrum has $M$ negative levels. So this count is $M$ for $0 < x < \varepsilon_0$ and $M+1$ just above $\varepsilon_0$, where $\varepsilon_0 = \Delta E/2$ is the smallest positive level.
 4. Bisecting on $x$ finds that step.
 
-The search uses the geometric mean because $\varepsilon_0$ can be many orders of magnitude below 1. The starting bracket is $[10^{-70}, |\delta|]$, and an `assert` confirms it contains exactly one step. The search stops when the bracket ratio is within $10^{-30}$ of 1. The `tiny` value guards against an exactly zero pivot, which really does occur at $x = 0.5$, $\delta = -0.5$:
+The search uses the geometric mean because $\varepsilon_0$ can be many orders of magnitude below 1. The starting bracket is $[10^{-70}, |\delta|]$. On short chains $\varepsilon_0$ can exceed $|\delta|$ (it is $0.185$ at $\delta = -0.15$, $L = 8$), so the upper end is raised by factors of 1.1 until the count steps, and an `assert` confirms the bracket contains exactly one step. The search stops when the bracket ratio is within $10^{-30}$ of 1. The `tiny` value guards against an exactly zero pivot, which really does occur at $x = 0.5$, $\delta = -0.5$:
 
 ```python
 def splitting_sturm(L, delta, dps=80):
@@ -302,6 +307,8 @@ def splitting_sturm(L, delta, dps=80):
             return n
 
         lo, hi = mpmath.mpf(10) ** (-dps + 10), mpmath.mpf(abs(delta))
+        while count_below(hi) == L // 2:                    # on short chains eps_0 can exceed |delta|
+            hi *= mpmath.mpf("1.1")
         assert count_below(lo) == L // 2 and count_below(hi) == L // 2 + 1
         while hi / lo - 1 > mpmath.mpf(10) ** -30:
             mid = mpmath.sqrt(lo * hi)
@@ -318,8 +325,9 @@ def splitting_sturm(L, delta, dps=80):
 | 1.4 | $\psi^L$ and fitted $\xi$ for $\delta < 0$ | 4 checks, `step1_edge_states.pdf` |
 | 1.5 | Splitting by three routes, and its slope | 7 checks, `step1_splitting.pdf` |
 | 1.6 | Ring spectrum against $E_\pm(k)$, gap, addition cost | 4 checks, `step1_ring_bands.pdf` |
-| 1.7 | The half-filling rule, $\langle n_0\rangle$, $z_0$ | 4 checks |
+| 1.7 | The half-filling rule, $\langle n_0\rangle$, $z_0$; raw eigenvectors against $\phi_\mp$ | 5 checks |
 | 1.8 | The same rule and the splitting formula at odd $M$; odd-$M$ rings | 8 checks |
+| 1.9 | Exact $V = 0$ values at $L = 8$ to 18, for Steps 2 and 3 | 8 checks |
 
 Two eigensolvers appear. `edge_pair` uses `np.linalg.eigh`, because it needs eigenvectors, while the spectrum, splitting and ring cells use `np.linalg.eigvalsh`. They use different algorithms and do not reach the same accuracy on the tiny splitting: at $L = 80$, $\delta = -0.5$, `eigvalsh` returns round-off while the eigenvectors from `eigh` still give the correct $|t|$. The "resolved" column in the table below refers to `eigvalsh`.
 
@@ -333,7 +341,7 @@ Two eigensolvers appear. `edge_pair` uses `np.linalg.eigh`, because it needs eig
 
 - For every $\delta < 0$ there are exactly two levels with $|E| < |\delta|$.
 - For every $\delta > 0$ there are none. The lowest $|E|$ is $1.001$ to $1.092$ times $2|\delta|$, which places it at the bulk band edge.
-- The two eigenstates nearest zero are each spread over both ends, as expected (panel (a) of the edge-state figure).
+- Panel (a) of the edge-state figure shows the orbitals $\phi_\mp$, built from $\psi^L$ and $\psi^R$, at $L = 40$, $\delta = -0.30$. Each is spread over both ends. The splitting there is resolved ($7.75\times10^{-6}$), and they equal the raw eigenvectors to $3\times10^{-15}$.
 - The separated left state matches $(1-r^2)e^{-2j/\xi}$ over about fourteen decades with no free parameters (panel (b)). Its total weight on odd sites is below $3\times10^{-29}$.
 
 ### 5.2 Localisation length
@@ -376,7 +384,7 @@ The splitting falls monotonically with $L$. Fitting $\ln\Delta E$ against $L$ on
 | $-0.30$ | $-0.309520$ | $-0.309520$ | $2.8\times10^{-12}$ |
 | $-0.50$ | $-0.549306$ | $-0.549306$ | $2.2\times10^{-16}$ |
 
-The full formula, prefactor included, is within $4.8\times10^{-5}$ of the exact value for all $L \ge 40$. The worst case is $\delta = -0.15$, $L = 40$. It reaches round-off for long chains and worsens on short ones: at $L = 18$ the error is $1.6\times10^{-2}$ for $\delta = -0.15$ and $8.8\times10^{-5}$ for $\delta = -0.30$.
+The full formula, prefactor included, is within $4.8\times10^{-5}$ of the exact value for all $L \ge 40$. The worst case is $\delta = -0.15$, $L = 40$. The error depends on both $L$ and $\delta$. At $L = 80$ it is $5.5\times10^{-10}$ for $\delta = -0.15$ and about $3\times10^{-15}$ for the other two $\delta$, and at $L = 120$ it is below $5\times10^{-15}$. It worsens on short chains: at $L = 18$ it is $1.6\times10^{-2}$ for $\delta = -0.15$ and $8.8\times10^{-5}$ for $\delta = -0.30$.
 
 Direct diagonalisation stops being reliable near $10^{-15}$. `eigvalsh` fails at three of the nine grid points, returning round-off of about $10^{-16}$ instead of the true value. The figure shows this floor directly. This is why the exact route was needed.
 
@@ -413,6 +421,8 @@ The problem is real, not hypothetical. At $L = 120$, $\delta = -0.5$ the eigenso
 
 The numerically computed $t$ at that point is $-3.1\times10^{-29}$. Its magnitude is close to the true value, but its sign is wrong, which is why the rule uses the analytic sign.
 
+**Raw eigenvectors have no reliable labels when the splitting is unresolved.** Section 1.7 of the notebook compares them with $\phi_\mp$ at all nine grid points. Where $\Delta E > 10^{-13}$ (six points) they agree to $6\times10^{-15}$. At the other three the raw energies are noise, with both positive in this run. Two of those three happen to give vectors close to $\phi_\mp$, but at $L = 120$, $\delta = -0.5$ they are 50% away. So these labels are only meaningful through the explicit construction.
+
 With the rule from [Section 3.6](#36-the-half-filled-state-and-the-values-at-v--0), on all nine grid points:
 
 - $\langle n_0\rangle = \tfrac12$ to $1.0\times10^{-15}$;
@@ -422,6 +432,26 @@ With the rule from [Section 3.6](#36-the-half-filled-state-and-the-values-at-v--
 For example, $z_0 = 0.710059$ at $\delta = -0.30$.
 
 **Odd $M$.** All the grid lengths have even $M$, where $s = +1$, so section 1.8 of the notebook tests $s = -1$ at $L = 18, 42, 62, 82$ for the three negative $\delta$. The numerical sign of $t$ is $-1$ at all 12 points. That includes the 2 points where `eigvalsh` does not resolve the splitting ($\delta = -0.5$ at $L = 62$ and $82$), but the check itself only counts the 10 resolved points. At those 10 points the bonding orbital also lies below the antibonding one. At all 12 points, $\langle n_0\rangle = \tfrac12$ and $z_0 = |\psi^L_0|^2$ to $1.0\times10^{-15}$. The splitting formula holds to $2.8\times10^{-5}$ for $L \ge 42$.
+
+### 5.6 Exact values at the sizes of Steps 2 and 3
+
+The many-body code has to be compared with the exact free solution at the same $L$ and boundary conditions, so section 1.9 computes it from $L\times L$ matrices. For $\delta = -0.30$:
+
+| $L$ | $\Delta E$ | $z_0$ | $z_0/(1-r^2) - 1$ | $\xi_W$ | Fit sites | Same-size ring $\Delta_+$ | Lowest bulk level |
+|---|---|---|---|---|---|---|---|
+| 8 | 0.15814 | 0.73091 | +2.94% | 3.1652 | 0, 2 | 0.6000 | 1.0429 |
+| 10 | 0.08414 | 0.71790 | +1.10% | 3.1798 | 0, 2, 4 | 0.8412 | 0.9121 |
+| 12 | 0.04511 | 0.71289 | +0.40% | 3.2161 | 0, 2, 4 | 0.6000 | 0.8281 |
+| 14 | 0.02425 | 0.71105 | +0.14% | 3.2199 | 0 to 6 | 0.7350 | 0.7720 |
+| 16 | 0.01305 | 0.71040 | +0.05% | 3.2277 | 0 to 6 | 0.6000 | 0.7334 |
+| 18 | 0.00703 | 0.71017 | +0.02% | 3.2285 | 0 to 8 | 0.6854 | 0.7059 |
+| limit | | 0.71006 | | 3.2308 | | 0.6000 | 0.6000 |
+
+The lowest bulk level is that of the open chain. $\xi_W$ is fitted on the even sites $j < L/2$, and its value depends on that choice, so a later step using other sites must refit. $W_j$ is the same on even sites as $|\psi^L_j|^2/2$, so these fits are of the exact finite-chain left state.
+
+The limits are not good enough here. The difference grows at small $|\delta|$: at $\delta = -0.15$, $L = 8$, $z_0 = 0.573$ is 26% above $1 - r^2$, and $\xi_W$ is 14% below $\xi$.
+
+**Edge window at $V = 0$.** With the same-size ring threshold, $\omega < 0.8\Delta_+$ holds exactly one line at every point. Among the factors 0.6 to 0.9 there is one exception: at $\delta = -0.15$, $L = 8$ the edge line at $\omega = 0.185$ lies outside $0.6\Delta_+ = 0.18$.
 
 ---
 
@@ -436,7 +466,7 @@ Each derivation is paired with a separate numerical calculation:
 | $E_\pm(k)$, gap, addition cost | Direct diagonalisation of the ring matrix |
 | $\langle n_j\rangle = \tfrac12$, $z_0 = \lvert\psi^L_0\rvert^2$ | Direct sum over filled orbitals |
 
-The notebook runs 37 checks, printed as `[pass]` or `[FAIL]`. All pass. "Exact" means the check is a yes/no or integer comparison.
+The notebook runs 46 checks, printed as `[pass]` or `[FAIL]`. All pass. "Exact" means the check is a yes/no or integer comparison.
 
 | Notebook section | Check | Largest deviation | Tolerance |
 |---|---|---|---|
@@ -471,6 +501,15 @@ The notebook runs 37 checks, printed as `[pass]` or `[FAIL]`. All pass. "Exact" 
 | 1.8 | Odd-$M$ rings: spectrum against $E_\pm(k)$ | $2.2\times10^{-15}$ | $10^{-12}$ |
 | 1.8 | Odd-$M$ rings: gap equals $2\min_k E_+(k)$ | $2.2\times10^{-15}$ | $10^{-12}$ |
 | 1.8 | Odd-$M$ rings: gap $> 4\lvert\delta\rvert$ | exact | exact |
+| 1.7 | Raw eigenvectors $= \phi_\mp$ where $\Delta E > 10^{-13}$ | $5.3\times10^{-15}$ | $10^{-12}$ |
+| 1.9 | $L = 8$ to 18: $\langle n_j\rangle = \tfrac12$ | $8.9\times10^{-16}$ | $10^{-12}$ |
+| 1.9 | $W_j = \lvert\psi^{L,R}_j\rvert^2/2$ | $3.3\times10^{-16}$ | $10^{-12}$ |
+| 1.9 | $z_0 = \lvert\psi^L_0\rvert^2$ at the same $L$ | $7.8\times10^{-16}$ | $10^{-12}$ |
+| 1.9 | Sturm splitting against dense (relative) | $3.6\times10^{-13}$ | $10^{-9}$ |
+| 1.9 | $\Delta_+$ of the same-size ring, even and odd $M$ | $1.1\times10^{-15}$ | $10^{-12}$ |
+| 1.9 | One line in the window at $f = 0.8$ | exact | exact |
+| 1.9 | $z_0 \to 1 - r^2$ monotonically; $\xi_W$ closer to $\xi$ at $L = 18$ than at $L = 8$ | exact | exact |
+| 1.9 | Negative control: $\lvert z_0 - (1 - r^2)\rvert > 10^{-2}$ at $L = 8$, $\delta = -0.30$ | $2.1\times10^{-2}$ | must exceed $10^{-2}$ |
 
 The $10^{-3}$ tolerances are deliberately loose: they cover the known finite-size error at $L/\xi = 6$, not numerical noise.
 
@@ -483,7 +522,7 @@ The $10^{-3}$ tolerances are deliberately loose: they cover the known finite-siz
 - **Guide benchmark not run.** The guide mentions `checks/benchmark_checks.py` and `checks/benchmark_results.json`, but they were not in the available files. The only comparison with the guide's numbers is the quoted $\xi = 3.230813126$.
 - **The results $4|\delta|$ and $2|\delta|$ apply only to rings with $L$ divisible by 4.** The Step 6 rings have odd $M$ and larger gaps ([Section 5.4](#54-ring)).
 - **The sign rule rests on the analytic argument where the splitting is unresolved.** Numerically it can only be confirmed where $t$ is above round-off. It is a chosen convention at those points, not a measured result.
-- **The $V = 0$ values for $\langle n_j\rangle$, $z_0$ and $\xi_W$ were not tested in a many-body code.** $\langle n_0\rangle$ and $z_0$ were computed from orbitals at site 0 only, and $\xi_W$ is a prediction. Testing them is a task for Steps 2 and 3.
+- **The exact $V = 0$ values in [Section 5.6](#56-exact-values-at-the-sizes-of-steps-2-and-3) come from $L\times L$ matrices.** Comparing them with a many-body code is a task for Steps 2 and 3.
 - **The size estimate in [Section 5.2](#52-localisation-length) is order-of-magnitude only.**
 - **The derived splitting formula is leading order.** It is accurate on the long chains tested here but less so on the short chains used in Step 2. Those short chains also have a much larger splitting: at $\delta = -0.30$, $L = 18$, $\Delta E = 7.0\times10^{-3}$. The two end states there are not close to degenerate on the scale of a converged eigensolver.
 
@@ -500,7 +539,7 @@ The $10^{-3}$ tolerances are deliberately loose: they cover the known finite-siz
 **What later steps need from this:**
 
 1. **An explicit ground-state rule.** Once the end pair is nearly degenerate, the half-filled state must be selected deliberately, or edge observables change by order one. The guide's Step 2 warns about this same problem for the interacting chain.
-2. **Values to reproduce at $V = 0$:** $\langle n_j\rangle = \tfrac12$, $z_0 = 1 - r^2$ (up to finite size) and $\xi_W = \xi$. If the many-body code misses these, it is wrong.
+2. **Values to reproduce at $V = 0$:** the exact free solution at the same $L$ and boundary conditions ([Section 5.6](#56-exact-values-at-the-sizes-of-steps-2-and-3)), meaning $\langle n_j\rangle = \tfrac12$, $z_0 = |\psi^L_0|^2$, and $\xi_W$ fitted on the same sites. If the many-body code misses these, it is wrong. $1 - r^2$ and $\xi$ are only the $L\to\infty$ limits.
 3. **The bulk threshold:** at $V = 0$, $\Delta_+ = 2|\delta|$ for rings with $L$ divisible by 4, and half the larger gap in [Section 5.4](#54-ring) for odd $M$. This sets the edge window in Step 3, so a threshold should be quoted with its ring size.
 4. **Fit windows must stay away from the far edge.** The error scales as $r^{L-2\ell}$. This matters more in Steps 2 and 3, where chains are much shorter.
 
@@ -510,4 +549,4 @@ The $10^{-3}$ tolerances are deliberately loose: they cover the known finite-siz
 
 1. Use an environment with `numpy`, `pandas`, `matplotlib`, `mpmath` and `ipykernel`. These results came from Python 3.12.3, NumPy 2.5.2, pandas 3.0.5, Matplotlib 3.11.1 and mpmath 1.3.0.
 2. Open [`project_A.ipynb`](../project_A.ipynb) and run all cells from the top.
-3. The last Step 1 cell should print `Step 1: 37/37 checks passed`. Figures are written to [`figures/`](../figures/).
+3. The last Step 1 cell should print `Step 1: 46/46 checks passed`. Figures are written to [`figures/`](../figures/).

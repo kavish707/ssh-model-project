@@ -61,8 +61,8 @@ Normalising with $\sum_\ell r^{2\ell}=1/(1-r^2)$ gives
 \end{equation}
 The amplitude falls by $r$ per two-site cell, which is the origin of the factor 2 in $\xi$.
 For $\delta>0$ the same recursion gives $\psi_{2\ell}\propto(-1/r)^\ell$, which cannot be normalised, so there is no zero mode at a strong end bond.
-On a finite chain the two states nearest $E=0$ are spread over both ends.
-To isolate the left-edge state we diagonalised the position operator $X$ within their two-dimensional subspace.
+On a finite chain the exact eigenstates nearest $E=0$ are spread over both ends, and once their splitting is below round-off a numerical eigensolver returns an arbitrary rotation of them.
+Their two-dimensional subspace stays well defined, so to isolate the left-edge state we diagonalised the position operator $X$ within it.
 As an independent check, we also diagonalised the chiral operator $\Gamma=\mathrm{diag}((-1)^j)$ in the same subspace.
 We then fitted $\ln|\psi_j|^2$ against $j$ on the first $n_{\rm fit}\in\{6,8,10\}$ even sites.
 The two edge states hybridise and split.
@@ -127,7 +127,8 @@ The two dimerisations have identical bulk spectra, so the edge state found above
 \begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth]{step1_edge_states.pdf}
-  \caption{(a) The two eigenstates nearest zero ($\delta=-0.30$, $L=40$) are bonding and antibonding combinations of the two ends.
+  \caption{(a) The bonding and antibonding orbitals $\phi_\mp$ of Eq.~\eqref{eq:convention} ($\delta=-0.30$, $L=40$).
+  At this size the splitting is resolved ($\Delta E = 7.75\times10^{-6}$), and they equal the numerical eigenvectors nearest zero to $3\times10^{-15}$.
   (b) The left-edge state for $L=80$ (points) against Eq.~\eqref{eq:xi} with no free parameters (lines).
   The shading marks the fit window.}
   \label{fig:edge}
@@ -138,7 +139,7 @@ For every $\delta<0$ there are exactly two levels with $|E|<|\delta|$, and for e
 The left-edge state agrees with Eq.~\eqref{eq:xi} over fourteen decades, and its odd-site weight is below $10^{-28}$ (Fig.~\ref{fig:edge}).
 The $X$ and $\Gamma$ constructions give the same state to $6\times10^{-15}$.
 Table~\ref{tab:xi} lists the fitted lengths.
-At $\delta=-0.30$ the fit reproduces $\xi = 3.230813126$ to $10^{-15}$ for $L\ge80$.
+At $\delta=-0.30$ the fit reproduces $\xi = 3.230813126$ to $3\times10^{-15}$ for $L\ge80$.
 
 The one visible deviation is $3.7\times10^{-4}$, at $\delta=-0.15$, $L=40$, where $L/\xi = 6$.
 It grows with $n_{\rm fit}$, so it comes from the opposite edge and not from the fit.
@@ -154,7 +155,7 @@ It falls rapidly with $L$: at the same $\delta$ it is $2\times10^{-9}$ at $L=80$
     \toprule
     $\delta$ & $L$ & $\xi_{\rm fit}$ ($n_{\rm fit}=10$) &
     \multicolumn{3}{c}{$(\xi_{\rm fit}-\xi)/\xi$ for $n_{\rm fit} = 6,\ 8,\ 10$} &
-    $\Delta E$ (exact) & resolved by \texttt{eigh}? \\
+    $\Delta E$ (exact) & resolved by \texttt{eigvalsh}? \\
     \midrule
     $-0.15$ & 40  & 6.613912628 & $-6.0\times10^{-5}$  & $-1.5\times10^{-4}$  & $-3.7\times10^{-4}$  & $2.4713\times10^{-3}$  & yes \\
     $-0.15$ & 80  & 6.616363065 & $-3.4\times10^{-10}$ & $-8.3\times10^{-10}$ & $-2.1\times10^{-9}$  & $5.8523\times10^{-6}$  & yes \\
@@ -172,7 +173,7 @@ It falls rapidly with $L$: at the same $\delta$ it is $2\times10^{-9}$ at $L=80$
   \caption{Fitted localisation length and end-pair splitting.
   Exact values: $\xi = 6.616363079$, $3.230813126$, $1.820478453$ for $|\delta| = 0.15,\,0.30,\,0.50$.
   $\Delta E$ (exact) is from the 80-digit Sturm bisection.
-  ``Resolved'' means dense diagonalisation agrees with it to $10^{-6}$.}
+  ``Resolved'' means dense diagonalisation with \texttt{eigvalsh} agrees with it to $10^{-6}$.}
   \label{tab:xi}
 \end{table}
 
@@ -194,7 +195,9 @@ It falls rapidly with $L$: at the same $\delta$ it is $2\times10^{-9}$ at $L=80$
 The splitting falls monotonically with $L$ (Fig.~\ref{fig:split}, left).
 Fitting $\ln\Delta E$ against $L$ for $L\ge40$ gives slopes $-0.151141$, $-0.309520$ and $-0.549306$.
 The predicted values $-1/\xi$ are $-0.151140$, $-0.309520$ and $-0.549306$.
-The full formula, Eq.~\eqref{eq:splitting}, agrees with the exact values to within $5\times10^{-5}$ at $L=40$, and to round-off for $L\ge80$.
+Equation~\eqref{eq:splitting} is a leading-order result, and its relative error depends on both $L$ and $\delta$.
+It is at most $4.8\times10^{-5}$ at $L=40$, and at $L=80$ it is $5.5\times10^{-10}$ for $\delta=-0.15$ and about $3\times10^{-15}$ for the other two $\delta$.
+At $L=120$ it is below $5\times10^{-15}$, while on short chains it grows, reaching $1.6\times10^{-2}$ at $\delta=-0.15$, $L=18$.
 Dense diagonalisation cannot resolve splittings below about $10^{-15}$, so it fails at three grid points (Table~\ref{tab:xi}).
 
 \paragraph{Ring.}
@@ -205,9 +208,9 @@ On the odd-$M$ rings $L=10,14,18$ the spectrum also matches Eq.~\eqref{eq:bands}
 
 \paragraph{Choosing the half-filled ground state.}
 At half filling exactly one of the end pair is occupied.
-Where the splitting is unresolved, the eigensolver returns $\psi^L$ and $\psi^R$ in arbitrary order, so ``fill the lowest $N$ orbitals'' becomes ill-defined.
-At $L=120$, $\delta=-0.5$, filling the wrong state moves $\langle n_0\rangle$ away from $\tfrac12$ by order one.
-In that case the numerically computed $t$ also has the wrong sign.
+Where the splitting is unresolved, the eigensolver returns an arbitrary rotation of the pair, so the raw eigenvectors cannot be identified as bonding and antibonding, and ``fill the lowest $N$ orbitals'' becomes ill-defined.
+In this run the two raw eigenvalues at $L=120$, $\delta=-0.30$ are both positive, and at $L=120$, $\delta=-0.5$ the raw vectors are $\psi^L$ and $\psi^R$ themselves.
+Filling the lower one at that last point gives $\langle n_0\rangle = 0.944$ instead of $\tfrac12$, and the numerically computed $t$ also has the wrong sign.
 We therefore fix the convention analytically: fill the bonding orbital
 \begin{equation}
   \phi_- = \tfrac{1}{\sqrt2}\big(\psi^L - s\,\psi^R\big),\qquad s = \operatorname{sgn}t = (-1)^{L/2},
@@ -215,8 +218,42 @@ We therefore fix the convention analytically: fill the bonding orbital
 \end{equation}
 with $\psi^L_0>0$ and $\psi^R_{L-1}>0$.
 The numerical sign of $t$ agrees with $(-1)^{L/2}$ at every point where the splitting is resolved, for both even $L/2$ (the grid) and odd $L/2$ ($L=18,42,62,82$).
+Where $\Delta E>10^{-13}$ (six of the nine grid points), the raw eigenvectors equal $\phi_\mp$ to $6\times10^{-15}$.
 With this convention, $\langle n_0\rangle = \tfrac12$ to $10^{-15}$ on every grid point.
-The edge addition weight is then $z_0 = |\phi_+(0)|^2/(1-\langle n_0\rangle) = |\psi^L_0|^2$ to round-off, and $z_0$ agrees with $1-r^2$ to $4\times10^{-5}$.
+The edge addition weight is then $z_0 = |\phi_+(0)|^2/(1-\langle n_0\rangle) = |\psi^L_0|^2$ to round-off, and on these long chains $z_0$ agrees with $1-r^2$ to $4\times10^{-5}$.
+
+\paragraph{Exact values at the sizes of Steps~2 and~3.}
+At $L\le18$ the limits $z_0\to1-r^2$ and $\xi_W\to\xi$ are not accurate enough to test a many-body code, so we computed the exact free solution at each size from $L\times L$ matrices (Table~\ref{tab:bench}).
+The edge line is the empty orbital $\phi_+$ at $\omega=\Delta E/2$, so $W_j=\phi_+(j)^2$, which is $|\psi^L_j|^2/2$ on even sites and $|\psi^R_j|^2/2$ on odd sites.
+The odd-site profile therefore belongs to the far edge.
+$\xi_W$ comes from a fit on the even sites $j<L/2$, and its value depends on that choice.
+$z_0$ approaches $1-r^2$ monotonically with $L$ at each $\delta$.
+The difference is largest at small $|\delta|$: at $\delta=-0.15$, $L=8$, $z_0=0.573$ is $26\%$ above $1-r^2$.
+With the same-size ring threshold, the window $\omega<0.8\Delta_+$ holds exactly one line at every point.
+The one exception among the factors $0.6$ to $0.9$ is $\delta=-0.15$, $L=8$, where the edge line at $\omega=0.185$ lies outside $0.6\Delta_+=0.18$.
+
+\begin{table}[h]
+  \centering
+  \footnotesize
+  \begin{tabular}{rlrllll}
+    \toprule
+    $L$ & $\Delta E$ & $z_0$ & $z_0/(1-r^2)-1$ & $\xi_W$ (fit sites) & $\Delta_+$ & lowest bulk level \\
+    \midrule
+    8  & 0.15814 & 0.73091 & $+2.94\%$ & 3.1652 ($j=0,2$) & 0.6000 & 1.0429 \\
+    10 & 0.08414 & 0.71790 & $+1.10\%$ & 3.1798 ($j=0,2,4$) & 0.8412 & 0.9121 \\
+    12 & 0.04511 & 0.71289 & $+0.40\%$ & 3.2161 ($j=0,2,4$) & 0.6000 & 0.8281 \\
+    14 & 0.02425 & 0.71105 & $+0.14\%$ & 3.2199 ($j=0,\dots,6$) & 0.7350 & 0.7720 \\
+    16 & 0.01305 & 0.71040 & $+0.05\%$ & 3.2277 ($j=0,\dots,6$) & 0.6000 & 0.7334 \\
+    18 & 0.00703 & 0.71017 & $+0.02\%$ & 3.2285 ($j=0,\dots,8$) & 0.6854 & 0.7059 \\
+    \midrule
+    $\infty$ & -- & 0.71006 & -- & 3.2308 & 0.6000 & 0.6000 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Exact free solution at $\delta=-0.30$, $V=0$, at the same size and boundary conditions as the many-body runs.
+  $\Delta_+$ is the ring of the same $L$ and the lowest bulk level is that of the open chain.
+  The last row gives the limits.}
+  \label{tab:bench}
+\end{table}
 
 \begin{table}[h]
   \centering
@@ -238,9 +275,14 @@ The edge addition weight is then $z_0 = |\phi_+(0)|^2/(1-\langle n_0\rangle) = |
     Odd $L/2$ ($L=18,42,62,82$): $\operatorname{sgn}t = -1$ and bonding below antibonding where resolved; $\langle n_0\rangle = \tfrac12$; $z_0 = |\psi^L_0|^2$ & $1.0\times10^{-15}$ \\
     Odd $L/2$: Eq.~\eqref{eq:splitting} against exact splitting, $L\ge40$ (relative) & $2.8\times10^{-5}$ \\
     Odd-$M$ rings ($L=10,14,18$): spectrum $=E_\pm(k)$; gap $=2\min_k E_+(k) > 4|\delta|$ & $2.2\times10^{-15}$ \\
+    Raw eigenvectors $=\phi_\mp$ where $\Delta E>10^{-13}$ ($1-$fidelity) & $5.3\times10^{-15}$ \\
+    $L=8$ to $18$: $\langle n_j\rangle=\tfrac12$; $W_j=|\psi^{L,R}_j|^2/2$; $z_0=|\psi^L_0|^2$ & $8.9\times10^{-16}$ \\
+    $L=8$ to $18$: Sturm splitting against dense (relative); $\Delta_+$ of the same-size ring & $3.6\times10^{-13}$; $1.1\times10^{-15}$ \\
+    $L=8$ to $18$: one line in the window at $f=0.8$; $z_0\to1-r^2$ monotonically; $\xi_W$ closer to $\xi$ at $L=18$ than at $L=8$ & exact \\
+    Negative control: $|z_0-(1-r^2)|>10^{-2}$ at $L=8$, $\delta=-0.30$ & $2.1\times10^{-2}$ \\
     \bottomrule
   \end{tabular}
-  \caption{Step 1 validation: 37 checks in the notebook, all passed.}
+  \caption{Step 1 validation: 46 checks in the notebook, all passed.}
   \label{tab:checks1}
 \end{table}
 
@@ -251,13 +293,14 @@ The free edge problem is solved and verified.
 \begin{itemize}
   \item The edge state is the analytic zero mode, Eq.~\eqref{eq:xi}, to round-off once $L/\xi\gtrsim25$.
   At smaller $L/\xi$ the only correction comes from the opposite edge, and its size is predicted.
-  \item The end pair splits by $2\Js(1-r^2)e^{-L/\xi}$, with slope and prefactor both confirmed.
+  \item At leading order the end pair splits by $2\Js(1-r^2)e^{-L/\xi}$, with slope and prefactor both confirmed; its error depends on $L$ and $\delta$ as given above.
   \item Reversing $\delta$ removes the end pair while leaving the bulk spectrum unchanged.
   The edge state is therefore a property of how the bulk is terminated, not of the bulk energies.
 \end{itemize}
 Two results carry into the interacting problem.
 First, once the splitting drops below round-off, the half-filled ground state must be selected by an explicit rule, Eq.~\eqref{eq:convention}; otherwise edge observables change at order one.
-Second, the many-body calculation must reproduce the $V=0$ values $\langle n_j\rangle = \tfrac12$, $z_0 = 1-r^2$ and $\xi_W = \xi$, with bulk addition threshold $\Delta_+ = 2|\delta|$ on rings with $L$ divisible by 4 and half the larger gap above on odd-$M$ rings.
+Second, at $V=0$ the many-body calculation must reproduce the exact free solution at the same $L$ and boundary conditions (Table~\ref{tab:bench}): $\langle n_j\rangle = \tfrac12$, $z_0 = |\psi^L_0|^2$, $\xi_W$ fitted on the same sites, and $\Delta_+$ of the same-size ring, which is $2|\delta|$ only when $L$ is divisible by 4.
+The expressions $1-r^2$ and $\xi$ are the $L\to\infty$ limits of $z_0$ and $\xi_W$, not small-system benchmarks.
 
 %======================================================================
 \section{Step 2: a many-body calculation we can trust}

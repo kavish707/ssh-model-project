@@ -9,10 +9,10 @@
   "res_tol_small": 1e-10,
   "res_tol_prod": 1e-09,
   "command": "jupyter nbconvert --to notebook --execute --inplace project_A.ipynb",
-  "python": "3.12.14",
-  "numpy": "2.5.4",
-  "scipy": "1.18.1",
-  "pandas": "3.1.0",
-  "matplotlib": "3.11.2",
-  "mpmath": "1.4.1"
+  "python": "3.12.3",
+  "numpy": "2.5.2",
+  "scipy": "1.18.0",
+  "pandas": "3.0.5",
+  "matplotlib": "3.11.1",
+  "mpmath": "1.3.0"
 }
