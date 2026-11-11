@@ -96,15 +96,15 @@ Step 2 verified the matrices and $c_j^\dagger$. What is new is how they are put 
 
 | Id | What | Worst deviation | Independent of the new code because |
 |---|---|---|---|
-| A1 | sum rule $=\tfrac12$, every site, $L = 8, 12$, both $\delta$, every $V$ | $1.4\times10^{-13}$ | exact identity; fails if $\Omega$, $c^\dagger$ or the eigenbasis is wrong |
+| A1 | sum rule $=\tfrac12$, every site, $L = 8, 12$, both $\delta$, every $V$ | $3.2\times10^{-13}$ | exact identity; fails if $\Omega$, $c^\dagger$ or the eigenbasis is wrong |
 | A2 | $L = 2$: one line at $\omega = J_0 + V/2$, weight $\tfrac12$ | $8.9\times10^{-16}$ | derived by hand: $E_0 = -V/4 - J_0$, $E(\lvert 11\rangle) = V/4$; tests $V \neq 0$ |
-| A3 | $V = 0$: lines at the empty orbital energies with weights $\phi_n(j)^2$, nothing elsewhere, every site | $4.9\times10^{-14}$ | uses only the $L\times L$ hopping matrix of Step 1 |
-| A4 | $V = 0$: $z_0 = \lvert\psi^L_0\rvert^2$ at the same $L$ | $2.8\times10^{-14}$ | Step 1's separated left edge state |
+| A3 | $V = 0$: lines at the empty orbital energies with weights $\phi_n(j)^2$, nothing elsewhere, every site | $6.1\times10^{-14}$ | uses only the $L\times L$ hopping matrix of Step 1 |
+| A4 | $V = 0$: $z_0 = \lvert\psi^L_0\rvert^2$ at the same $L$ | $3.5\times10^{-14}$ | Step 1's separated left edge state |
 | A5 | one line with weight at $j = 0$ in the window for $\delta = -0.30$, none for $+0.30$, every $V$ and $f$ | exact | a result as well as a check: the window is isolated |
 | A6 | one eigenstate of sector $N+1$ in the window for $\delta = -0.30$, whatever its weight, none for $+0.30$, every $V$ and $f$ | exact | so $W_j$ is the profile of one state |
-| A7 | $V = 0$: $W_j = \phi_+(j)^2$ at every site, same $L$ | $5.2\times10^{-14}$ | Step 1's antibonding orbital, $L\times L$ matrix only |
-| A8 | $V = 0$: $\xi_W$ = `BENCH[(L, delta)]["xi_W"]`, same fit sites (relative) | $8.9\times10^{-16}$ | Step 1's `free_benchmark` |
-| A9 | $L = 4, 6$: lines and weights = full-Fock-space calculation, both $\delta$, every $V$ and site | $7.1\times10^{-15}$ | separate construction, no Step 2 code; ground state unique there (smallest gap 0.303) |
+| A7 | $V = 0$: $W_j = \phi_+(j)^2$ at every site, same $L$ | $6.4\times10^{-14}$ | Step 1's antibonding orbital, $L\times L$ matrix only |
+| A8 | $V = 0$: $\xi_W$ = `BENCH[(L, delta)]["xi_W"]`, same fit sites (relative) | $1.9\times10^{-15}$ | Step 1's `free_benchmark` |
+| A9 | $L = 4, 6$: lines and weights = full-Fock-space calculation, both $\delta$, every $V$ and site | $8.9\times10^{-15}$ | separate construction, no Step 2 code; ground state unique there (smallest gap 0.303) |
 
 A9 prints the $L = 4$ lines at $j = 0$, $\delta = -0.30$: weights $0.4201, 0.0799$ at $V = 0$ and $0.3723, 0.1194, 0.0067, 0.0016$ at $V = 2$.
 

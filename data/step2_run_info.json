@@ -10,7 +10,7 @@
   "res_tol_prod": 1e-09,
   "reproduce_command": "jupyter nbconvert --to notebook --execute --inplace project_A.ipynb",
   "versions_note": "versions of the run that wrote this file; requirements.txt pins the official ones",
-  "python": "3.12.3",
+  "python": "3.12.16",
   "numpy": "2.5.4",
   "scipy": "1.18.1",
   "pandas": "3.1.0",
