@@ -1,15 +1,15 @@
 check,passed,worst_deviation
-"S3 A1: sum rule sum_m w_jm = 1/2, every site, L = 8, 12, both delta, every V",True,1.431e-13
+"S3 A1: sum rule sum_m w_jm = 1/2, every site, L = 8, 12, both delta, every V",True,3.243e-13
 "S3 A2: L = 2 closed form, omega = J_0 + V/2 and w = 1/2",True,8.882e-16
-"S3 A3: V = 0 lines and weights = empty orbitals phi_n(j)^2, every site",True,4.929e-14
-"S3 A4: z_0 = |psi^L_0|^2 at V = 0, same L (Step 1)",True,2.776e-14
+"S3 A3: V = 0 lines and weights = empty orbitals phi_n(j)^2, every site",True,6.128e-14
+"S3 A4: z_0 = |psi^L_0|^2 at V = 0, same L (Step 1)",True,3.486e-14
 "S3 A5: one line with weight at j = 0 in the window for delta = -0.30, none for +0.30, every V and f",True,
 "S3 A6: one eigenstate of sector N+1 in the window for delta = -0.30 (any weight), none for +0.30, every V and f",True,
-"S3 A7: V = 0 profile W_j = phi_+(j)^2 at every site (Step 1 antibonding orbital, same L)",True,5.179e-14
-"S3 A8: V = 0 xi_W = Step 1 same-size value BENCH (even sites j < L/2), relative",True,8.882e-16
-"S3 A9: L = 4, 6: lines and weights = independent full-Fock-space calculation, both delta, every V and site",True,7.105e-15
+"S3 A7: V = 0 profile W_j = phi_+(j)^2 at every site (Step 1 antibonding orbital, same L)",True,6.389e-14
+"S3 A8: V = 0 xi_W = Step 1 same-size value BENCH (even sites j < L/2), relative",True,1.887e-15
+"S3 A9: L = 4, 6: lines and weights = independent full-Fock-space calculation, both delta, every V and site",True,8.882e-15
 "S3 A10: L = 12 Lanczos (100/200/400 vectors) = full spectrum: window weight every f, lowest three lines",True,1.243e-14
 "S3 A11: L = 16, 18: window weight converged in the number of Lanczos vectors (100, 200 vs 400)",True,0.000e+00
-"S3 A12: L = 16, 18, V = 0: z_0 and the whole profile W_j = Step 1 same-size values (BENCH)",True,2.850e-12
-"S3 A13: L = 16, 18: lowest and second line at j = 0 = Step 2 addition gap and second addition level",True,5.951e-14
+"S3 A12: L = 16, 18, V = 0: z_0 and the whole profile W_j = Step 1 same-size values (BENCH)",True,1.152e-12
+"S3 A13: L = 16, 18: lowest and second line at j = 0 = Step 2 addition gap and second addition level",True,6.306e-14
 "S3 A14: L = 16, 18, delta = +0.30: no line in the window, every V and f",True,

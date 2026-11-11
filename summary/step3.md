@@ -111,8 +111,8 @@ Step 2 verified the matrices and $c_j^\dagger$. What is new is how they are put 
 | A9 | $L = 4, 6$: lines and weights = full-Fock-space calculation, both $\delta$, every $V$ and site | $8.9\times10^{-15}$ | separate construction, no Step 2 code |
 | A10 | $L = 12$: Lanczos with 100, 200, 400 vectors = full spectrum (window weight every $f$, lowest three lines and weights), both $\delta$, every $V$ | $1.2\times10^{-14}$ | the full spectrum of A1–A9 |
 | A11 | $L = 16, 18$: window weight with 100 and 200 vectors = with 400, every point and $f$; 200-vector profile = 400 at $j = 0$ | $0$ | convergence in the number of vectors |
-| A12 | $L = 16, 18$, $V = 0$: $z_0$ and the whole $W_j$ = Step 1 same-size values | $2.9\times10^{-12}$ | Step 1's `free_benchmark` |
-| A13 | $L = 16, 18$: lowest and second line at $j = 0$ = Step 2's `add_gap` and `add_gap + add_level1_gap` | $6.0\times10^{-14}$ | Step 2's own eigenvalues (`data/step2_grid.csv`) |
+| A12 | $L = 16, 18$, $V = 0$: $z_0$ and the whole $W_j$ = Step 1 same-size values | $1.2\times10^{-12}$ | Step 1's `free_benchmark` |
+| A13 | $L = 16, 18$: lowest and second line at $j = 0$ = Step 2's `add_gap` and `add_gap + add_level1_gap` | $6.3\times10^{-14}$ | Step 2's own eigenvalues (`data/step2_grid.csv`) |
 | A14 | $L = 16, 18$, $\delta = +0.30$: window empty, every $V$ and $f$ | exact | the control |
 
 A9 prints the $L = 4$ lines at $j = 0$, $\delta = -0.30$: weights $0.4201, 0.0799$ at $V = 0$ and $0.3723, 0.1194, 0.0067, 0.0016$ at $V = 2$.
