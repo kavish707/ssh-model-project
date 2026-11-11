@@ -352,12 +352,12 @@ Fractional errors are $(\xi_\text{fit} - \xi)/\xi$. $\Delta E$ (exact) comes fro
 |---|---|---|---|---|---|---|---|
 | $-0.15$ | 40 | 6.613912628 | $-6.0\times10^{-5}$ | $-1.5\times10^{-4}$ | $-3.7\times10^{-4}$ | $2.4713\times10^{-3}$ | yes |
 | $-0.15$ | 80 | 6.616363065 | $-3.4\times10^{-10}$ | $-8.3\times10^{-10}$ | $-2.1\times10^{-9}$ | $5.8523\times10^{-6}$ | yes |
-| $-0.15$ | 120 | 6.616363079 | $-1.5\times10^{-15}$ | $-4.8\times10^{-15}$ | $-1.2\times10^{-14}$ | $1.3860\times10^{-8}$ | yes |
+| $-0.15$ | 120 | 6.616363079 | $-1.7\times10^{-15}$ | $-5.0\times10^{-15}$ | $-1.2\times10^{-14}$ | $1.3860\times10^{-8}$ | yes |
 | $-0.30$ | 40 | 3.230812682 | $-2.3\times10^{-9}$ | $-1.7\times10^{-8}$ | $-1.4\times10^{-7}$ | $7.7511\times10^{-6}$ | yes |
-| $-0.30$ | 80 | 3.230813126 | $0$ | $1.6\times10^{-15}$ | $2.6\times10^{-15}$ | $3.2543\times10^{-11}$ | yes |
-| $-0.30$ | 120 | 3.230813126 | $1.4\times10^{-15}$ | $1.4\times10^{-16}$ | $-4.1\times10^{-16}$ | $1.3663\times10^{-16}$ | no |
+| $-0.30$ | 80 | 3.230813126 | $0$ | $1.8\times10^{-15}$ | $2.6\times10^{-15}$ | $3.2543\times10^{-11}$ | yes |
+| $-0.30$ | 120 | 3.230813126 | $1.2\times10^{-15}$ | $1.4\times10^{-16}$ | $-4.1\times10^{-16}$ | $1.3663\times10^{-16}$ | no |
 | $-0.50$ | 40 | 1.820478453 | $-2.4\times10^{-16}$ | $-3.2\times10^{-14}$ | $-1.7\times10^{-12}$ | $7.6479\times10^{-10}$ | yes |
-| $-0.50$ | 80 | 1.820478453 | $3.7\times10^{-16}$ | $2.4\times10^{-16}$ | $2.4\times10^{-16}$ | $2.1934\times10^{-19}$ | no |
+| $-0.50$ | 80 | 1.820478453 | $6.1\times10^{-16}$ | $2.4\times10^{-16}$ | $2.4\times10^{-16}$ | $2.1934\times10^{-19}$ | no |
 | $-0.50$ | 120 | 1.820478453 | $0$ | $-2.4\times10^{-16}$ | $0$ | $6.2906\times10^{-29}$ | no |
 
 The fit reproduces the formula to round-off on long chains. The largest error, $3.7\times10^{-4}$, is at $\delta = -0.15$, $L = 40$, where $L/\xi$ is only 6.
@@ -396,14 +396,14 @@ Over the whole grid (all $L$ divisible by 4), the sorted ring eigenvalues match 
 
 | Quantity | Largest deviation |
 |---|---|
-| Spectrum against $E_\pm(k)$ | $4.9\times10^{-15}$ |
-| Gap against $4\lvert\delta\rvert$ | $1.6\times10^{-15}$ |
-| Addition cost against $2\lvert\delta\rvert$ | $7.8\times10^{-16}$ |
-| Spectrum at $+\delta$ against $-\delta$ | $3.8\times10^{-15}$ |
+| Spectrum against $E_\pm(k)$ | $5.6\times10^{-15}$ |
+| Gap against $4\lvert\delta\rvert$ | $1.1\times10^{-15}$ |
+| Addition cost against $2\lvert\delta\rvert$ | $5.6\times10^{-16}$ |
+| Spectrum at $+\delta$ against $-\delta$ | $5.3\times10^{-15}$ |
 
 In the figure, ring eigenvalues are given momenta by matching sorted lists. That assignment is only for plotting; the check itself compares sorted eigenvalues.
 
-**Odd-$M$ rings.** On the rings $L = 10, 14, 18$ the spectrum also matches $E_\pm(k)$ to $2.2\times10^{-15}$, and the gap equals $2\min_k E_+(k)$ to the same accuracy. The gap can be far above $4|\delta|$ on these small rings, and the excess is largest at small $|\delta|$:
+**Odd-$M$ rings.** On the rings $L = 10, 14, 18$ the spectrum also matches $E_\pm(k)$ to $3.1\times10^{-15}$, and the gap equals $2\min_k E_+(k)$ to $4.4\times10^{-15}$. The gap can be far above $4|\delta|$ on these small rings, and the excess is largest at small $|\delta|$:
 
 | $\lvert\delta\rvert$ | $4\lvert\delta\rvert$ | Gap, $L = 10$ | Gap, $L = 14$ | Gap, $L = 18$ |
 |---|---|---|---|---|
@@ -421,7 +421,7 @@ The problem is real, not hypothetical. At $L = 120$, $\delta = -0.5$ the eigenso
 
 The numerically computed $t$ at that point is $-3.1\times10^{-29}$. Its magnitude is close to the true value, but its sign is wrong, which is why the rule uses the analytic sign.
 
-**Raw eigenvectors have no reliable labels when the splitting is unresolved.** Section 1.7 of the notebook compares them with $\phi_\mp$ at all nine grid points. Where $\Delta E > 10^{-13}$ (six points) they agree to $6\times10^{-15}$. At the other three the raw energies are noise, with both positive in this run. Two of those three happen to give vectors close to $\phi_\mp$, but at $L = 120$, $\delta = -0.5$ they are 50% away. So these labels are only meaningful through the explicit construction.
+**Raw eigenvectors have no reliable labels when the splitting is unresolved.** Section 1.7 of the notebook compares them with $\phi_\mp$ at all nine grid points. Where $\Delta E > 10^{-13}$ (six points) they agree to $5\times10^{-15}$. At the other three the raw energies are noise, with both positive in this run. Two of those three happen to give vectors close to $\phi_\mp$, but at $L = 120$, $\delta = -0.5$ they are 50% away. So these labels are only meaningful through the explicit construction.
 
 With the rule from [Section 3.6](#36-the-half-filled-state-and-the-values-at-v--0), on all nine grid points:
 
@@ -481,14 +481,14 @@ The notebook runs 46 checks, printed as `[pass]` or `[FAIL]`. All pass. "Exact" 
 | 1.4 | Fitted $\xi$ against the formula, whole grid | $3.7\times10^{-4}$ | $10^{-3}$ |
 | 1.4 | Fitted $\xi$ at $\delta = -0.30$ | $1.4\times10^{-7}$ | $10^{-3}$ |
 | 1.4 | Left state: total weight on odd sites | $2.4\times10^{-29}$ | $10^{-12}$ |
-| 1.4 | $X$ and $\Gamma$ routes give the same left state | $5.8\times10^{-15}$ | $10^{-12}$ |
+| 1.4 | $X$ and $\Gamma$ routes give the same left state | $5.1\times10^{-15}$ | $10^{-12}$ |
 | 1.5 | Splitting decreases with $L$, for three $\delta$ (3 checks) | exact | exact |
 | 1.5 | Slope equals $-1/\xi$, for three $\delta$ (3 checks) | $1.5\times10^{-6}$ | $10^{-3}$ |
 | 1.5 | Splitting formula against exact, $L \ge 40$ | $4.8\times10^{-5}$ | $10^{-4}$ |
-| 1.6 | Ring spectrum against $E_\pm(k)$ | $4.9\times10^{-15}$ | $10^{-12}$ |
-| 1.6 | Gap equals $4\lvert\delta\rvert$ | $1.6\times10^{-15}$ | $10^{-12}$ |
-| 1.6 | Addition cost equals $2\lvert\delta\rvert$ | $7.8\times10^{-16}$ | $10^{-12}$ |
-| 1.6 | Spectra identical for $\pm\delta$ | $3.8\times10^{-15}$ | $10^{-12}$ |
+| 1.6 | Ring spectrum against $E_\pm(k)$ | $5.6\times10^{-15}$ | $10^{-12}$ |
+| 1.6 | Gap equals $4\lvert\delta\rvert$ | $1.1\times10^{-15}$ | $10^{-12}$ |
+| 1.6 | Addition cost equals $2\lvert\delta\rvert$ | $5.6\times10^{-16}$ | $10^{-12}$ |
+| 1.6 | Spectra identical for $\pm\delta$ | $5.3\times10^{-15}$ | $10^{-12}$ |
 | 1.7 | $\operatorname{sgn} t = (-1)^{L/2}$ where resolved | no mismatch | exact |
 | 1.7 | $\langle n_0\rangle = \tfrac12$ | $1.0\times10^{-15}$ | $10^{-12}$ |
 | 1.7 | $z_0 = \lvert\psi^L_0\rvert^2$ | round-off | $10^{-12}$ |
@@ -498,15 +498,15 @@ The notebook runs 46 checks, printed as `[pass]` or `[FAIL]`. All pass. "Exact" 
 | 1.8 | Odd $M$: $\langle n_0\rangle = \tfrac12$ | $8.3\times10^{-16}$ | $10^{-12}$ |
 | 1.8 | Odd $M$: $z_0 = \lvert\psi^L_0\rvert^2$ | $1.0\times10^{-15}$ | $10^{-12}$ |
 | 1.8 | Odd $M$: splitting formula against exact, $L \ge 42$ | $2.8\times10^{-5}$ | $10^{-4}$ |
-| 1.8 | Odd-$M$ rings: spectrum against $E_\pm(k)$ | $2.2\times10^{-15}$ | $10^{-12}$ |
-| 1.8 | Odd-$M$ rings: gap equals $2\min_k E_+(k)$ | $2.2\times10^{-15}$ | $10^{-12}$ |
+| 1.8 | Odd-$M$ rings: spectrum against $E_\pm(k)$ | $3.1\times10^{-15}$ | $10^{-12}$ |
+| 1.8 | Odd-$M$ rings: gap equals $2\min_k E_+(k)$ | $4.4\times10^{-15}$ | $10^{-12}$ |
 | 1.8 | Odd-$M$ rings: gap $> 4\lvert\delta\rvert$ | exact | exact |
-| 1.7 | Raw eigenvectors $= \phi_\mp$ where $\Delta E > 10^{-13}$ | $5.3\times10^{-15}$ | $10^{-12}$ |
+| 1.7 | Raw eigenvectors $= \phi_\mp$ where $\Delta E > 10^{-13}$ | $5.1\times10^{-15}$ | $10^{-12}$ |
 | 1.9 | $L = 8$ to 18: $\langle n_j\rangle = \tfrac12$ | $8.9\times10^{-16}$ | $10^{-12}$ |
 | 1.9 | $W_j = \lvert\psi^{L,R}_j\rvert^2/2$ | $3.3\times10^{-16}$ | $10^{-12}$ |
 | 1.9 | $z_0 = \lvert\psi^L_0\rvert^2$ at the same $L$ | $7.8\times10^{-16}$ | $10^{-12}$ |
 | 1.9 | Sturm splitting against dense (relative) | $3.6\times10^{-13}$ | $10^{-9}$ |
-| 1.9 | $\Delta_+$ of the same-size ring, even and odd $M$ | $1.1\times10^{-15}$ | $10^{-12}$ |
+| 1.9 | $\Delta_+$ of the same-size ring, even and odd $M$ | $1.0\times10^{-15}$ | $10^{-12}$ |
 | 1.9 | One line in the window at $f = 0.8$ | exact | exact |
 | 1.9 | $z_0 \to 1 - r^2$ monotonically; $\xi_W$ closer to $\xi$ at $L = 18$ than at $L = 8$ | exact | exact |
 | 1.9 | Negative control: $\lvert z_0 - (1 - r^2)\rvert > 10^{-2}$ at $L = 8$, $\delta = -0.30$ | $2.1\times10^{-2}$ | must exceed $10^{-2}$ |
