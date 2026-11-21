@@ -8,16 +8,9 @@
 \usepackage{booktabs}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{xcolor}
-\usepackage{tabularx}
-\usepackage{enumitem}
-\usepackage{float}
 \usepackage[section]{placeins}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta}
-\usepackage[most]{tcolorbox}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 
-\usepackage[capitalise,nameinlink]{cleveref}
 
 \graphicspath{{figures/}}
 
@@ -25,31 +18,12 @@
 \newcommand{\Js}{J_{\mathrm{s}}}
 \newcommand{\dg}{^{\dagger}}
 
-% ---- Step 4 notation and styles
-\definecolor{cblue}{HTML}{0072B2}
-\definecolor{cverm}{HTML}{D55E00}
-\definecolor{cgreen}{HTML}{009E73}
-\definecolor{cgold}{HTML}{E69F00}
-\definecolor{ink}{HTML}{1C1C1A}
-\definecolor{palegreen}{HTML}{E8F5F0}
-\newtcolorbox{resultbox}[1][Result]{enhanced,breakable,colback=palegreen,colframe=cgreen,
-  boxrule=0.6pt,arc=2pt,left=5pt,right=5pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title={#1}}
-\newcommand{\cd}{c^{\dagger}}
-\newcommand{\Om}{\Omega_N}
-\newcommand{\Dp}{\Delta_{+}}
-\newcommand{\Prt}{P_{\mathrm{return}}}
-\newcommand{\Qe}{Q_{\mathrm{edge}}}
-\newcommand{\Wcal}{\mathcal{W}}
-\newcommand{\eps}{\varepsilon}
-\newcommand{\ii}{\mathrm{i}}
-\newcommand{\ee}{\mathrm{e}}
-\newcommand{\code}[1]{\texttt{#1}}
+% float placement for a long report
 \renewcommand{\topfraction}{0.9}\renewcommand{\bottomfraction}{0.8}
 \renewcommand{\textfraction}{0.07}\renewcommand{\floatpagefraction}{0.8}
 \setcounter{topnumber}{3}\setcounter{totalnumber}{5}
 \setcounter{tocdepth}{2}
 \setlength{\emergencystretch}{2em}
-
 
 \title{Can a topological edge survive strong interactions?}
 \author{Kavish, Atharva, Daniyaal and Somnath}
@@ -404,12 +378,12 @@ It is needed for the larger chains of Step~7, so we tested it on a constructed p
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\textwidth]{step2_gaps.png}
+  \includegraphics[width=\textwidth]{step2_gaps.pdf}
   \caption{Neutral gap (solid) and addition gap (dashed) on the open chain against $V$.
   Open circles are the Step~1 values at $V=0$, computed from the hopping matrix alone.
   The dotted line is the threshold $\Delta_+$ of the $L=16$ ring, drawn as a reference only; Table~\ref{tab:rings} gives the threshold at each size.
   For $\delta=-0.30$ both gaps fall with $L$ and stay far below $\Delta_+$.
-  For $\delta=+0.30$ the addition gap sits just above this line. Drawn from the values of Table~\ref{tab:gaps}.}
+  For $\delta=+0.30$ the addition gap sits just above this line.}
   \label{fig:gaps}
 \end{figure}
 
@@ -835,87 +809,85 @@ Open: the identity of that second line, and sizes beyond $L=18$.
 
 \paragraph{Contribution.} Step~3 was carried out by Daniyaal.
 
-
-
-% =====================================================================================
-% Step 4 section: everything from here to the end marker can be pasted into the team report
-% =====================================================================================
+%======================================================================
 \section{Step 4: dynamics of an added edge particle}
-\label{s4:sec}
+\label{sec:step4}
 
-Step~3 resolved the state $\cd_0|\Om\rangle$ into eigenstates of the $(N+1)$-particle sector. In Step~4 the same state is evolved in time, to see whether the added particle stays at the edge (localisation) and stays one excitation (coherence). The five items of the guide were done as follows. (1)~Krylov time evolution at $L=8,12,16$ with $\Delta t=0.05$, $0\le t\le 8$, checked against full diagonalisation and with the tolerance halved. (2)~Two controls at every point: injection near the centre, and the opposite dimerisation $\delta=+0.30$. (3)~Norm, energy and $\sum_j\Delta n_j=1$ checked in every run, and whole density profiles shown. (4)~Boundary reflections and two-edge beating, with the time interval free of finite-size returns certified against larger chains ($L=18$, and $L=20$ to $t=16$). (5)~A filtered preparation projected onto Step~3's edge window. All calculations use the functions and results of Steps 1--3 in the same notebook: Step~2's Hamiltonian, $\cd_j$, selected ground states and ring threshold $\Dp$, and Step~3's addition spectra and edge window.
+Step~3 resolved the state $c_0\dg|\Omega_N\rangle$ into eigenstates of the $(N+1)$-particle sector. In Step~4 the same state is evolved in time, to see whether the added particle stays at the edge (localisation) and stays one excitation (coherence). The five items of the guide were done as follows. (1)~Krylov time evolution at $L=8,12,16$ with $\Delta t=0.05$, $0\le t\le 8$, checked against full diagonalisation and with the tolerance halved. (2)~Two controls at every point: injection near the centre, and the opposite dimerisation $\delta=+0.30$. (3)~Norm, energy and $\sum_j\Delta n_j=1$ checked in every run, and whole density profiles shown. (4)~Boundary reflections and two-edge beating, with the time interval free of finite-size returns certified against larger chains ($L=18$, and $L=20$ to $t=16$). (5)~A filtered preparation projected onto Step~3's edge window. All calculations use the functions and results of Steps 1--3 in the same notebook: Step~2's Hamiltonian, $c_j\dg$, selected ground states and ring threshold $\Delta_+$, and Step~3's addition spectra and edge window.
 
-\subsection{What was computed}
+\subsection{What was done}
 
-\paragraph{Preparation and evolution.} With $|\Om\rangle$ the half-filled ground state chosen by the Step~2 rule ($C=+1$, $\langle n_j\rangle=\tfrac12$),
+\paragraph{Preparation and evolution.} With $|\Omega_N\rangle$ the half-filled ground state chosen by the Step~2 rule ($C=+1$, $\langle n_j\rangle=\tfrac12$),
 \begin{equation}
-|\Psi(0)\rangle=\frac{\cd_j|\Om\rangle}{\sqrt{1-\langle n_j\rangle}},\qquad
-|\Psi(t)\rangle=\ee^{-\ii(H_{N+1}-E_0^N)t}\,|\Psi(0)\rangle .
-\label{s4:eq:prep}
+|\Psi(0)\rangle=\frac{c_j\dg|\Omega_N\rangle}{\sqrt{1-\langle n_j\rangle}},\qquad
+|\Psi(t)\rangle=e^{-i(H_{N+1}-E_0^N)t}\,|\Psi(0)\rangle .
+\label{eq:step4prep}
 \end{equation}
 The edge run uses $j=0$. The centre control uses $j_c=2\lfloor L/4\rfloor$, the even site nearest the centre. Edge and centre injection were run for $\delta=\pm0.30$ and $V=0,0.5,1,2,3$ at $L=8,12,16,18$, and edge injection at $L=20$ for $\delta=-0.30$, $V=0,1,3$: 83 runs in total.
 
 \paragraph{Observables.}
 \begin{equation}
 \begin{gathered}
-\Delta n_j(t)=\langle n_j\rangle_{\Psi(t)}-\langle n_j\rangle_{\Om},\qquad
-\Qe(t)=\sum_{j<\ell_e}\Delta n_j(t)\quad(\ell_e=2,4),\\
-G(t)=\langle\Psi(0)|\Psi(t)\rangle=\sum_m z_{jm}\,\ee^{-\ii\omega_m t},\qquad
-\Prt(t)=|G(t)|^2 .
+\Delta n_j(t)=\langle n_j\rangle_{\Psi(t)}-\langle n_j\rangle_{\Omega_N},\qquad
+Q_{\rm edge}(t)=\sum_{j<\ell_e}\Delta n_j(t)\quad(\ell_e=2,4),\\
+G(t)=\langle\Psi(0)|\Psi(t)\rangle=\sum_m z_{jm}\,e^{-i\omega_m t},\qquad
+P_{\rm return}(t)=|G(t)|^2 .
 \end{gathered}
-\label{s4:eq:obs}
+\label{eq:step4obs}
 \end{equation}
 Here $\omega_m$ and $z_{jm}$ are the lines of Step~3, so $G(t)$ computed from the time evolution can be compared with Step~3 directly, phase included.
 
-\paragraph{Method.} The evolution uses short-iterative Lanczos (Krylov) steps with full reorthogonalisation. Each step's error estimate is kept below $10^{-10}$ per unit time, so the accumulated bound at $t=8$ is $8\times10^{-10}$. Three independent references check it: full diagonalisation ($L=8,12$), Step~3's spectral sum in \eqref{s4:eq:obs}, and, at $V=0$, one-body propagation with Step~1's hopping matrix. The filtered preparation projects $|\Psi(0)\rangle$ onto the eigenstates in Step~3's window $0\le\omega<f\Dp$, with $f=0.8$ ($0.7$ at $L=18,20$, $V=3$, where $0.8$ holds two lines).
+\paragraph{Method.} The evolution uses short-iterative Lanczos (Krylov) steps with full reorthogonalisation. Each step's error estimate is kept below $10^{-10}$ per unit time, so the accumulated bound at $t=8$ is $8\times10^{-10}$. Three independent references check it: full diagonalisation ($L=8,12$), Step~3's spectral sum in Eq.~\eqref{eq:step4obs}, and, at $V=0$, one-body propagation with Step~1's hopping matrix. The filtered preparation projects $|\Psi(0)\rangle$ onto the eigenstates in Step~3's window $0\le\omega<f\Delta_+$, with $f=0.8$ ($0.7$ at $L=18,20$, $V=3$, where $0.8$ holds two lines).
 
-\paragraph{Finite-size-free interval.} Each run is compared with the next larger chain. The two chains already differ at $t=0$ by a static offset $s$, which comes from the edge--edge hybridisation of $\Om$. A finite-size \emph{return} is the first time at which the change since $t=0$ differs by more than $\eps+2s$ ($\eps=0.01$) in $\Prt$ or $\Qe$. If $s>\eps$, no interval is claimed. Late-time averages use the second half of the certified interval (from $t\ge2$). They are compared with what the edge eigenstate alone would give,
+\paragraph{Finite-size-free interval.} Each run is compared with the next larger chain. The two chains already differ at $t=0$ by a static offset $s$, which comes from the edge--edge hybridisation of $\Omega_N$. A finite-size \emph{return} is the first time at which the change since $t=0$ differs by more than $\varepsilon+2s$ ($\varepsilon=0.01$) in $P_{\rm return}$ or $Q_{\rm edge}$. If $s>\varepsilon$, no interval is claimed. Late-time averages use the second half of the certified interval (from $t\ge2$). They are compared with what the edge eigenstate alone would give,
 \begin{equation}
-\langle\Prt\rangle_{\rm late}\to z_0(\Wcal)^2,\qquad \langle Q_4\rangle_{\rm late}\to z_0(\Wcal)\,q_4 ,
-\label{s4:eq:late}
+\langle P_{\rm return}\rangle_{\rm late}\to z_0(\mathcal{W})^2,\qquad \langle Q_4\rangle_{\rm late}\to z_0(\mathcal{W})\,q_4 ,
+\label{eq:step4late}
 \end{equation}
 where $q_4$ is the charge of the filtered state on the first four sites.
 
-\subsection{Results}
+%----------------------------------------------------------------------
+\subsection{Verification}
 
-\paragraph{Validation (items 1 and 3).} All routes agree to about $10^{-12}$, more than 500 times below the Krylov bound (\cref{s4:tab:valid}, \cref{s4:fig:valid}). The tolerance scan shows that the bound is a real control: the error falls from $4.0\times10^{-6}$ to $4.6\times10^{-8}$, $3.3\times10^{-10}$, $2.1\times10^{-12}$ and $1.3\times10^{-14}$ as the tolerance goes from $10^{-3}$ to $10^{-10}$ ($L=8$, $V=1$). All 38 Step~4 checks pass.
+\paragraph{Validation (items 1 and 3).} All routes agree to about $10^{-12}$, more than 500 times below the Krylov bound (Table~\ref{tab:step4valid}, Fig.~\ref{fig:step4valid}). The tolerance scan shows that the bound is a real control: the error falls from $4.0\times10^{-6}$ to $4.6\times10^{-8}$, $3.3\times10^{-10}$, $2.1\times10^{-12}$ and $1.3\times10^{-14}$ as the tolerance goes from $10^{-3}$ to $10^{-10}$ ($L=8$, $V=1$). All 38 Step~4 checks pass.
 
 \begin{table}[htbp]
 \centering\small
-\caption{Validation: largest deviation over all times and runs. Accumulated Krylov bound: $8\times10^{-10}$.}
-\label{s4:tab:valid}
 \begin{tabular}{@{}llc@{}}
 \toprule
 Comparison & Sizes & Max.\ deviation\\
 \midrule
-Krylov vs full diagonalisation ($G$, $\Prt$, $\Delta n_j$) & $L=8,12$ & $1.2\times10^{-12}$\\
+Krylov vs full diagonalisation ($G$, $P_{\rm return}$, $\Delta n_j$) & $L=8,12$ & $1.2\times10^{-12}$\\
 Krylov $G(t)$ vs Step~3 spectral sum (complex) & $L=8$--$16$ & $1.2\times10^{-12}$\\
 Tolerance halved ($10^{-10}\to5\times10^{-11}$) & $L=8$--$20$ & $1.3\times10^{-12}$\\
 Norm, energy and $\sum_j\Delta n_j-1$ & $L=8$--$20$ & $1.5\times10^{-12}$\\
 $V=0$: many-body vs one-body route (Step~1's $h$) & $L=8$--$20$ & $2.9\times10^{-12}$\\
 $t=0$ identities $\Delta n_k(0)=-\langle\delta n_j\delta n_k\rangle_c/(1-\langle n_j\rangle)$ & $L=8$--$20$ & $1.9\times10^{-14}$\\
 Energy moments $m_1$, $m_2$ vs their closed forms & $L=8$--$16$ & $8.8\times10^{-12}$\\
-Filtered weight vs Step~3's $z_0(\Wcal)$ & $L=8$--$20$ & $5.1\times10^{-15}$\\
+Filtered weight vs Step~3's $z_0(\mathcal{W})$ & $L=8$--$20$ & $5.1\times10^{-15}$\\
 \bottomrule
 \end{tabular}
+\caption{Validation: largest deviation over all times and runs. Accumulated Krylov bound: $8\times10^{-10}$.}
+\label{tab:step4valid}
 \end{table}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{fig15_dynamics_validation.pdf}
+\includegraphics[width=\textwidth]{step4_validation.pdf}
 \caption{(a) $L=8$: Krylov amplitude against full diagonalisation (solid) and Step~3's spectral sum (dashed). (b) Tolerance scan at $L=8$ and $16$ with the bound tol$\cdot t_{\max}$. (c) $L=16$: conservation at $V=3$ and the one-body route at $V=0$.}
-\label{s4:fig:valid}
+\label{fig:step4valid}
 \end{figure}
 
-\paragraph{The state right after the particle is added.} At $t=0$ most of the added charge is on the first sites, but a large part, 0.21--0.32, is already on the last four sites (\cref{s4:tab:t0}). This is the correlation $-\langle\delta n_0\delta n_{L-1}\rangle_c/(1-\langle n_0\rangle)$ of the selected $\Om$, in which the two end modes share one fermion; it is not transport. The mean energy $m_1$ and the spread $\Delta E$ of the added particle grow with $V$, so the initial decay of $\Prt\simeq1-\Delta E^2t^2$ gets faster. For the trivial edge ($\delta=+0.30$) the particle starts almost entirely on the first four sites ($Q_4(0)=0.99$).
+%----------------------------------------------------------------------
+\subsection{Results}
+
+\paragraph{The state right after the particle is added.} At $t=0$ most of the added charge is on the first sites, but a large part, 0.21--0.32, is already on the last four sites (Table~\ref{tab:step4t0}). This is the correlation $-\langle\delta n_0\delta n_{L-1}\rangle_c/(1-\langle n_0\rangle)$ of the selected $\Omega_N$, in which the two end modes share one fermion; it is not transport. The mean energy $m_1$ and the spread $\Delta E$ of the added particle grow with $V$, so the initial decay of $P_{\rm return}\simeq1-\Delta E^2t^2$ gets faster. For the trivial edge ($\delta=+0.30$) the particle starts almost entirely on the first four sites ($Q_4(0)=0.99$).
 
 \begin{table}[htbp]
 \centering\small
-\caption{$L=16$, $\delta=-0.30$, edge injection: Step~2--3 inputs and the state at $t=0$. $\omega_{\rm edge}$: edge line; $q_2,q_4$: charge of the filtered state on 2 and 4 sites.}
-\label{s4:tab:t0}
 \begin{tabular}{@{}c cccccc cccc@{}}
 \toprule
-$V$ & $\Dp$ & $\omega_{\rm edge}$ & $z_0(\Wcal)$ & $q_2$ & $q_4$ & $Q_2(0)$ & $Q_4(0)$ & $Q_{\rm far,4}(0)$ & $m_1$ & $\Delta E$\\
+$V$ & $\Delta_+$ & $\omega_{\rm edge}$ & $z_0(\mathcal{W})$ & $q_2$ & $q_4$ & $Q_2(0)$ & $Q_4(0)$ & $Q_{\rm far,4}(0)$ & $m_1$ & $\Delta E$\\
 \midrule
 0   & 0.600 & 0.0065 & 0.710 & 0.355 & 0.458 & 0.638 & 0.649 & 0.316 & 0.367 & 0.596\\
 0.5 & 0.759 & 0.0059 & 0.702 & 0.325 & 0.444 & 0.671 & 0.649 & 0.318 & 0.454 & 0.729\\
@@ -924,30 +896,30 @@ $V$ & $\Dp$ & $\omega_{\rm edge}$ & $z_0(\Wcal)$ & $q_2$ & $q_4$ & $Q_2(0)$ & $Q
 3   & 1.481 & 0.0644 & 0.457 & 0.178 & 0.309 & 0.840 & 0.774 & 0.209 & 1.377 & 1.383\\
 \bottomrule
 \end{tabular}
+\caption{$L=16$, $\delta=-0.30$, edge injection: Step~2--3 inputs and the state at $t=0$. $\omega_{\rm edge}$: edge line; $q_2,q_4$: charge of the filtered state on 2 and 4 sites.}
+\label{tab:step4t0}
 \end{table}
 
-\paragraph{Where the particle goes (items 2 and 3).} \Cref{s4:fig:spacetime} shows the density. After edge injection, part of the charge leaves as a front, reflects from the far end and comes back, while a fixed part stays on the first sites. After centre injection or at the trivial edge the charge spreads out and nothing stays behind. The time traces (\cref{s4:fig:traces}) show the same: for edge injection $\Prt$ and $Q_4$ settle on plateaus close to $z_0^2$ and $z_0q_4$, while both controls decay towards zero. The filtered state does not evolve ($\Prt=1$, static profile, exactly $\tfrac12$ of its charge at each end).
+\paragraph{Where the particle goes (items 2 and 3).} Figure~\ref{fig:step4spacetime} shows the density. After edge injection, part of the charge leaves as a front, reflects from the far end and comes back, while a fixed part stays on the first sites. After centre injection or at the trivial edge the charge spreads out and nothing stays behind. The time traces (Fig.~\ref{fig:step4traces}) show the same: for edge injection $P_{\rm return}$ and $Q_4$ settle on plateaus close to $z_0^2$ and $z_0q_4$, while both controls decay towards zero. The filtered state does not evolve ($P_{\rm return}=1$, static profile, exactly $\tfrac12$ of its charge at each end).
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{fig16_spacetime_density.pdf}
+\includegraphics[width=\textwidth]{step4_spacetime_density.pdf}
 \caption{Top: change of the excess charge per two-site cell since $t=0$, $L=20$, $V=0,1,3$. Dashed: a front and its reflection at the free group velocity $1.4$ ($V=0$) or at the speed implied by the certified return ($V>0$). Solid: end of the certified interval. Bottom: $\Delta n_j(t)$ at five times, $L=16$, $V=1$, for edge injection (dashed: filtered state), centre injection and $\delta=+0.30$.}
-\label{s4:fig:spacetime}
+\label{fig:step4spacetime}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{fig17_time_traces.pdf}
-\caption{$\Prt(t)$ (top) and excess charges (bottom) at $V=0,1,3$, $\delta=-0.30$ unless stated: edge injection at $L=16$ (thick) and $L=20$ to $t=16$ (thin), centre injection, $\delta=+0.30$ and the filtered state. Grey dashed: $z_0(\Wcal)^2$ and $z_0(\Wcal)q_4$. Shaded: outside the certified intervals of $L=16$ (dark) and $L=20$ (light).}
-\label{s4:fig:traces}
+\includegraphics[width=\textwidth]{step4_time_traces.pdf}
+\caption{$P_{\rm return}(t)$ (top) and excess charges (bottom) at $V=0,1,3$, $\delta=-0.30$ unless stated: edge injection at $L=16$ (thick) and $L=20$ to $t=16$ (thin), centre injection, $\delta=+0.30$ and the filtered state; long-dashed grey (bottom): the excess on the last four sites. Labelled grey dashed lines: $z_0(\mathcal{W})^2$ and $z_0(\mathcal{W})q_4$. Shaded: outside the certified intervals of $L=16$ (dark) and $L=20$ (light).}
+\label{fig:step4traces}
 \end{figure}
 
-\paragraph{Reflections and the certified interval (item 4).} \Cref{s4:tab:fs} lists the certified intervals. At $L=8$ and $12$ the initial state is not converged ($s>0.01$, because the far edge is only a few $\xi$ away), so no interval is claimed. $L=16$ is free of returns up to $t=8$ for $V\le2$ and up to $t=4.9$ at $V=3$. Returns come earlier as $V$ grows: the speed implied by the $L=18$ return is $\le1.94$, $2.15$ and $4.77$ sites per unit time at $V=0,1,3$, compared with the free group velocity $1.40$ (\cref{s4:fig:fs}).
+\paragraph{Reflections and the certified interval (item 4).} Table~\ref{tab:step4fs} lists the certified intervals. At $L=8$ and $12$ the initial state is not converged ($s>0.01$, because the far edge is only a few $\xi$ away), so no interval is claimed. $L=16$ is free of returns up to $t=8$ for $V\le2$ and up to $t=4.9$ at $V=3$. Returns come earlier as $V$ grows: the speed implied by the $L=18$ return is $\le1.94$, $2.15$ and $4.77$ sites per unit time at $V=0,1,3$, compared with the free group velocity $1.40$ (Fig.~\ref{fig:step4fs}).
 
 \begin{table}[htbp]
 \centering\small
-\caption{Interval free of visible finite-size returns, edge injection, $\delta=-0.30$ ($\eps=0.01$). $s$: static offset against the next size. $L=20$ is scaled from $L=18$ by the round-trip distance.}
-\label{s4:tab:fs}
 \begin{tabular}{@{}c ccccc@{}}
 \toprule
 $L$ & $V=0$ & $V=0.5$ & $V=1$ & $V=2$ & $V=3$\\
@@ -959,27 +931,27 @@ $L$ & $V=0$ & $V=0.5$ & $V=1$ & $V=2$ & $V=3$\\
 20 & $t\le16$, no return & -- & $t<16.3$ (scaled) & -- & $t<7.3$ (scaled)\\
 \bottomrule
 \end{tabular}
+\caption{Interval free of visible finite-size returns, edge injection, $\delta=-0.30$ ($\varepsilon=0.01$). $s$: static offset against the next size. $L=20$ is scaled from $L=18$ by the round-trip distance.}
+\label{tab:step4fs}
 \end{table}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{fig18_finite_size_and_beating.pdf}
-\caption{(a) Departure between consecutive sizes at $V=1$, with the visibility level $\eps=0.01$. (b) Certified return time against $L$ (cross: initial state not converged; triangle: no return by the end of the run; open: $L=20$, scaled); dotted: round trip at the implied speed. (c) Fourier spectrum of $Q_4(t)$ at $L=8$, exact evolution to $t=300$; dotted: the $N$-sector splitting, where a two-edge beat would appear.}
-\label{s4:fig:fs}
+\includegraphics[width=\textwidth]{step4_finite_size_beating.pdf}
+\caption{(a) Departure between consecutive sizes at $V=1$, with the visibility level $\varepsilon=0.01$. (b) Certified return time against $L$ (cross: initial state not converged; triangle: no return by the end of the run; open: $L=20$, scaled); dotted: round trip at the implied speed. (c) Fourier spectrum of $Q_4(t)$ at $L=8$, exact evolution to $t=300$; dotted: the $N$-sector splitting, where a two-edge beat would appear.}
+\label{fig:step4fs}
 \end{figure}
 
-\paragraph{Late times: coherence and localisation.} Inside the certified intervals, the late return probability of edge injection follows $z_0(\Wcal)^2$ and the retained charge follows $z_0q_4$, as in~\eqref{s4:eq:late} (\cref{s4:tab:late}, \cref{s4:fig:summary}). At $L=20$, where the interval reaches $t=16$, both agree within $0.006$ and $0.008$ at $V=0,1$. At $L=16$ the window ends at $t=8$, so part of the extra charge is still in transit. At $V=3$ the interval is short and the retained charge, $0.27$--$0.28$, stays above both $z_0q_4$ and the charge $\sum z\,q_4=0.182$ of the two lines below $\Dp$ (the edge line, and a second one at $\omega=1.255$ with $z=0.104$). For $V\le2$ the edge line is the only line below $\Dp$. The controls lose the particle: $\langle\Prt\rangle_{\rm late}\le0.10$ for centre injection and $\le0.02$ for $\delta=+0.30$.
+\paragraph{Late times: coherence and localisation.} Inside the certified intervals, the late return probability of edge injection follows $z_0(\mathcal{W})^2$ and the retained charge follows $z_0q_4$, as in Eq.~\eqref{eq:step4late} (Table~\ref{tab:step4late}, Fig.~\ref{fig:step4summary}). At $L=20$, where the interval reaches $t=16$, both agree within $0.006$ and $0.008$ at $V=0,1$. At $L=16$ the window ends at $t=8$, so part of the extra charge is still in transit. At $V=3$ the interval is short and the retained charge, $0.27$--$0.28$, stays above both $z_0q_4$ and the charge $\sum z\,q_4=0.182$ of the two lines below $\Delta_+$ (the edge line, and a second one at $\omega=1.255$ with $z=0.104$). For $V\le2$ the edge line is the only line below $\Delta_+$. The controls lose the particle: $\langle P_{\rm return}\rangle_{\rm late}\le0.10$ for centre injection and $\le0.02$ for $\delta=+0.30$.
 
 \begin{table}[htbp]
 \centering\small
 \setlength{\tabcolsep}{4.5pt}
-\caption{Late-time averages inside the certified interval (edge injection, $\delta=-0.30$) against~\eqref{s4:eq:late}, and the two controls at $L=16$ (centre: four central sites). $\sum zq_4$: all lines below $\Dp$.}
-\label{s4:tab:late}
 \begin{tabular}{@{}cc c ccc cccc cc@{}}
 \toprule
  & & & \multicolumn{3}{c}{Coherence} & \multicolumn{3}{c}{Localisation} & & \multicolumn{2}{c}{$\langle Q_4\rangle_{\rm late}$, controls}\\
 \cmidrule(lr){4-6}\cmidrule(lr){7-9}\cmidrule(l){11-12}
-$L$ & $V$ & window & $z_0(\Wcal)$ & $z_0^2$ & $\langle\Prt\rangle$ & $z_0q_4$ & $\sum zq_4$ & $\langle Q_4\rangle$ & & centre & $\delta=+0.3$\\
+$L$ & $V$ & window & $z_0(\mathcal{W})$ & $z_0^2$ & $\langle P_{\rm return}\rangle$ & $z_0q_4$ & $\sum zq_4$ & $\langle Q_4\rangle$ & & centre & $\delta=+0.3$\\
 \midrule
 16 & 0   & $[4,8]$       & 0.710 & 0.505 & 0.540 & 0.326 & 0.326 & 0.366 & & 0.181 & 0.164\\
 16 & 0.5 & $[4,8]$       & 0.702 & 0.492 & 0.522 & 0.312 & 0.312 & 0.356 & & 0.187 & 0.116\\
@@ -992,21 +964,21 @@ $L$ & $V$ & window & $z_0(\Wcal)$ & $z_0^2$ & $\langle\Prt\rangle$ & $z_0q_4$ & 
 20 & 3   & $[3.67,7.34]$ & 0.456 & 0.208 & 0.228 & 0.133 & 0.182 & 0.270 & & & \\
 \bottomrule
 \end{tabular}
+\caption{Late-time averages inside the certified interval (edge injection, $\delta=-0.30$) against Eq.~\eqref{eq:step4late}, and the two controls at $L=16$ (centre: four central sites). $\sum zq_4$: all lines below $\Delta_+$.}
+\label{tab:step4late}
 \end{table}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{fig19_summary_vs_V.pdf}
-\caption{(a) Late return probability against $V$ with $z_0(\Wcal)^2$ from Step~3 (stars). (b) Late charge on four sites with $z_0q_4$ (stars) and $\sum z\,q_4$ over the lines below $\Dp$ (crosses). (c) Far-end excess $\Delta n_{L-1}(0)$ for the selected $\Om$ (filled) and a left-loaded state of the same doublet (open); dashed: $(1-r^2)^2/2$.}
-\label{s4:fig:summary}
+\includegraphics[width=\textwidth]{step4_summary_vs_V.pdf}
+\caption{(a) Late return probability against $V$ with $z_0(\mathcal{W})^2$ from Step~3 (stars). (b) Late charge on four sites with $z_0q_4$ (stars) and $\sum z\,q_4$ over the lines below $\Delta_+$ (crosses). (c) Far-end excess $\Delta n_{L-1}(0)$ for the selected $\Omega_N$ (filled) and a left-loaded state of the same doublet (open); dashed: $(1-r^2)^2/2$.}
+\label{fig:step4summary}
 \end{figure}
 
-\paragraph{Two edges and the filtered excitation (items 4 and 5).} The far-end excess at $t=0$ approaches $(1-r^2)^2/2=0.252$ at $V=0$ and grows with $V$ (\cref{s4:tab:edges}). For a left-loaded state built from the same nearly degenerate doublet it is below $10^{-3}$ at $L\ge16$, so it depends on Step~2's state selection. The doublet splitting sets a beat period of at least 34 at $L=8$ and 480--3300 for $L\ge16$, longer than every run. Even at $L=8$, evolved exactly to $t=300$, $Q_4(t)$ shows no significant Fourier weight at the splitting (about $2\%$ of its largest component at most), and the infinite-time average puts exactly half of the excess charge in each half of the chain. The filtered excitation keeps the fraction $z_0(\Wcal)$ of the particle (\cref{s4:tab:t0}). It is stationary by construction, so it is not evidence for a long lifetime.
+\paragraph{Two edges and the filtered excitation (items 4 and 5).} The far-end excess at $t=0$ approaches $(1-r^2)^2/2=0.252$ at $V=0$ and grows with $V$ (Table~\ref{tab:step4edges}). For a left-loaded state built from the same nearly degenerate doublet it is below $10^{-3}$ at $L\ge16$, so it depends on Step~2's state selection. The doublet splitting sets a beat period of at least 34 at $L=8$ and 480--3300 for $L\ge16$, longer than every run. Even at $L=8$, evolved exactly to $t=300$, $Q_4(t)$ shows no significant Fourier weight at the splitting (about $2\%$ of its largest component at most), and the infinite-time average puts exactly half of the excess charge in each half of the chain. The filtered excitation keeps the fraction $z_0(\mathcal{W})$ of the particle (Table~\ref{tab:step4t0}). It is stationary by construction, so it is not evidence for a long lifetime.
 
 \begin{table}[htbp]
 \centering\small
-\caption{Far-end excess $\Delta n_{L-1}(0)$ for the selected $\Om$ (left-loaded doublet state in brackets) and beat period $2\pi/(E_1^N-E_0^N)$, $\delta=-0.30$.}
-\label{s4:tab:edges}
 \begin{tabular}{@{}c ccc ccc@{}}
 \toprule
  & \multicolumn{3}{c}{$\Delta n_{L-1}(0)$} & \multicolumn{3}{c}{Beat period}\\
@@ -1020,13 +992,200 @@ $L$ & $V=0$ & $V=1$ & $V=3$ & $V=0$ & $V=1$ & $V=3$\\
 20 & 0.249 & 0.283 & 0.338 & 1661 & 2668 & 3283\\
 \bottomrule
 \end{tabular}
+\caption{Far-end excess $\Delta n_{L-1}(0)$ for the selected $\Omega_N$ (left-loaded doublet state in brackets) and beat period $2\pi/(E_1^N-E_0^N)$, $\delta=-0.30$.}
+\label{tab:step4edges}
 \end{table}
 
+%----------------------------------------------------------------------
 \subsection{Conclusion}
 
-A particle added at the weak-bond edge splits into two parts. A coherent part, of weight $z_0(\Wcal)$ from Step~3, stays on the edge eigenstate; the rest leaves into the bulk and reflects from the far end. Inside the intervals certified against larger chains, the late return probability tracks $z_0(\Wcal)^2$ and the retained edge charge tracks $z_0(\Wcal)q_4$. Both decrease with $V$, from $0.50$ and $0.33$ at $V=0$ to $0.23$ and $0.27$ at $V=3$ ($L=20$), but both stay clearly nonzero. Centre injection and the trivial edge retain much less. The time evolution and Step~3's spectral sum agree to $10^{-12}$, so the dynamics and the spectral picture are the same physics. Two caveats remain. At $V=3$ the certified window is short, so those late values describe early times. And a plateau in a chain of 16--20 sites is not proof of a long lifetime in the infinite system, which is why every late value is restricted to the certified interval.
-\newline
-\space
+A particle added at the weak-bond edge splits into two parts. A coherent part, of weight $z_0(\mathcal{W})$ from Step~3, stays on the edge eigenstate; the rest leaves into the bulk and reflects from the far end. Inside the intervals certified against larger chains, the late return probability tracks $z_0(\mathcal{W})^2$ and the retained edge charge tracks $z_0(\mathcal{W})q_4$. Both decrease with $V$, from $0.50$ and $0.33$ at $V=0$ to $0.23$ and $0.27$ at $V=3$ ($L=20$), but both stay clearly nonzero. Centre injection and the trivial edge retain much less. The time evolution and Step~3's spectral sum agree to $10^{-12}$, so the dynamics and the spectral picture are the same physics. Two caveats remain. At $V=3$ the certified window is short, so those late values describe early times. And a plateau in a chain of 16--20 sites is not proof of a long lifetime in the infinite system, which is why every late value is restricted to the certified interval.
 
-\textbf{Contribution}: \textit{Step 4 was done by Somnath}
+\paragraph{Contribution.} Step~4 was carried out by Somnath.
+
+%======================================================================
+\section{Step 5: entropy resolved by particle number}
+\label{sec:step5}
+
+\subsection{What was done}
+
+We cut the chain into a left block $A=\{0,\dots,\ell-1\}$ and the rest $B$.
+A state with fixed total number is $\sum_{ab}C_{ab}|a\rangle_A|b\rangle_B$ with $C_{ab}=0$ unless $N_a+N_b=N_{\rm tot}$, so $C$ splits into blocks $C^{(q)}$ with $N_a=q$.
+With $s_{q\alpha}$ the singular values of $C^{(q)}$,
+\begin{gather}
+  p_q=\sum_\alpha s_{q\alpha}^2,\qquad
+  S_q=-\sum_\alpha\frac{s_{q\alpha}^2}{p_q}\ln\frac{s_{q\alpha}^2}{p_q},
+  \label{eq:sectors}\\
+  S_A=-\sum_{q,\alpha}s_{q\alpha}^2\ln s_{q\alpha}^2=H_N+E_{\rm acc},\qquad
+  H_N=-\sum_qp_q\ln p_q,\qquad E_{\rm acc}=\sum_qp_qS_q .
+  \label{eq:split}
+\end{gather}
+$H_N$ is the uncertainty in the number of particles in $A$; $E_{\rm acc}$ is the entanglement left on average after that number has been measured, which is operational under local number conservation~\cite{monkman} but is not a general distillable-entanglement rate.
+In the order $|n\rangle=(c_0\dg)^{n_0}\cdots(c_{L-1}\dg)^{n_{L-1}}|0\rangle$ the operators of a left block stand before those of $B$, so $|n\rangle=|a\rangle_A|b\rangle_B$ with no sign: $a$ and $b$ are the low and high bits of $s=\sum_jn_j2^j$.
+Sectors with $p_q<10^{-14}$ are ignored; the weight dropped is at most $2\times10^{-14}$.
+
+\textbf{Cuts and states.}
+The edge cut is $A=\{0,1,2,3\}$, the half cut $\ell=L/2$.
+A cut crosses bond $J_{\ell-1}$: for $\delta=-0.30$ it is strong at the edge cut and at the half cut of $L=8,12,16,20$, and weak at the half cut of $L=18$.
+We compute $S_A$, $H_N$, $E_{\rm acc}$ for the selected ground state $\Omega_N$ (Eq.~\eqref{eq:pf}), for the edge-addition state of Step~4, $\Psi(0)=c_0\dg\Omega_N/\sqrt{1-\langle n_0\rangle}$, and along its evolution $\Psi(t)=e^{-i(H_{N+1}-E_0^N)t}\Psi(0)$ (Eq.~\eqref{eq:step4prep}), repeating Step~4's Krylov runs.
+Controls are injection at the centre site $2\lfloor L/4\rfloor$ and the opposite dimerisation.
+The filtered state of Step~4, the projection of $\Psi(0)$ onto the edge window, is the edge eigenstate alone.
+Changes are $\Delta X=X(\Psi)-X(\Omega_N)$ at the same point and cut; a difference of entropies is a diagnostic and need not be positive.
+Static values use $L=8,12,16,18$, $\delta=\pm0.30$, $V=0,0.5,1,2,3$; time series use $L=16$ ($t\le8$, every $V$) and $L=20$ ($t\le16$, $V=0,1,3$).
+Only times inside Step~4's finite-size-free interval of the same run (Table~\ref{tab:step4fs}) are interpreted, and late values are averaged over the second half of that interval, from $t\ge2$.
+The edge cut measures the first four sites against everything else, including the far edge; it is not the entanglement between the two edges, whose reduced state after tracing out the bulk is mixed.
+
+%----------------------------------------------------------------------
+\subsection{Verification}
+
+\begin{table}[t]
+  \centering
+  \footnotesize
+  \begin{tabular}{p{11.2cm}l}
+    \toprule
+    Check & largest deviation \\
+    \midrule
+    Test states: $(|10\rangle+|01\rangle)/\sqrt2$, $(|10\rangle_A|01\rangle_B+|01\rangle_A|10\rangle_B)/\sqrt2$, a product state, an unequal superposition, two shared fermions & $2.2\times10^{-16}$ \\
+    $\sum_qp_q=1$ and $S_A-H_N-E_{\rm acc}=0$, every state, cut and time & $4.9\times10^{-15}$ \\
+    Blocked SVD $=$ one SVD of the whole $C_{ab}$ ($L=8,12$) & $1.5\times10^{-13}$ \\
+    $L=4,6$, every cut: $S_A$, $p_q$, $S_q$ of $\Omega_N$ and $c_0\dg\Omega_N$ $=$ full Fock-space partial trace (no Step~2 code) & $1.1\times10^{-14}$ \\
+    $V=0$: $S_A$ of $\Omega_N$ $=$ correlation-matrix result, every cut, $L\le18$ & $1.4\times10^{-13}$ \\
+    $V=0$: $p_q$, $H_N$, $E_{\rm acc}$ of $\Omega_N$ $=$ independent modes of $C_A$ & $1.5\times10^{-12}$ \\
+    $V=0$: the same for $c_j\dg\Omega_N$ (edge, centre), $C+\chi\chi\dg$ & $1.6\times10^{-12}$ \\
+    $V=0$: the same for $\Psi(t)$ at every time, $L=16$ & $2.1\times10^{-12}$ \\
+    $\Omega_N$ particle-hole symmetric across the cut, $p_q=p_{\ell-q}$, $S_q=S_{\ell-q}$, every $V$ & $1.1\times10^{-11}$ \\
+    $\sum_qq\,p_q=\sum_{j<\ell}\langle n_j\rangle$ (Step~2 densities, Step~4 $\Delta n_j(0)$) & $9.3\times10^{-15}$ \\
+    $L=12$: Lanczos ground state $=$ dense lowest vector & $2.6\times10^{-15}$ \\
+    Evolution $=$ Step~4's saved $G(t)$, $\Delta n_j(t)$; Krylov tolerance halved and $10^{-13}$ & $0$; $1.1\times10^{-13}$ \\
+    Negative control: left-loaded doublet state changes $S_A$ at the edge cut by & $0.59$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Step 5 validation: 19 checks in the notebook, all passed. Deviations are from the saved run (\texttt{data/step5\_checks.csv}).}
+  \label{tab:checks5}
+\end{table}
+
+Table~\ref{tab:checks5} lists the checks.
+The two states of the guide come out exact: one fermion shared between one site of $A$ and one of $B$ gives $S_A=H_N=\ln2$, $E_{\rm acc}=0$; the swapped two-site state gives $H_N=0$, $E_{\rm acc}=\ln2$.
+Two fermions, each shared across the cut, give $(S_A,H_N,E_{\rm acc})=(2\ln2,\tfrac32\ln2,\tfrac12\ln2)$: accessible entanglement needs at least two number-uncertain modes crossing the cut.
+An independent route at $L=4,6$ builds every $c_i$ as a Kronecker product, the ground state and $c_0\dg\Omega_N$ in the full $2^L$ space, and $\rho_A$ by a partial trace; it agrees at every cut.
+At $V=0$ every state used is a Slater determinant, so $S_A=-\mathrm{Tr}[C_A\ln C_A+(1-C_A)\ln(1-C_A)]$ and the number distribution of independent modes with occupations given by the eigenvalues of $C_A$ fix $S_A$, $H_N$ and $E_{\rm acc}$ without an SVD; for the added particle $C\to C+\chi\chi\dg$, $\chi(0)=(1-C)e_j/\sqrt{1-C_{jj}}$, $\chi(t)=e^{-iht}\chi(0)$.
+At $V\neq0$ the particle--hole map, a product of single-site maps that sends $N_A\to\ell-N_A$, fixes $p_q=p_{\ell-q}$ and $S_q=S_{\ell-q}$ for $\Omega_N$.
+As a negative control, a left-loaded combination of the near-degenerate doublet, which an unresolved eigensolver could return, changes $S_A$ at the edge cut from $1.30$ to $0.71$ ($L=16$, $V=0$); at $V=0$ it agrees with the corresponding Slater determinant to $10^{-14}$.
+
+%----------------------------------------------------------------------
+\subsection{Results}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step5_static.pdf}
+  \caption{$S_A$, $H_N$, $E_{\rm acc}$ against $V$ at $L=16$; top: edge cut, bottom: half cut. Ground state, edge-addition state $\Psi(0)$, filtered state and centre injection for $\delta=-0.30$ (solid), and ground and edge-addition state for $\delta=+0.30$ (dash-dot).}
+  \label{fig:step5static}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step5_cut_profile.pdf}
+  \caption{Entropies against the cut position $\ell$, $L=16$. Shaded: cuts through a strong bond for $\delta=-0.30$; dotted lines: the two cuts used. Away from the ends the weak-end chain carries $0.60$--$0.68\approx\ln2$ more than the opposite dimerisation at the same bond type.}
+  \label{fig:step5profile}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step5_dynamics.pdf}
+  \caption{Edge injection, $\delta=-0.30$, $V=0,1,3$. Top: $P_{\rm return}$ and $Q_4$ (Step~4). Middle and bottom: $\Delta S_A$, $\Delta H_N$, $\Delta E_{\rm acc}$ at the edge and half cut; thick $L=16$, thin $L=20$. Controls ($\Delta E_{\rm acc}$): centre injection (dashed) and $\delta=+0.30$ (dash-dot). Shaded: outside the certified interval of $L=16$ (darker) and $L=20$.}
+  \label{fig:step5dyn}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step5_dynamics_absolute.pdf}
+  \caption{The absolute entropies of the runs of Fig.~\ref{fig:step5dyn}; dashed lines: the ground-state values.}
+  \label{fig:step5abs}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.8\textwidth]{step5_sectors.pdf}
+  \caption{Number distribution $p_q$ (top) and sector entropies $S_q$ (bottom) at the edge cut, $L=16$, $\delta=-0.30$: $\Omega_N$, $\Psi(0)$, and $\Psi(t)$ averaged over the late window.}
+  \label{fig:step5sectors}
+\end{figure}
+
+\begin{table}[t]
+  \centering
+  \small
+  \begin{tabular}{llccc}
+    \toprule
+    & state & $V=0$ & $V=1$ & $V=3$ \\
+    \midrule
+    $\delta=-0.30$ & $\Omega_N$ & 1.300, 1.006, 0.294 & 1.310, 0.970, 0.340 & 1.220, 0.746, 0.474 \\
+    & $\Psi(0)$ & 1.002, 0.853, 0.150 & 0.971, 0.806, 0.165 & 0.811, 0.625, 0.186 \\
+    & filtered (edge eigenstate) & 0.714, 0.703, 0.011 & 0.698, 0.687, 0.011 & 0.630, 0.620, 0.010 \\
+    & left-loaded $\Omega$ (control) & 0.714, 0.703, 0.011 & 0.698, 0.687, 0.011 & 0.586, 0.573, 0.013 \\
+    \midrule
+    $\delta=+0.30$ & $\Omega_N$ & 0.201, 0.197, 0.004 & 0.172, 0.144, 0.028 & 0.224, 0.091, 0.133 \\
+    & $\Psi(0)$ & 0.200, 0.197, 0.004 & 0.170, 0.143, 0.027 & 0.199, 0.090, 0.110 \\
+    \bottomrule
+  \end{tabular}
+  \caption{$(S_A,H_N,E_{\rm acc})$ at the edge cut, $L=16$. Values change by at most $0.013$ between $L=16$ and $18$.}
+  \label{tab:step5static}
+\end{table}
+
+\begin{table}[t]
+  \centering
+  \small
+  \begin{tabular}{lccccc}
+    \toprule
+    $V$ & 0 & 0.5 & 1 & 2 & 3 \\
+    \midrule
+    $\Delta S_A$, $L=16$ & $-0.235$ & $-0.215$ & $-0.184$ & $-0.125$ & $-0.164$ \\
+    $\Delta H_N$, $L=16$ & $-0.127$ & $-0.113$ & $-0.095$ & $-0.056$ & $-0.036$ \\
+    $\Delta E_{\rm acc}$, $L=16$ & $-0.108$ & $-0.102$ & $-0.090$ & $-0.069$ & $-0.128$ \\
+    $\Delta S_A$, $L=20$ & $-0.241$ & & $-0.192$ & & $-0.159$ \\
+    $\Delta H_N$, $L=20$ & $-0.125$ & & $-0.091$ & & $-0.027$ \\
+    $\Delta E_{\rm acc}$, $L=20$ & $-0.116$ & & $-0.101$ & & $-0.131$ \\
+    $P_{\rm return}$, $L=16$ & 0.540 & 0.522 & 0.487 & 0.366 & 0.220 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Late averages at the edge cut, edge injection, $\delta=-0.30$, over the second half of the certified interval ($L=16$: $[4,8]$, at $V=3$ $[2.45,4.90]$; $L=20$: $[8,16]$, at $V=3$ $[3.67,7.34]$).}
+  \label{tab:step5late}
+\end{table}
+
+Figures~\ref{fig:step5static}--\ref{fig:step5sectors} and Tables~\ref{tab:step5static}--\ref{tab:step5late} show the results.
+\begin{itemize}
+  \item \textbf{The edge pair carries about $\ln2$ across every cut.} In $\Omega_N$ the two ends share one fermion, the bonding orbital of Eq.~\eqref{eq:convention}, so that fermion is uncertain across any cut (Fig.~\ref{fig:step5profile}). A single shared fermion is pure number entropy; $E_{\rm acc}$ in $\Omega_N$ appears because the edge cut is crossed by two such fermions, the strong dimer cut in two and the edge pair, and it sits almost entirely in the sector $q=2$ (Fig.~\ref{fig:step5sectors}). Without the shared edge fermion, in the left-loaded state, $E_{\rm acc}=0.011$.
+  \item \textbf{Repulsion converts number entropy into accessible entanglement in the ground state:} between $V=0$ and $3$, $H_N$ falls from $1.006$ to $0.746$ and $E_{\rm acc}$ rises from $0.294$ to $0.474$, while $S_A$ changes little. For $\delta=+0.30$ the same trend starts from almost zero.
+  \item \textbf{Adding the electron at the edge lowers the entanglement of the edge region}, by $0.30$ ($V=0$) to $0.41$ ($V=3$) at $t=0$, in both $H_N$ and $E_{\rm acc}$. The filtered state, the coherent part alone, has the entropies of the left-loaded ground state: filling the edge pair removes the shared-fermion uncertainty and almost all accessible entanglement at this cut.
+  \item \textbf{In time} the entropies recover only partly as the incoherent part leaves the edge region: after it has gone, $\Delta S_A=-0.13$ to $-0.24$. With repulsion the persistent change moves from $H_N$ ($-0.13\to-0.03$) into $E_{\rm acc}$ (about $-0.1$ throughout). $L=16$ and $20$ agree to $0.011$ at the edge cut; the half-cut values are not converged, because the cut lies at a different place for each $L$.
+  \item \textbf{Controls.} With $\delta=+0.30$ the escaping electron raises the entropy at the edge cut by $0.27$--$0.12$, almost all of it number entropy ($\Delta E_{\rm acc}\le0.02$). With centre injection $E_{\rm acc}$ at the edge cut rises by $0.2$--$0.4$ when the electron arrives: a second uncertain particle crossing a cut that already carries the shared edge fermion. Adding at the topological edge lowers the entanglement, adding elsewhere raises it.
+  \item \textbf{What tracks what.} Over the certified interval $E_{\rm acc}(t)$ at the edge cut is anticorrelated with $Q_4(t)$ (correlation $-0.68$ to $-0.75$ for $V\le1$, $-0.5$ to $-0.6$ at $V=2,3$) and essentially uncorrelated with $P_{\rm return}(t)$ ($|r|\le0.25$). Coherence and accessible entanglement are not lost together: as $V$ grows the late $P_{\rm return}$ falls from $0.54$ to $0.22$ (Table~\ref{tab:step4late}) while the late absolute $E_{\rm acc}$ at the edge cut rises from $0.19$ to $0.35$ ($L=16$).
+\end{itemize}
+
+%----------------------------------------------------------------------
+\subsection{Conclusion}
+
+On $L\le20$ and up to $V=3$, inside the certified intervals, adding an electron at the weak-bond edge lowers the entanglement between the first four sites and the rest, by $0.30$--$0.41$ at once and by $0.13$--$0.24$ after the incoherent part has left.
+The coherent part does this by filling the edge pair that the two ends share in the ground state; that shared fermion is the main source of both the number entropy and, together with the cut dimer, the accessible entanglement of the ground state.
+With repulsion, entropy moves from number uncertainty into accessible entanglement, in the ground state and in the persistent change.
+$E_{\rm acc}(t)$ follows where the charge is, not the return probability, and coherence falls with $V$ while the accessible entanglement does not.
+Limits: absolute entropies depend on the bond the cut crosses, the half-cut values are not size-converged, the results refer to the selected ground state, and no two-edge entanglement is computed.
+
+\paragraph{Contribution.} Step~5 was carried out by Kavish.
+
+% \section{Step 6: bulk polarisation and the competing ordered state}
+% \section{Step 7: larger chains with MPS}
+% \section{Step 8: extension}
+% \section{Conclusions and limits}
+
+%======================================================================
+\begin{thebibliography}{9}
+\bibitem{monkman}
+K.~Monkman and J.~Sirker, \emph{Operational entanglement of symmetry-protected topological edge states}, \href{https://arxiv.org/abs/2005.13026}{arXiv:2005.13026}.
+\bibitem{vidal}
+G.~Vidal, \emph{Efficient simulation of one-dimensional quantum many-body systems}, \href{https://arxiv.org/abs/quant-ph/0310089}{arXiv:quant-ph/0310089}.
+\bibitem{alcaraz}
+F.~C.~Alcaraz, M.~N.~Barber, M.~T.~Batchelor, R.~J.~Baxter and G.~R.~W.~Quispel, \emph{Surface exponents of the quantum XXZ, Ashkin--Teller and Potts models}, J.~Phys.~A \textbf{20}, 6397 (1987).
+\bibitem{hulthen}
+L.~Hulth\'en, \emph{\"Uber das Austauschproblem eines Kristalles}, Ark.~Mat.~Astron.~Fys.~\textbf{26A}, 1 (1938).
+\end{thebibliography}
+
 \end{document}

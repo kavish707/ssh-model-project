@@ -4,7 +4,7 @@ Personal study copy, kept outside the repo. Read it after `ssh-model-project/sum
 
 **Sources:**
 - the guide, `QFT_student_research_guides.pdf`, Project A, Step 4;
-- the code, Section 4 of `ssh-model-project/project_A_steps1-4.ipynb` (committed to `main` by Somnath on 17 Nov, cells 85–121);
+- the code, Section 4 of `ssh-model-project/project_A.ipynb` (cells 85–121; committed by Somnath on 17 Nov as `project_A_steps1-4.ipynb`, renamed on 22 Nov);
 - Somnath's short report, `projectA_step4_short_report.pdf`.
 
 The numbers below are the ones printed in the saved notebook outputs. Somnath ran the notebook, and I have not rerun it. The same physics in his earlier script version (`somnath-project` branch) passed all 16 of its tests when I ran them on our environment.
@@ -40,7 +40,7 @@ Step 3 decomposed "one electron added at the edge" into eigenstates of the $N+1$
 - why the edge charge at $V=3$ stays above both predictions;
 - the large effective "return speeds" at $V=3$;
 - what Step 3's second line is. It carries even more edge charge than the edge line.
-- **Repo status:** Step 4 is not in `report.tex` yet, there are two notebooks, and the figure and data files are not consistent with the notebook (Section 8).
+- **Repo status:** see Section 8.
 
 | Symbol | Meaning |
 |---|---|
@@ -351,13 +351,12 @@ $z_0(\mathcal W)$ at $L=16$ is $0.710$, $0.702$, $0.680$, $0.595$, $0.457$; at $
 
 | File | Contents |
 |---|---|
-| `ssh-model-project/project_A_steps1-4.ipynb` | Steps 1–3 (cells identical to `project_A.ipynb`) plus Step 4, sections 4.1–4.14 |
+| `ssh-model-project/project_A.ipynb` | the whole project; Step 4 is sections 4.1–4.14 |
 | `data/step4_*.csv`, `step4_trajectories.npz`, `step4_run_info.json`, `step4_checks.csv` | written by notebook 4.12 and the summary cell |
 | `figures/step4_*.pdf` | written by 4.3, 4.11 and 4.13 |
-| `figures/fig15_*`–`fig19_*.pdf` | committed on 17 Nov |
 | `projectA_step4_short_report.pdf` | Somnath's standalone short report (in `acads/QFT/`) |
 
-**To reproduce:** run `project_A_steps1-4.ipynb` top to bottom. Step 4 needs Steps 1–3 in memory and takes about 15 minutes; $L=18,20$ take about 5 of them, $L=20$ alone about 3. It should print `Step 4: 38/38 checks passed` and `all steps: 159/159`.
+**To reproduce:** run `project_A.ipynb` top to bottom. Step 4 needs Steps 1–3 in memory and takes about 15 minutes; $L=18,20$ take about 5 of them, $L=20$ alone about 3. It should print `Step 4: 38/38 checks passed` and `all steps: 159/159`.
 
 **What Somnath fixed relative to my review (`step4_review_for_somnath.md`):**
 - Step 4 now reuses the notebook's Step 1–3 functions instead of a second codebase.
@@ -370,13 +369,11 @@ $z_0(\mathcal W)$ at $L=16$ is $0.710$, $0.702$, $0.680$, $0.595$, $0.457$; at $
 - Centre site $2\lfloor L/4\rfloor$ is used consistently.
 - Both plain and Hann Fourier amplitudes are recorded.
 
-**Still open in the repo:**
-1. **Two notebooks.** `project_A.ipynb` (Steps 1–3) and `project_A_steps1-4.ipynb` (Steps 1–4) now coexist. The agreed layout is one notebook, so one should replace the other; probably the 1–4 notebook should become `project_A.ipynb`.
-2. **`report.tex` has no Step 4 section.**
-3. **Figure names don't match.** The committed PDFs are `fig15_dynamics_validation` … `fig19_summary_vs_V`, which look like they come from the earlier script version. The notebook saves `step4_validation`, `step4_spacetime_density`, `step4_time_traces`, `step4_finite_size_beating`, `step4_summary_vs_V` and `step4_s1`–`s5`, and none of those are in the repo.
-4. **No Step 4 data in the repo.** `data/step4_*` is not committed. `step4_trajectories.npz` should probably go in `.gitignore`, like `step2_states.npz`.
-5. **No `summary/step4.md`.** This file could be the starting point.
-6. The `somnath-project` branch with the modular scripts still exists. It doesn't need to be merged.
+**Repo status (21 Nov):** Step 4 is in `report.tex`, in the same format as Steps 1–3, with the notebook's `step4_*.pdf` figures; the old `fig15`–`fig19` files were removed. There is one notebook again: `project_A_steps1-4.ipynb` became `project_A.ipynb` (its Step 1–3 cells were identical to the old one).
+
+**Still open:**
+1. **Step 4 data.** `data/step4_*` is not committed yet; `step4_trajectories.npz` should probably go in `.gitignore`, like `step2_states.npz`.
+2. The `somnath-project` branch with the modular scripts still exists. It doesn't need to be merged.
 
 ---
 
