@@ -1171,7 +1171,159 @@ Limits: absolute entropies depend on the bond the cut crosses, the half-cut valu
 
 \paragraph{Contribution.} Step~5 was carried out by Kavish.
 
-% \section{Step 6: bulk polarisation and the competing ordered state}
+\section{Step 6: bulk polarisation and the competing ordered state}
+\label{sec:step6}
+
+\subsection{What was done}
+
+A density bump at a boundary does not by itself identify a topological phase.
+We return to Eq.~\eqref{eq:H} on a ring, adding the bond $J_{L-1}=1-\delta$ from site $L-1$ to site $0$.
+In operator language the ring is periodic, $c_L\equiv c_0$; in the occupation basis the closing hop passes the other $N-1$ particles and carries $(-1)^{N-1}$.
+We use $L=10,14,18$, so $M=N=L/2$ is odd.
+At $\delta=V=0$ the single-particle energies $-2\cos k$, $k=2\pi m/L$, vanish only at $k=\pm\pi/2$, which lies on the grid only when $4\mid L$; half filling then leaves one particle in two zero modes and the ground state is degenerate, while for $L=4n+2$ the $N$ negative levels fill exactly.
+For odd $N$ every off-diagonal element of $H$ is $-J_j<0$, so, as for the open chain in Step~2, the ring ground state is non-degenerate and positive at every $\delta$ and $V$.
+
+\textbf{Polarisation.} With $x_j=n_j-\tfrac12$ and $X=\sum_jj\,x_j$ (origin at site 0, cell $(0,1)$, as for the open chains),
+\begin{equation}
+  z=\langle\Omega|e^{2\pi iX/L}|\Omega\rangle=\sum_s|\psi_s|^2e^{2\pi iX(s)/L},\qquad P=\frac{\arg z}{2\pi}\pmod1 .
+  \label{eq:resta}
+\end{equation}
+$X$ is not an observable on a ring, because a hop across the closing bond changes it by $L$; $e^{2\pi iX/L}$ is.
+Each configuration is a point on the unit circle and $z$ is their weighted mean, so $\arg z$ locates the charge centre and $|z|$ measures how sharply it is defined.
+Particle--hole symmetry $C$ ($n_j\to1-n_j$) and reflection $R$ ($j\to L-1-j$) both map $X\to-X$ at half filling, so for a ground state that is an eigenstate of either, $z=z^*$ and $P\in\{0,\tfrac12\}$.
+Moving the origin by one site multiplies $z$ by $e^{2\pi ix_0}=-1$; on the clean ring $\delta\to-\delta$ is a translation by one site, so $z(-\delta)=-z(\delta)$ exactly, and the non-trivial content is the quantised value, $|z|$, and their stability when translation is broken.
+A single charge-density-wave (CDW) pattern has $X=\mp L/4$ and $P=\mp\tfrac14$, and the symmetric superposition of the two has $z=0$; $P$ is not interpreted where $|z|<0.1$.
+
+\textbf{Charge order and gaps.}
+$M_{\rm CDW}=\frac1L\sum_j(-1)^jx_j$; $\langle M\rangle=0$ by $C$, so we use $\langle M^2\rangle$, which scales as $1/L$ without order and tends to a constant with order.
+We record the neutral gap $\Delta_0=E_1^N-E_0^N$, the addition and removal gaps $\Delta_\pm=E_0^{N\pm1}-E_0^N$ (equal by $C$), the symmetry labels of the partner level $E_1^N$, and the overlap $|\langle\Omega(V)|\Omega(V+0.25)\rangle|$.
+The grid is $\delta=\pm0.30$ and $V=0$ to $10$ in steps of $0.25$.
+
+\textbf{Independent routes at $V=0$.}
+The Slater determinant gives $z=\det(\Phi\dg D\Phi)\,e^{-i\pi(L-1)/2}$ with $D=\mathrm{diag}(e^{2\pi ij/L})$ and $\Phi$ the filled orbitals.
+In $k$ space, with $\phi_k(2m)=e^{ikm}a_k/\sqrt M$ and $\phi_k(2m+1)=e^{ikm}b_k/\sqrt M$, the overlap matrix is a cyclic shift, $\langle\phi_k|D|\phi_{k'}\rangle=\delta_{k',k-2\pi/M}(a_k^*a_{k'}+e^{i\pi/M}b_k^*b_{k'})$, so $z$ is $(-1)^{M-1}e^{-i\pi(2M-1)/2}$ times the discrete Berry phase factor of the filled band with site $2m+1$ half a cell from $2m$.
+For odd $M$ this gives $P=\gamma/2\pi-\tfrac14$, where $\gamma$ is the Zak phase and $\gamma/2\pi$ the Wannier centre in cells; $\tfrac14$ is the centre of the $-\tfrac12$-per-site background.
+
+\textbf{Perturbations.}
+At $V=1$ and $3$, inside the range of Steps~3--5, and at $V=8$ for contrast, we add (i) real bond changes $\Delta J_j$ uniform in $[-0.05,0.05]$ with $\Delta J_j=\Delta J_{L-2-j}$ (reflection maps bond $j$ to bond $L-2-j$; the ring's closing bond maps to itself), five fixed seeds, the same draw for both $\delta$; and (ii) $0.1\,n_0$.
+Under $C$, $c_j\dg c_{j+1}\to c_{j+1}\dg c_j$, so (i) keeps $C$ and, by the pairing, $R$, but breaks translation; (ii) breaks $C$ ($n_0\to1-n_0$) and $R$ ($n_0\to n_{L-1}$).
+On the open chain $L=12$ we follow the lowest addition line at site~0 and Step~3's window weight $z_0(\mathcal W)$ under the same perturbations.
+
+\textbf{Open chains at strong repulsion.}
+For $L=12,16,20$ and $V\le10$ we take the two lowest half-filled states and the density of their $C$-breaking combination $(\psi_0\pm\psi_1)/\sqrt2$, and measure its charge on the first four sites, $Q_4$, and its staggered amplitude in the middle half.
+An edge doublet puts charge on the end and leaves the middle uniform; a CDW doublet staggers the whole chain.
+
+%----------------------------------------------------------------------
+\subsection{Verification}
+
+\begin{table}[t]
+  \centering
+  \footnotesize
+  \begin{tabular}{p{11.2cm}l}
+    \toprule
+    Check & largest deviation \\
+    \midrule
+    Translation $TH(\delta)=H(-\delta)T$, every sector of $L=8,10$ (even $N$ tests the sign) & $3.6\times10^{-15}$ \\
+    $[C,H]=[R,H]=0$ on the ring & $1.3\times10^{-15}$ \\
+    $\delta=V=0$: ground state degenerate for $L=8,12,16$, unique for $L=10,14,18$ & $1.9\times10^{-14}$ \\
+    Every ring ground state non-degenerate, positive, $C=+1$; residuals of every level used & $3.4\times10^{-13}$ \\
+    $V=0$: many-body $z$ $=$ Slater determinant (no Step~2 code) & $8.6\times10^{-15}$ \\
+    Slater determinant $=$ Berry product, odd and even $M$ & $1.0\times10^{-14}$ \\
+    $z$ real (clean and paired bonds), $z(-\delta)=-z(\delta)$, $z=0$ at $\delta=0$, $\langle M\rangle=0$ & $1.3\times10^{-10}$ \\
+    $\Delta_+=\Delta_-$ & $2.0\times10^{-13}$ \\
+    $L=14$: Lanczos $=$ dense; $L=18$: seed independence & $1.5\times10^{-11}$ \\
+    Paired bonds commute with $C$ and $R$; $0.1n_0$ with neither (ring and open) & $1.6\times10^{-15}$ \\
+    $L=12$ open chain: $z_0(\mathcal W)$ and $\Delta_+$ $=$ Step~3's saved values & $3.4\times10^{-12}$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Step 6 validation: 20 checks in the notebook, all passed (\texttt{data/step6\_checks.csv}). The symmetry checks in the seventh row are exact for exact eigenvectors; Lanczos vectors are accurate to about residual/gap, up to $10^{-10}$ where the partner gap is $2\times10^{-3}$, so their tolerance is $10^{-9}$.}
+  \label{tab:checks6}
+\end{table}
+
+Table~\ref{tab:checks6} lists the checks.
+At $V=0$ the many-body polarisation is computed three ways (occupation basis, Slater determinant, Berry product), which agree to $10^{-14}$.
+The perturbations' symmetries are measured as commutator norms, not assumed.
+
+%----------------------------------------------------------------------
+\subsection{Results}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step6_polarisation.pdf}
+  \caption{$V=0$. (a) $P$ against $\delta$: free fermions, $L=18$ (line), and many-body $L=10,14,18$ (markers). (b) $|z|$, free (lines) and many-body (markers); dotted: $|z|=0.1$. (c) $1-|z|\propto1/L$ for free fermions on odd-$M$ rings.}
+  \label{fig:step6pol}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step6_bulk_vs_V.pdf}
+  \caption{Ring, $\delta=-0.30$ (spectra and $|z|$ are identical for $+0.30$). (a) $\Delta_0$; (b) $L\Delta_0$; (c) $\Delta_+$ (lines) and $\Delta_-$ (crosses); (d) $|z|$; (e) $P$ for $\delta=-0.30$ (solid) and $+0.30$ (dash-dot), lines offset by $\pm0.012$ for visibility, shaded where $|z|<0.1$ at $L=18$; (f) $1-|\langle\Omega(V)|\Omega(V+0.25)\rangle|$. Grey band: crossings of $L\Delta_0$, $V=4.79$--$4.90$.}
+  \label{fig:step6bulk}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step6_charge_order.pdf}
+  \caption{Charge order on the ring. (a) $L\langle M^2_{\rm CDW}\rangle$; (b) ground state--partner splitting against $L$ at fixed $V$; (c) $L=18$: $\langle M^2\rangle$ of the ground state and the partner, and $4|\langle0|M|1\rangle|^2$ (1 for an ideal pair of CDW patterns); thin line: $\tfrac14$.}
+  \label{fig:step6cdw}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step6_perturbations.pdf}
+  \caption{Perturbations at $V=1,3,8$: clean, five seeds of reflection-paired bonds, and $0.1n_0$. Top: ring, $P-P_{\rm clean}$ (filled $\delta=-0.30$, open $+0.30$). Middle and bottom: open chain $L=12$, lowest addition line at site 0 and window weight $z_0(\mathcal W)$ (filled circles $\delta=-0.30$, open diamonds $+0.30$).}
+  \label{fig:step6pert}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{step6_open_doublets.pdf}
+  \caption{Open chains. (a) $E_1-E_0$ at half filling; solid $\delta=-0.30$, dash-dot $+0.30$. (b) Density of the $C$-breaking combination of the two lowest states, $L=20$, $\delta=-0.30$, $V=0,3,8$ (rows offset by $-1$). (c) Its charge on the first four sites. (d) Its staggered amplitude in the middle half, doublets only.}
+  \label{fig:step6open}
+\end{figure}
+
+\begin{table}[t]
+  \centering
+  \footnotesize
+  \begin{tabular}{lccccccccc}
+    \toprule
+    $V$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 8 & 10 \\
+    \midrule
+    $\Delta_0$, $L=10$ & 1.68 & 1.61 & 1.32 & 0.96 & 0.64 & 0.40 & 0.25 & 0.100 & 0.046 \\
+    $\Delta_0$, $L=18$ & 1.37 & 1.46 & 1.23 & 0.87 & 0.49 & 0.21 & 0.076 & 0.011 & 0.0021 \\
+    $\Delta_\pm$, $L=18$ & 0.69 & 1.00 & 1.29 & 1.56 & 1.87 & 2.35 & 3.04 & 4.76 & 6.63 \\
+    $|z|$, $L=10$ & 0.62 & 0.61 & 0.56 & 0.47 & 0.36 & 0.25 & 0.17 & 0.080 & 0.045 \\
+    $|z|$, $L=18$ & 0.78 & 0.77 & 0.74 & 0.67 & 0.52 & 0.33 & 0.18 & 0.076 & 0.043 \\
+    $\langle M^2\rangle_{18}/\langle M^2\rangle_{10}$ & 0.556 & 0.556 & 0.565 & 0.604 & 0.716 & 0.875 & 0.966 & 0.996 & 0.996 \\
+    slope of $\ln\Delta_0$ in $L$ & $-0.026$ & $-0.012$ & $-0.008$ & $-0.013$ & $-0.035$ & $-0.083$ & $-0.15$ & $-0.28$ & $-0.38$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Ring, $\delta=\pm0.30$. Without order $\langle M^2\rangle_{18}/\langle M^2\rangle_{10}=10/18=0.556$; with order it tends to 1. $P=\tfrac12$ ($\delta=-0.30$) and $0$ ($+0.30$) at every point.}
+  \label{tab:step6}
+\end{table}
+
+\begin{itemize}
+  \item \textbf{Item 1.} At $V=0$, $P=\tfrac12$ for $\delta=-0.30$ and $P=0$ for $\delta=+0.30$ at $L=10,14,18$ and for free fermions up to $L=202$ (Fig.~\ref{fig:step6pol}). $|z|=0.62,0.72,0.78$ and $1-|z|\simeq4.43/L$, as for an insulator. The Zak phase is $\gamma=\pm\pi/2$: the Wannier centre is at the middle of the strong bond, $0.25$ cells for $\delta=+0.30$ and $0.75$ cells for $\delta=-0.30$, so $P=\gamma/2\pi-\tfrac14$ is $\tfrac12$ exactly when the strong bond straddles the cell boundary, which is when the open chain ending at site 0 starts on a weak bond.
+  \item \textbf{Item 2.} For $V\le3$ the gaps are open and nearly size-independent and $|z|$ grows with $L$ (Table~\ref{tab:step6}, Fig.~\ref{fig:step6bulk}). Between $V=4$ and 5 the neutral gap begins to close with $L$: $L\Delta_0$ crosses at $V=4.79$ ($L=10,14$) and $4.90$ ($L=14,18$), and $1-|\langle\Omega(V)|\Omega(V+0.25)\rangle|$ peaks at $V\approx4$--$4.75$ with a height that grows with $L$ ($0.8$, $1.6$, $2.6\times10^{-3}$). All overlaps are positive; no eigenvectors are exchanged. For $V\gtrsim5$ the charge gaps keep growing while $\Delta_0$ closes exponentially, and $|z|$ falls below $0.1$ from $V\approx7.3$. $P$ remains formally $0$ or $\tfrac12$ but is not interpreted there.
+  \item \textbf{Item 3.} $L\langle M^2\rangle$ is size-independent up to $V=2$ and nearly so at $V=3$; from $V\approx6$, $\langle M^2\rangle=0.18$--$0.23$ independent of $L$ (Fig.~\ref{fig:step6cdw}). At $L=18$ the partner has $C=-1$, $R=-1$ for every $V\ge1$; for $V\ge8$ it has the ground state's $\langle M^2\rangle$ and $4|\langle0|M|1\rangle|^2=0.85$--$0.91$, so the pair is the $C$-even and $C$-odd combination of the two CDW patterns. Their $C$-breaking combinations have $|z|=0.98$ and $P=0.26$ or $0.74\approx\pm\tfrac14$: a symmetry-broken CDW has a sharp but unquantised charge centre.
+  \item \textbf{Item 4.} With paired bonds, for all seeds, sizes and $V$, $P$ stays exactly $\tfrac12$ and $0$ although translation is broken; $|z|$ and $\Delta_0$ move by at most 3\% and 6\% at $V=1,3$ (Fig.~\ref{fig:step6pert}). With $0.1n_0$, $P$ shifts by $\pm0.0046$, $0.0031$, $0.0024$ at $V=1$ and $\pm0.016$, $0.012$, $0.009$ at $V=3$ for $L=10,14,18$, roughly $\propto1/L$; at $V=8$ it pins the CDW pattern with site 0 empty for both dimerisations ($P=0.23$--$0.27$, $|z|=0.65$--$0.97$). On the open chain ($L=12$, $\delta=-0.30$) the paired bonds leave the edge line low ($\omega_{\rm edge}=0.021$--$0.036$ at $V=1$, $0.145$--$0.177$ at $V=3$) with $z_0=0.63$--$0.71$ and $0.43$--$0.49$. The end potential, larger than the edge-pair splitting $0.045$, selects the end-empty state ($\langle n_0\rangle=0.16$, $0.13$) and lifts the line to $0.088$ and $0.23$, while the bulk $P$ is unchanged: quantised bulk polarisation does not by itself pin a zero-energy electron pole for arbitrary boundary terms.
+  \item \textbf{The charge-ordered regime on the open chain.} For $\delta=-0.30$ the half-filled sector has a near-degenerate pair at every $V$, but its $C$-breaking combination changes character (Fig.~\ref{fig:step6open}). At $V=0$ it is an edge state ($Q_4=0.46$, staggered amplitude in the middle $0.002$ at $L=20$). At $V=3$, $Q_4=0.27$ and the middle carries an induced stagger of $0.23$, $0.18$, $0.13$ at $L=12,16,20$, decreasing with $L$. From $V\approx5$ the stagger is $0.37$--$0.48$ and nearly size-independent, $Q_4\le0.09$, and the pair is the CDW doublet. For $\delta=+0.30$, which has no edge pair, a CDW doublet appears at $V\gtrsim6$ ($E_1-E_0=0.17$, $0.066$, $0.026$ at $V=6,7,8$, $L=20$), and at $V=8$ the $L=12$ chain has edge-window weight $z_0=0.24$. At strong repulsion both bond patterns show a near-degenerate pair and boundary features.
+\end{itemize}
+
+%----------------------------------------------------------------------
+\subsection{Conclusion}
+
+On rings $L\le18$ and open chains $L\le20$ at $\delta=\pm0.30$, the bulk diagnostics support the edge interpretation of Steps~3--5 for $V\le3$.
+There the bulk is gapped and not charge-ordered, and its polarisation is $\tfrac12$ relative to the cell whose boundary the weak-end chain terminates on.
+The quantisation survives reflection-paired bond disorder, and so does the edge line, while a boundary potential moves the line without changing the bulk $P$.
+The CDW takes over between $V\approx4$ and 5, much later than the uniform chain's $V=2$.
+Beyond it $|z|$ collapses, the neutral gap closes exponentially, and the weak-end chain's edge pair becomes the CDW doublet.
+At $V=3$ the open chain already shows a staggering induced around the edge charge, which decreases with $L$ on these sizes.
+Limits: the crossover is a finite-size marker, not a converged transition point or class; only $|\delta|=0.30$, one disorder strength and five seeds are used; the edge line under perturbation is computed at $L=12$ only.
+
+\paragraph{Contribution.} Step~6 was carried out by Daniyaal, with code, data and write-up produced by Claude (Anthropic) at his request.
+
+%======================================================================
 % \section{Step 7: larger chains with MPS}
 % \section{Step 8: extension}
 % \section{Conclusions and limits}
