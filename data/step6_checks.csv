@@ -1,21 +1,21 @@
 check,passed,worst_deviation
 S6 A1: ring translation: T H(delta) = H(-delta) T for every N (even N tests T's sign),True,3.553e-15
-"S6 A2: ring: [C, H] = 0 and [R, H] = 0 on random vectors, L = 10, 14",True,1.293e-15
-"S6 A3: delta = V = 0: half-filled ring ground state degenerate for 4 | L, unique for L = 10, 14, 18",True,1.865e-14
+"S6 A2: ring: [C, H] = 0 and [R, H] = 0 on random vectors, L = 10, 14",True,1.301e-15
+"S6 A3: delta = V = 0: half-filled ring ground state degenerate for 4 | L, unique for L = 10, 14, 18",True,2.309e-14
 "S6 D1: hamiltonian_bonds with J_j = 1 + (-1)^j delta equals Step 2's hamiltonian, open and ring",True,0.000e+00
-"S6 B2: V = 0: Slater-determinant z = Berry-product z (cyclic shift in k), odd and even M",True,1.013e-14
-S6 B5: delta = 0: z = 0 (translation by one site maps H to itself and z to -z),True,1.048e-10
-"S6 B1: V = 0: many-body z = Slater-determinant z, L = 10, 14, 18, both delta",True,8.640e-15
-"S6 A4: every ring ground state non-degenerate, positive (Perron-Frobenius) and C = +1",True,-1.750e-16
-"S6 A5: ring residuals ||H psi - E psi|| < 1e-9 for every level used, N and N +- 1",True,3.400e-13
-S6 B3: z is real at every point (C and R of the selected state),True,1.319e-10
-S6 B4: z(-delta) = -z(delta) on the clean ring at every V and L (translation by one site),True,6.501e-11
-S6 B6: <M_CDW> = 0 in every ground state (C),True,6.384e-11
-S6 C1: ring: Delta_+ = Delta_- at every point (C maps N + 1 to N - 1),True,1.990e-13
-"S6 C2: L = 14: Lanczos = dense for E_0, Delta_0, z and <M^2>",True,1.051e-11
-S6 C3: L = 18: z and Delta_0 do not depend on the Lanczos seed,True,1.525e-11
+"S6 B2: V = 0: Slater-determinant z = Berry-product z (cyclic shift in k), odd and even M",True,1.147e-14
+S6 B5: delta = 0: z = 0 (translation by one site maps H to itself and z to -z),True,1.620e-10
+"S6 B1: V = 0: many-body z = Slater-determinant z, L = 10, 14, 18, both delta",True,4.584e-15
+"S6 A4: every ring ground state non-degenerate, positive (Perron-Frobenius) and C = +1",True,-2.767e-16
+"S6 A5: ring residuals ||H psi - E psi|| < 1e-9 for every level used, N and N +- 1",True,2.816e-13
+S6 B3: z is real at every point (C and R of the selected state),True,4.857e-11
+S6 B4: z(-delta) = -z(delta) on the clean ring at every V and L (translation by one site),True,7.827e-11
+S6 B6: <M_CDW> = 0 in every ground state (C),True,2.331e-11
+S6 C1: ring: Delta_+ = Delta_- at every point (C maps N + 1 to N - 1),True,3.411e-13
+"S6 C2: L = 14: Lanczos = dense for E_0, Delta_0, z and <M^2>",True,1.031e-11
+S6 C3: L = 18: z and Delta_0 do not depend on the Lanczos seed,True,1.087e-11
 S6 D2: reflection-paired bonds commute with C and R; 0.1 n_0 commutes with neither (ring),True,1.583e-15
-S6 B3b: z stays real under the reflection-paired bond perturbations,True,1.692e-11
-S6 D3: L = 12 open chain: z_0(W) and Delta_+ reproduce Step 3's saved values (data/step3_z0.csv),True,3.442e-12
+S6 B3b: z stays real under the reflection-paired bond perturbations,True,1.759e-11
+S6 D3: L = 12 open chain: z_0(W) and Delta_+ reproduce Step 3's saved values (data/step3_z0.csv),True,3.447e-12
 S6 D4: reflection-paired bonds commute with C and R; 0.1 n_0 commutes with neither (open chain),True,1.099e-15
-"S6 A6: open chains L = 12, 16, 20: residuals of the two lowest levels < 1e-9",True,3.333e-13
+"S6 A6: open chains L = 12, 16, 20: residuals of the two lowest levels < 1e-9",True,2.155e-13

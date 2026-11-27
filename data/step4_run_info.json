@@ -1,0 +1,60 @@
+{
+  "preparation": "|Psi(0)> = c_j^dag |Omega_N> / sqrt(1 - <n_j>), Omega_N by the Step 2 rule (STATES)",
+  "evolution": "exp(-i (H_{N+1} - E_0^N) t); E_0^N kept so G(t) is compared with Step 3 as a complex amplitude",
+  "centre_site": "2 * (L // 4)",
+  "Q_edge": "sum_{j < l_e} Delta n_j, l_e = 2, 4",
+  "krylov": "short-iterative Lanczos, full reorthogonalisation, error estimate <= tol * dt, tol = 1e-10 per unit time, halved to 5e-11; dimension cap 40",
+  "dt": 0.05,
+  "t_max": 8.0,
+  "t_extended": 16.0,
+  "L": [
+    8,
+    12,
+    16
+  ],
+  "L_ladder": [
+    18,
+    20
+  ],
+  "delta": [
+    -0.3,
+    0.3
+  ],
+  "V": [
+    0.0,
+    0.5,
+    1.0,
+    2.0,
+    3.0
+  ],
+  "V_ladder": [
+    0.0,
+    1.0,
+    3.0
+  ],
+  "finite_size_window": "first t where P_return or Q_l (l = 2, 4) departs from the next larger L by more than 0.01 + 2 x static offset; 0.001 also recorded",
+  "late_window": "second half of the certified interval, from t >= 2",
+  "filtered": "projection onto Step 3's window: F_WINDOW, or the widest f in F_SCAN holding one line",
+  "spectral_reference": "Step 3 site_spectra (L <= 12), Lanczos measure with 400 vectors (L = 16)",
+  "implied_return_speed": {
+    "0.0": {
+      "v": 1.9375,
+      "upper_bound": true
+    },
+    "1.0": {
+      "v": 2.1453287197231834,
+      "upper_bound": false
+    },
+    "3.0": {
+      "v": 4.769230769230769,
+      "upper_bound": false
+    }
+  },
+  "free_max_group_velocity": 1.3999999999964174,
+  "reproduce_command": "jupyter nbconvert --to notebook --execute --inplace <notebook>",
+  "python": "3.12.16",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "pandas": "3.1.0",
+  "matplotlib": "3.11.2"
+}

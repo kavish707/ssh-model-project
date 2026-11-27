@@ -1,0 +1,44 @@
+{
+  "definitions": "guide Eqs. (A.10)-(A.12); A = {0, ..., l-1}; natural logarithms",
+  "cuts": {
+    "edge": 4,
+    "half": "L/2"
+  },
+  "p_min": 1e-14,
+  "states": "Omega_N by the Step 2 rule (C = +1); Psi(t) of Step 4 (edge j = 0, centre 2*(L//4)); filtered = Step 4 prepare_filtered; negative control = left/right-loaded doublet combinations",
+  "fermion_signs": "none needed: A is a left block in the order c_0^dag ... c_(L-1)^dag",
+  "L_static": [
+    8,
+    12,
+    16,
+    18
+  ],
+  "L_dynamics": 16,
+  "L_long": 20,
+  "delta": [
+    -0.3,
+    0.3
+  ],
+  "V": [
+    0.0,
+    0.5,
+    1.0,
+    2.0,
+    3.0
+  ],
+  "V_long": [
+    0.0,
+    1.0,
+    3.0
+  ],
+  "t_max": 8.0,
+  "t_extended": 16.0,
+  "dt": 0.05,
+  "krylov_tol": 1e-10,
+  "late_window": "Step 4: second half of the certified interval, from t >= 2",
+  "python": "3.12.16",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "pandas": "3.1.0",
+  "matplotlib": "3.11.2"
+}
